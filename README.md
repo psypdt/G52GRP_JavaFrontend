@@ -1,2 +1,2 @@
 # G52GRP_JavaFrontend
-Group 27 version/source Control
+Group 21 version/source Control
