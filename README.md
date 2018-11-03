@@ -3,4 +3,5 @@ Group 21 version/source Control
 
 
 # Authors
-Philipp Tiso
+* Philipp Tiso
+* Jay Mehta
