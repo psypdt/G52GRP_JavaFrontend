@@ -12,7 +12,7 @@ Group 21 version/source Control
 
 Trello Board
 
-\t https://trello.com/b/fDfc8cmn/java-frontend
+* https://trello.com/b/fDfc8cmn/java-frontend
 
 
 
