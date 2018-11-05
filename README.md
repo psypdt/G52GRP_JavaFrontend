@@ -6,6 +6,6 @@ Group 21 version/source Control
 * Philipp Tiso
 * Jay Mehta
 * Chris Tang
-
+* Brendan Lum
 
 # Repository List
