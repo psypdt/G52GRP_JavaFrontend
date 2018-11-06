@@ -6,6 +6,7 @@ Group 21 version/source Control
 * Jay Mehta
 * Brendan Lum
 * Chris Tang
+* Rafael Szponarski
 
 # Repository List:
 
