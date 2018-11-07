@@ -8,6 +8,12 @@ Group 21 version/source Control
 * Chris Tang
 * Rafael Szponarski
 
+# Libraries used
+
+# Eclipse/ Intellij release
+
+
+
 # Repository List:
 
 **Trello Board**
