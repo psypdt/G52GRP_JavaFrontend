@@ -8,9 +8,11 @@ Group 21 version/source Control
 * Chris Tang
 * Rafael Szponarski
 
-# Libraries used
+# Libraries used:
 
-# Eclipse/ Intellij release
+
+
+# Eclipse/ Intellij release:
 
 
 
