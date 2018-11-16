@@ -7,7 +7,7 @@ Group 21 version/source Control
 * Brendan Lum
 * Chris Tang
 * Rafael Szponarski
-*Yisong Wang
+* Yisong Wang
 
 # Libraries used:
 
