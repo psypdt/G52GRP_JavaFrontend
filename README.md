@@ -10,6 +10,7 @@ Group 21 version/source Control
 * Yisong Wang
 
 # Libraries used:
+```*JDBC```
 
 
 
@@ -18,6 +19,7 @@ Group 21 version/source Control
 
 
 # Java Version:
+* Java 8
 
 
 # Repository List:
