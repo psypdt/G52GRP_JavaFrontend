@@ -13,6 +13,10 @@ public class WebPageLoader extends Application implements WebPageLoaderInterface
 {
     private URL homeURL;
 
+    public WebPageLoader()
+    {
+
+    }
 
     /**
      * @param homePage This is the default website that will be loaded when opening the app
@@ -50,4 +54,13 @@ public class WebPageLoader extends Application implements WebPageLoaderInterface
 
     }
 
+    public URL getHomeURL()
+    {
+        return homeURL;
+    }
+
+    public void setHomeURL(URL homeURL)
+    {
+        this.homeURL = homeURL;
+    }
 }
