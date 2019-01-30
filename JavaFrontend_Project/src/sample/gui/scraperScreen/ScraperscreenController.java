@@ -1,4 +1,4 @@
-package sample.gui.scraperscreen;
+package sample.gui.scraperScreen;
 
 public class ScraperscreenController
 {

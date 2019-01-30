@@ -1,4 +1,5 @@
-package sample.gui.startscreen;
+package sample.gui.startScreen;
+
 
 public class StartscreenController
 {
