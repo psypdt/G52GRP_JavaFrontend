@@ -10,7 +10,7 @@ Group 21 version/source Control
 * Yisong Wang
 
 # Libraries used:
-```*JDBC```
+* ```JDBC```
 
 
 
@@ -24,9 +24,10 @@ Group 21 version/source Control
 
 # Repository List:
 
-**Trello Board**
+**Trello Boards**
 
 * https://trello.com/b/fDfc8cmn/java-frontend
+* https://trello.com/b/K2XVor9e 
 
 **OneDrive – Document Repository**
 
