@@ -1,4 +1,4 @@
-package sample.gui.browserscreen;
+package sample.gui.browserScreen;
 
 public class BrowserScreenController
 {

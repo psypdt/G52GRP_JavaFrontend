@@ -1,7 +1,6 @@
-package sample.gui.pageshortcut;
+package sample.gui.pageShortcut;
 
 import javafx.scene.paint.ImagePattern;
-import java.net.URL;
 
 
 public class PageShortcuts

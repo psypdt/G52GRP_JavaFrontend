@@ -8,7 +8,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="sample.gui.startscreen.StartscreenView"
+            fx:controller="sample.gui.browserScreen.BrowserScreenView"
             prefHeight="400.0" prefWidth="600.0">
 
 </AnchorPane>
