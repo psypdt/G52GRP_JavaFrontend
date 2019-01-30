@@ -1,4 +1,6 @@
 package sample.gui.settingsTab;
 
-public class SettingTabController {
+public class SettingTabController
+{
+
 }

@@ -1,5 +1,6 @@
 package sample.gui.startScreen;
 
+import sample.gui.browserTab.BrowserTab;
 import sample.gui.pageShortcut.PageShortcuts;
 import java.util.ArrayList;
 
@@ -8,4 +9,31 @@ import java.util.ArrayList;
 public class StartscreenModel implements Startscreen
 {
     private ArrayList<PageShortcuts> shortcuts; /*Have a list of shortcuts that are displayed*/
+
+
+    @Override
+    public void openNewTab(BrowserTab tabObject)
+    {
+
+    }
+
+    @Override
+    public void changeSettings()
+    {
+
+    }
+
+
+
+    public ArrayList<PageShortcuts> getShortcuts()
+    {
+        return shortcuts;
+    }
+
+    public void setShortcuts(ArrayList<PageShortcuts> shortcuts)
+    {
+        this.shortcuts = shortcuts;
+    }
+
+
 }
