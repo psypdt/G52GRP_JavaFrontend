@@ -4,13 +4,13 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="apBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="apBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <SplitPane orientation="VERTICAL" prefHeight="46.0" prefWidth="600.0">
             <items>
                 <AnchorPane id="Ap_Navbar" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                     <children>
-                        <Button id="btnBrowser" layoutX="110.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="59.0" text="Browser Mode" wrapText="true" />
+                        <Button id="btnBrowser" layoutX="110.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="82.0" text="Browser Mode" wrapText="true" />
                         <Button id="btnSettings" layoutX="528.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="70.0" text="Settings" wrapText="true" />
                     </children></AnchorPane>
             </items>
