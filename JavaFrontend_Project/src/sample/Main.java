@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
@@ -12,8 +13,8 @@ import javafx.stage.Stage;
 public class Main extends Application
 {
     private static Pane main_pane;
-    private static TilePane startPage;
     private static TabPane tasksPage;
+    private static AnchorPane startPage;
 
     @Override
     public void start(Stage primaryStage) throws Exception
@@ -23,7 +24,7 @@ public class Main extends Application
 
         Parent root = FXMLLoader.load(getClass().getResource("ToolBar.fxml"));
         primaryStage.setTitle("Java Front-end");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
     }
 
