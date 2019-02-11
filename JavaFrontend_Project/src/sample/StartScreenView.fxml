@@ -9,6 +9,6 @@
         <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
     </padding>
     <Button fx:id="open_google" mnemonicParsing="false" text="Open Google" />
-    <!--<Button fx:id="open_yt" mnemonicParsing="false" text="Open YouTube" />-->
+    <Button fx:id="open_yt" mnemonicParsing="false" text="Open YouTube" />
     <Button mnemonicParsing="false" text="Button" />
 </TilePane>

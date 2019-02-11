@@ -21,7 +21,7 @@ public class Main extends Application
         initStartPage();
         initTasksPage();
 
-        Parent root = FXMLLoader.load(getClass().getResource("StartScreenView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("ToolBar.fxml"));
         primaryStage.setTitle("Java Front-end");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
