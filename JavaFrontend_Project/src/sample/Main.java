@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 
 public class Main extends Application

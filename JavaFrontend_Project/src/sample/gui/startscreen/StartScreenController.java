@@ -8,10 +8,12 @@ import sample.gui.tabs.WebViewTab;
 public class StartScreenController
 {
     @FXML private Button open_google;
+    @FXML private Button open_moodle;
 
     @FXML private void initialize()
     {
         /* Set up the Open Google button to open a new Google tab */
         open_google.setOnAction(e -> Main.getTasksPage().getTabs().add(new WebViewTab("https://www.google.com")));
+        open_moodle.setOnAction(e -> Main.getTasksPage().getTabs().add(new WebViewTab("https://moodle.nottingham.ac.uk")));
     }
 }

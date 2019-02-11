@@ -1,7 +1,11 @@
 package sample.gui.tabs;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.beans.value.WeakChangeListener;
 import javafx.concurrent.Worker;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.web.WebView;
 import sample.Main;
 
@@ -29,5 +33,6 @@ public class WebViewTab extends Tab
                 Main.goToTasksPage();
             }
         });
+
     }
 }
