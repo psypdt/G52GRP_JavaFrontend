@@ -29,7 +29,7 @@ public class Main extends Application
 
     private void initStartPage() throws Exception
     {
-//        startPage = FXMLLoader.load(getClass().getResource("StartScreenView.fxml"));
+        startPage = FXMLLoader.load(getClass().getResource("StartScreenView.fxml"));
     }
 
     static void goToStartPage()
@@ -40,8 +40,9 @@ public class Main extends Application
 
     private void initTasksPage() throws Exception
     {
-        tasksPage = FXMLLoader.load(getClass().getResource("tasks.fxml"));
+        tasksPage = FXMLLoader.load(getClass().getResource("TaskView.fxml"));
     }
+
     public static TabPane getTasksPage() { return tasksPage; }
 
     public static void goToTasksPage()
