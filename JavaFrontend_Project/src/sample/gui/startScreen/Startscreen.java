@@ -1,8 +1,6 @@
 package sample.gui.startScreen;
 
-import sample.gui.browserTab.BrowserTab;
-
-import java.net.URL;
+import sample.gui.tabs.browserTab.BrowserTab;
 
 public interface Startscreen
 {

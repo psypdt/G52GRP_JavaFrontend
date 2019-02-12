@@ -1,6 +1,6 @@
 package sample.gui.startScreen;
 
-import sample.gui.browserTab.BrowserTab;
+import sample.gui.tabs.browserTab.BrowserTab;
 import sample.gui.pageShortcut.PageShortcuts;
 import java.util.ArrayList;
 
@@ -34,6 +34,5 @@ public class StartscreenModel implements sample.gui.startScreen.Startscreen
     {
         this.shortcuts = shortcuts;
     }
-
 
 }

@@ -1,4 +1,4 @@
-package sample.gui.browserTab;
+package sample.gui.tabs.browserTab;
 
 
 import sample.gui.browserScreen.BrowserScreenModel;

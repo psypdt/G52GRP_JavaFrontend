@@ -1,4 +1,4 @@
-package sample.gui.settingsTab;
+package sample.gui.tabs.settingsTab;
 
 public class SettingTabController
 {

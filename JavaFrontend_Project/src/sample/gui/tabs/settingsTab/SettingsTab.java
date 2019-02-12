@@ -1,4 +1,4 @@
-package sample.gui.settingsTab;
+package sample.gui.tabs.settingsTab;
 
 import sample.gui.tabs.Tab;
 
