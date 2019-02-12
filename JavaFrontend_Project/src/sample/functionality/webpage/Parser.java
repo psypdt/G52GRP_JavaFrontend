@@ -9,12 +9,13 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 
 /*Note: It may be necessary to run this as a thread so that the GUI doesn't freeze up*/
-public class Parser
+public class Parser implements Runnable
 {
     public Parser()
     {
 
     }
+
 
     public void parseEntireHtml(String url) throws IOException
     {
@@ -46,4 +47,18 @@ public class Parser
         }
     }
 
+    @Override
+    public void run()
+    {
+        Parser parser = new Parser();
+
+        try
+        {
+            parser.parseEntireHtml("");
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
 }
