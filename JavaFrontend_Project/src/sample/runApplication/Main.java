@@ -39,6 +39,8 @@ public class Main extends Application
 
     private void initStartPage() throws Exception
     {
+        /*Works when wanting to load alternative view*/
+//        startPage = FXMLLoader.load(getClass().getResource("/sample/gui/startScreen/StartScreenView.fxml"));
         startPage = FXMLLoader.load(getClass().getResource("StartScreenView.fxml"));
     }
 

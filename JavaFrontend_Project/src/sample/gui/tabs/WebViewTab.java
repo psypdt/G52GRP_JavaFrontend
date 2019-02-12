@@ -5,6 +5,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.web.WebView;
 import sample.runApplication.Main;
 
+/*Note: There is currently no means of returning to the previous instant of a page (no back button)*/
 public class WebViewTab extends Tab
 {
     private WebView webpage;

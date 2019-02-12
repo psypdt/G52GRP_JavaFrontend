@@ -7,8 +7,7 @@ import sample.runApplication.Main;
 
 public class StartScreenController
 {
-    @FXML
-    private Button open_google;
+    @FXML private Button open_google;
     @FXML private Button open_moodle;
 
     @FXML private void initialize()
