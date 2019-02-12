@@ -1,11 +1,9 @@
-package sample.functionality.webpage;
+package sample.functionality.jSoupParsing;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
 import java.io.IOException;
 
 /*Note: It may be necessary to run this as a thread so that the GUI doesn't freeze up*/
@@ -13,7 +11,6 @@ public class Parser implements Runnable
 {
     public Parser()
     {
-
     }
 
 

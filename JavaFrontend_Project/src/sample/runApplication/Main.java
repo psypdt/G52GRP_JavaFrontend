@@ -8,9 +8,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import sample.functionality.webpage.Parser;
-
-import java.io.IOException;
+import sample.functionality.jSoupParsing.Parser;
 
 
 public class Main extends Application
@@ -40,6 +38,10 @@ public class Main extends Application
         primaryStage.show();
     }
 
+    /***
+     *
+     * @throws Exception This throws an Exception due to the FXMLLoader.load() method
+     */
     private void initStartPage() throws Exception
     {
         /*Works when wanting to load alternative view*/
@@ -59,6 +61,7 @@ public class Main extends Application
     }
 
     public static TabPane getTasksPage() { return tasksPage; }
+
 
     public static void goToTasksPage()
     {
