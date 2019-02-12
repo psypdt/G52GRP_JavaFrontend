@@ -3,7 +3,7 @@ package sample.gui.browserTab;
 
 import sample.gui.browserScreen.BrowserScreenModel;
 import sample.gui.scraperScreen.ScraperscreenModel;
-import sample.gui.tab.Tab;
+import sample.gui.tabs.Tab;
 
 /*
 * This houses what mode the screen is in (browser/ scraper mode)

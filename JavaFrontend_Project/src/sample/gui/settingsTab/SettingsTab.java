@@ -1,6 +1,6 @@
 package sample.gui.settingsTab;
 
-import sample.gui.tab.Tab;
+import sample.gui.tabs.Tab;
 
 
 public class SettingsTab extends Tab

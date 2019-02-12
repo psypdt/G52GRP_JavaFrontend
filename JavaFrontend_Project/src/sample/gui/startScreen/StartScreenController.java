@@ -1,4 +1,4 @@
-package sample.gui.startscreen;
+package sample.gui.startScreen;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
