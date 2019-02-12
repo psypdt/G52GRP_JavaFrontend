@@ -8,6 +8,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import sample.functionality.webpage.Parser;
 
 
 public class Main extends Application
@@ -61,6 +62,9 @@ public class Main extends Application
     {
         main_pane.getChildren().clear();
         main_pane.getChildren().add(tasksPage);
+        /*Temporary, create parser that will just return the html from google for now*/
+        Parser parser = new Parser();
+        parser.parseURL("");
     }
 
     public static void setMainPane(Pane p)
