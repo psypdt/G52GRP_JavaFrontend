@@ -14,11 +14,16 @@ public class Parser implements Runnable
     }
 
 
+    /***
+     * This function will the entire page
+     * @param url The page we want to parse
+     * @throws IOException Thrown due to Jsoup.connect() method
+     */
     public void parseEntireHtml(String url) throws IOException
     {
         String content;
 
-        Document doc = Jsoup.connect("https://www.google.com").get();
+        Document doc = Jsoup.connect(url).get();
 
         content = doc.outerHtml();
         System.out.println(content);
