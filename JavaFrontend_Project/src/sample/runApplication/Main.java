@@ -1,4 +1,4 @@
-package sample;
+package sample.runApplication;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -9,11 +9,18 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+
 public class Main extends Application
 {
     private static Pane main_pane;
     private static TabPane tasksPage;
     private static AnchorPane startPage;
+
+    /*This function allows us to get the main stage from anywhere by calling Main.getStage()*/
+    public static Stage getStage()
+    {
+        return mainStage;
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception
