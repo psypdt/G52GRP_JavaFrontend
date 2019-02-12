@@ -40,8 +40,9 @@ public class Parser
 
         for(Element docTag : targetTags)
         {
-            System.out.println(docTag.attr(tag));
-            System.out.println(docTag.text());
+            System.out.println(docTag.outerHtml());
+//            System.out.println(docTag.attr(tag));
+//            System.out.println(docTag.text());
         }
     }
 

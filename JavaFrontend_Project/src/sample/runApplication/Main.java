@@ -65,11 +65,11 @@ public class Main extends Application
         main_pane.getChildren().clear();
         main_pane.getChildren().add(tasksPage);
 
-        /*Temporary, create parser that will just return the html from google for now*/
+        /*Temporary, create parser, should be moved into a controller in future. */
         Parser parser = new Parser();
         try
         {
-            parser.parseSpecificTag("ul", "https://www.google.com");
+            parser.parseSpecificTag("input", "https://moodle.nottingham.ac.uk/login/index.php");
         }
         catch (IOException e)
         {
