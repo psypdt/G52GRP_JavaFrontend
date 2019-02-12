@@ -10,6 +10,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import sample.functionality.webpage.Parser;
 
+import java.io.IOException;
+
 
 public class Main extends Application
 {
@@ -62,9 +64,17 @@ public class Main extends Application
     {
         main_pane.getChildren().clear();
         main_pane.getChildren().add(tasksPage);
+
         /*Temporary, create parser that will just return the html from google for now*/
         Parser parser = new Parser();
-        parser.parseURL("");
+        try
+        {
+            parser.parseSpecificTag("ul", "https://www.google.com");
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     public static void setMainPane(Pane p)
