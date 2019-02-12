@@ -3,6 +3,7 @@ package sample;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
+import sample.runApplication.Main;
 
 public class Controller
 {

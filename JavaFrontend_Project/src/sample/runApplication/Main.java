@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application
 {
+    private static Stage mainStage;
     private static Pane main_pane;
     private static TabPane tasksPage;
     private static AnchorPane startPage;
@@ -25,6 +26,8 @@ public class Main extends Application
     @Override
     public void start(Stage primaryStage) throws Exception
     {
+        mainStage = primaryStage;
+
         initStartPage();
         initTasksPage();
 
@@ -39,7 +42,7 @@ public class Main extends Application
         startPage = FXMLLoader.load(getClass().getResource("StartScreenView.fxml"));
     }
 
-    static void goToStartPage()
+    public static void goToStartPage()
     {
         main_pane.getChildren().clear();
         main_pane.getChildren().add(startPage);

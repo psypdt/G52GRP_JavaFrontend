@@ -3,7 +3,7 @@ package sample.gui.tabs;
 import javafx.concurrent.Worker;
 import javafx.scene.control.Tab;
 import javafx.scene.web.WebView;
-import sample.Main;
+import sample.runApplication.Main;
 
 public class WebViewTab extends Tab
 {
