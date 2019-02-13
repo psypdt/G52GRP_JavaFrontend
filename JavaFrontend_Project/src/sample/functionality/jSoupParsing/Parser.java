@@ -5,16 +5,12 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 
 public class Parser
 {
-    public Parser()
-    {
-    }
+    public Parser(){}
 
     /***
      * This function will the entire page, need a way to check if method fails
@@ -55,6 +51,7 @@ public class Parser
         {
             private String inputTag;
             private String inputUrl;
+
             private ScrapingTask(String tag, String url)
             {
                 inputTag = tag;
@@ -75,6 +72,7 @@ public class Parser
                     {
                         System.out.println(docTag.outerHtml());
                     }
+                    writeParsedToFile(targetTags);
                 }
                 catch (IOException e)
                 {
@@ -88,16 +86,27 @@ public class Parser
     }
 
 
-    private void writeParsedToFile()
+    /***
+     *
+     * @param tagContent
+     * @throws IOException
+     */
+    private void writeParsedToFile(Elements tagContent) throws IOException
     {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("./resource_parsed_files/testFile.html", false));
 
+        for (Element tag: tagContent)
+        {
+            bufferedWriter.write(tag+"\n");
+        }
+        bufferedWriter.close();
     }
 
     /***
      * This function will read the file containing the parsed site data.
      * NOTE: Not sure if this should return a String or something else, reason, returning a large string is inefficient
      * @param filePath Location of file that contains parsed data
-     * @throws IOException Thrown due to BufferReader()
+     * @throws IOException Thrown due to BufferReader(), thrown if file not found
      */
     private void readParsedFile(String filePath) throws IOException
     {
