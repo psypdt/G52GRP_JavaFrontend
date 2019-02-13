@@ -81,8 +81,8 @@ public class Parser implements Runnable
                 }
             }
         }
-
-
+        Thread t1 = new Thread(new ScrapingTask(tag, url));
+        t1.start();
     }
 
     /*Could create a nested class inside parse functions, that would allow parameters to be accessed from the function itself*/

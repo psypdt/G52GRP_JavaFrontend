@@ -10,6 +10,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import sample.functionality.jSoupParsing.Parser;
 
+import java.io.IOException;
+
 
 public class Main extends Application
 {
@@ -68,8 +70,17 @@ public class Main extends Application
         main_pane.getChildren().clear();
         main_pane.getChildren().add(tasksPage);
 
-        Thread t1 = new Thread(new Parser());
-        t1.start();
+        Parser parser = new Parser();
+        try
+        {
+            parser.parseSpecificTag("input", "https://moodle.nottingham.ac.uk/login/index.php");
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+//        Thread t1 = new Thread(new Parser());
+//        t1.start();
         /*Temporary, create parser, should be moved into a controller in future. */
 //        Parser parser = new Parser();
 //        try
