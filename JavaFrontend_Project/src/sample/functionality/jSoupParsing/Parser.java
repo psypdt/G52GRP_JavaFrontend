@@ -4,11 +4,9 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
-import javax.swing.*;
 import java.io.IOException;
 
-/*Note: It may be necessary to run this as a thread so that the GUI doesn't freeze up*/
+
 public class Parser
 {
     public Parser()
@@ -49,12 +47,12 @@ public class Parser
      */
     public void parseSpecificTag(String tag, String url)
     {
-        /*This class exists because it allows us to "pass parameters" to the thread*/
+        /*This class exists because it allows us to "pass parameters" to the thread, maybe make this a separate class file*/
         class ScrapingTask implements Runnable
         {
-            String inputTag;
-            String inputUrl;
-            ScrapingTask(String tag, String url)
+            private String inputTag;
+            private String inputUrl;
+            private ScrapingTask(String tag, String url)
             {
                 inputTag = tag;
                 inputUrl = url;
@@ -85,4 +83,17 @@ public class Parser
         Thread t1 = new Thread(new ScrapingTask(tag, url));
         t1.start();
     }
+
+
+    private void writeParsedToFile()
+    {
+
+    }
+
+    private void readParsedFile()
+    {
+
+    }
+
+
 }

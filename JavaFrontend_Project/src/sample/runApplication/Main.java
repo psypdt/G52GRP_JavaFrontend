@@ -10,8 +10,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import sample.functionality.jSoupParsing.Parser;
 
-import java.io.IOException;
-
 
 public class Main extends Application
 {
@@ -41,7 +39,7 @@ public class Main extends Application
     }
 
     /***
-     *
+     * This method initialises the StartScreenView, calls fxml that will be displayed
      * @throws Exception This throws an Exception due to the FXMLLoader.load() method
      */
     private void initStartPage() throws Exception
@@ -50,6 +48,7 @@ public class Main extends Application
 //        startPage = FXMLLoader.load(getClass().getResource("/sample/gui/startScreen/StartScreenView.fxml"));
         startPage = FXMLLoader.load(getClass().getResource("StartScreenView.fxml"));
     }
+
 
     public static void goToStartPage()
     {
@@ -70,7 +69,7 @@ public class Main extends Application
         main_pane.getChildren().clear();
         main_pane.getChildren().add(tasksPage);
 
-        /*Temporary, create parser, should be moved into a controller in future. */
+        /*Create parser, should be moved into a controller in future so that url can be extracted from there*/
         Parser parser = new Parser();
         parser.parseSpecificTag("input", "https://moodle.nottingham.ac.uk/login/index.php");
     }
