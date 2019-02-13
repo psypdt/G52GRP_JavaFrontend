@@ -69,11 +69,6 @@ public class Parser
                     Elements targetTags = doc.select(inputTag);
                     System.out.println("Input URL = "+doc.title());
 
-                    /*Prints all tags that matched the description specified in parseSpecificTag()*/
-                    for(Element docTag : targetTags)
-                    {
-                        System.out.println(docTag.outerHtml());
-                    }
                     writeParsedToFile(targetTags, doc);
                 }
                 catch (IOException e)
