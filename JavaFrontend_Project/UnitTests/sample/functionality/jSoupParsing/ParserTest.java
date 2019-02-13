@@ -9,13 +9,15 @@ public class ParserTest
     @Test
     public void test_default_constructor()
     {
-
+        Parser parser = new Parser();
+        assertNotNull(parser);
     }
 
     @Test
     public void parseEntireHtml()
     {
         Parser parser = new Parser();
+
     }
 
     @Test
