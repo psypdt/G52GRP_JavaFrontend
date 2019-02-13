@@ -66,13 +66,14 @@ public class Parser
                 {
                     Document doc = Jsoup.connect(inputUrl).get();
                     Elements targetTags = doc.select(inputTag);
+                    System.out.println("Input URL = "+doc.title());
 
                     /*Prints all tags that matched the description specified in parseSpecificTag()*/
                     for(Element docTag : targetTags)
                     {
                         System.out.println(docTag.outerHtml());
                     }
-                    writeParsedToFile(targetTags);
+                    writeParsedToFile(targetTags, doc);
                 }
                 catch (IOException e)
                 {
@@ -88,12 +89,14 @@ public class Parser
 
     /***
      *
-     * @param tagContent
-     * @throws IOException
+     * @param tagContent List of tags that we want to save
+     * @param parseDoc The Jsoup document that was recieved
+     * @throws IOException FileWriter() throws exception
      */
-    private void writeParsedToFile(Elements tagContent) throws IOException
+    private void writeParsedToFile(Elements tagContent, Document parseDoc) throws IOException
     {
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("./resource_parsed_files/testFile.html", false));
+        String fileName = parseDoc.title();
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("./resource_parsed_files/"+fileName+".html", false));
 
         for (Element tag: tagContent)
         {
