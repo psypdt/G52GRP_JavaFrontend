@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -15,7 +16,7 @@ public class Main extends Application
     private static Stage mainStage;
     private static Pane main_pane;
     private static TabPane tasksPage;
-    private static AnchorPane startPage;
+    private static Pane startPage;
 
     /*This function allows us to get the main stage from anywhere by calling Main.getStage()*/
     public static Stage getStage()

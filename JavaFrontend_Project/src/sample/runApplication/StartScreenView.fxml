@@ -1,23 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.TilePane?>
 
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.gui.startScreen.StartScreenController">
+<TilePane alignment="CENTER" hgap="25.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" vgap="25.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.gui.startScreen.StartScreenController">
+    <padding>
+        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+    </padding>
    <children>
-      <TilePane alignment="CENTER" hgap="25.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="365.0" prefWidth="600.0" vgap="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-          <padding>
-              <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
-          </padding>
-         <children>
-             <Button fx:id="open_google" mnemonicParsing="false" text="Open Google" />
-             <Button fx:id="open_moodle" mnemonicParsing="false" text="Open Moodle" />
-             <Button mnemonicParsing="false" text="Button" />
-         </children>
-      </TilePane>
+       <Button fx:id="open_google" mnemonicParsing="false" text="Open Google" />
+       <Button fx:id="open_moodle" mnemonicParsing="false" text="Open Moodle" />
+       <Button mnemonicParsing="false" text="Button" />
    </children>
-</AnchorPane>
+</TilePane>
