@@ -24,4 +24,10 @@ public class ParserTest
     public void parseSpecificTag()
     {
     }
+
+    @Test
+    public void test_file_exists()
+    {
+
+    }
 }

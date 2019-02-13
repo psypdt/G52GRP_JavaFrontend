@@ -16,6 +16,7 @@ public class Parser
      * This function will the entire page, need a way to check if method fails
      * @param url The page we want to parse
      * @throws IOException Thrown due to Jsoup.connect() method
+     * @deprecated This method is not in use since there is currently no reason to over parseSpecificTag()
      */
     public void parseEntireHtml(String url) throws IOException
     {
@@ -88,17 +89,24 @@ public class Parser
 
 
     /***
-     *
+     * This function will write the parsed content into a new file
      * @param tagContent List of tags that we want to save
-     * @param parseDoc The Jsoup document that was recieved
+     * @param parseDoc The Jsoup document that was used to do the parsing
      * @throws IOException FileWriter() throws exception
      */
     private void writeParsedToFile(Elements tagContent, Document parseDoc) throws IOException
     {
-        String fileName = parseDoc.title();
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("./resource_parsed_files/"+fileName+".html", false));
+        String fileName = parseDoc.title()+".html";
+        String fullPath = "./resource_parsed_files/"+fileName;
 
-        for (Element tag: tagContent)
+        if(new File(fullPath).exists())
+        {
+            throw new IOException("File \"" + fileName + "\" at location \"" +fullPath + "\" already exists");
+        }
+
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fullPath, false));
+
+        for (Element tag : tagContent)
         {
             bufferedWriter.write(tag+"\n");
         }
