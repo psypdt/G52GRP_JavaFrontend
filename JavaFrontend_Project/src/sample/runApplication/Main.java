@@ -70,6 +70,7 @@ public class Main extends Application
         main_pane.getChildren().clear();
         main_pane.getChildren().add(tasksPage);
 
+        /*Temporary, create parser, should be moved into a controller in future. */
         Parser parser = new Parser();
         try
         {
@@ -79,18 +80,6 @@ public class Main extends Application
         {
             e.printStackTrace();
         }
-//        Thread t1 = new Thread(new Parser());
-//        t1.start();
-        /*Temporary, create parser, should be moved into a controller in future. */
-//        Parser parser = new Parser();
-//        try
-//        {
-//            parser.parseSpecificTag("input", "https://moodle.nottingham.ac.uk/login/index.php");
-//        }
-//        catch (IOException e)
-//        {
-//            e.printStackTrace();
-//        }
     }
 
     public static void setMainPane(Pane p)

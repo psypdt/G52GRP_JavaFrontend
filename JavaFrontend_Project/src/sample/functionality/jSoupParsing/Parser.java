@@ -49,6 +49,7 @@ public class Parser implements Runnable
      */
     public void parseSpecificTag(String tag, String url) throws IOException
     {
+        /*This class exists because it allows us to "pass parameters" to the thread*/
         class ScrapingTask implements Runnable
         {
             String inputTag;
@@ -68,11 +69,10 @@ public class Parser implements Runnable
                     Document doc = Jsoup.connect(inputUrl).get();
                     Elements targetTags = doc.select(inputTag);
 
+                    /*Prints all tags that matched the description specified in parseSpecificTag()*/
                     for(Element docTag : targetTags)
                     {
                         System.out.println(docTag.outerHtml());
-    //            System.out.println(docTag.attr(tag));
-    //            System.out.println(docTag.text());
                     }
                 }
                 catch (IOException e)
@@ -81,6 +81,7 @@ public class Parser implements Runnable
                 }
             }
         }
+        /*Run the contents inside run(), would be better if we had a function to call, makes things more clear (maybe)*/
         Thread t1 = new Thread(new ScrapingTask(tag, url));
         t1.start();
     }
