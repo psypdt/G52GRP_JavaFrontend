@@ -72,14 +72,7 @@ public class Main extends Application
 
         /*Temporary, create parser, should be moved into a controller in future. */
         Parser parser = new Parser();
-        try
-        {
-            parser.parseSpecificTag("input", "https://moodle.nottingham.ac.uk/login/index.php");
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+        parser.parseSpecificTag("input", "https://moodle.nottingham.ac.uk/login/index.php");
     }
 
     public static void setMainPane(Pane p)

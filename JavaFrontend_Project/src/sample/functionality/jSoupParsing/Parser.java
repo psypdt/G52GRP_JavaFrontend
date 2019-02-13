@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.io.IOException;
 
 /*Note: It may be necessary to run this as a thread so that the GUI doesn't freeze up*/
-public class Parser implements Runnable
+public class Parser
 {
     public Parser()
     {
@@ -47,7 +47,7 @@ public class Parser implements Runnable
      * @param url The website that we want to parse from
      * @throws IOException This is a side effect of the Jsoup.connect() method
      */
-    public void parseSpecificTag(String tag, String url) throws IOException
+    public void parseSpecificTag(String tag, String url)
     {
         /*This class exists because it allows us to "pass parameters" to the thread*/
         class ScrapingTask implements Runnable
@@ -84,21 +84,5 @@ public class Parser implements Runnable
         /*Run the contents inside run(), would be better if we had a function to call, makes things more clear (maybe)*/
         Thread t1 = new Thread(new ScrapingTask(tag, url));
         t1.start();
-    }
-
-    /*Could create a nested class inside parse functions, that would allow parameters to be accessed from the function itself*/
-    @Override
-    public void run()
-    {
-        Parser parser = new Parser();
-
-        try
-        {
-            parser.parseEntireHtml("");
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
     }
 }
