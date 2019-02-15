@@ -28,6 +28,8 @@ public class Main extends Application
     public void start(Stage primaryStage) throws Exception
     {
         mainStage = primaryStage;
+        mainStage.setMinWidth(300);
+        mainStage.setMinHeight(200);
 
         initStartPage();
         initTasksPage();
