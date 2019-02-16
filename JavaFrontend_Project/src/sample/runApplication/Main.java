@@ -9,6 +9,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import sample.functionality.jSoupParsing.Parser;
 
 
 public class Main extends Application
@@ -38,12 +39,17 @@ public class Main extends Application
         primaryStage.show();
     }
 
+    /***
+     * This method initialises the StartScreenView, calls fxml that will be displayed
+     * @throws Exception This throws an Exception due to the FXMLLoader.load() method
+     */
     private void initStartPage() throws Exception
     {
         /*Works when wanting to load alternative view*/
 //        startPage = FXMLLoader.load(getClass().getResource("/sample/gui/startScreen/StartScreenView.fxml"));
         startPage = FXMLLoader.load(getClass().getResource("StartScreenView.fxml"));
     }
+
 
     public static void goToStartPage()
     {
@@ -58,10 +64,15 @@ public class Main extends Application
 
     public static TabPane getTasksPage() { return tasksPage; }
 
+
     public static void goToTasksPage()
     {
         main_pane.getChildren().clear();
         main_pane.getChildren().add(tasksPage);
+
+        /*Create parser, should be moved into a controller in future so that url can be extracted from there*/
+        Parser parser = new Parser();
+        parser.parseSpecificTag("input", "https://moodle.nottingham.ac.uk/login/index.php");
     }
 
     public static void setMainPane(Pane p)
