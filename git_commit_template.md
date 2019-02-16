@@ -18,7 +18,7 @@ If included, the description should provide explanations for:
 - How does this commit address the issue?
 - What side effects does this change have?
 
-Optionally can provide links to relevant issues/pull requests, articles, resources, etc.
+Optionally can provide links to relevant issues/pull requests, articles, resources, members that worked on the commit, etc.
 
 ## Example commit
 (Source: https://thoughtbot.com/blog/5-useful-tips-for-a-better-commit-message)
@@ -33,4 +33,6 @@ being redirected to the login form.
 
 * Store requested path in a session variable
 * Redirect to the stored location after successfully logging in the user
+
+Authors: Person1, Person2
 ```
