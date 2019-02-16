@@ -17,7 +17,7 @@ public class Main extends Application
     private static Stage mainStage;
     private static Pane main_pane;
     private static TabPane tasksPage;
-    private static Pane startPage;
+    private static ScrollPane startPage;
 
     /*This function allows us to get the main stage from anywhere by calling Main.getStage()*/
     public static Stage getStage()
@@ -29,6 +29,8 @@ public class Main extends Application
     public void start(Stage primaryStage) throws Exception
     {
         mainStage = primaryStage;
+        mainStage.setMinWidth(300);
+        mainStage.setMinHeight(200);
 
         initStartPage();
         initTasksPage();
