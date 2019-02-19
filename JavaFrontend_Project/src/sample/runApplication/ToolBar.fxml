@@ -9,8 +9,17 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <tabs>
-    <Tab closable="false" text="Home" />
+    <Tab closable="false" text="Home">
+         <content>
+            <AnchorPane>
+               <children>
+                  <Button layoutX="271.0" layoutY="171.0" mnemonicParsing="false" snapToPixel="false" text="Moodle" />
+                  <Button layoutX="441.0" layoutY="171.0" mnemonicParsing="false" snapToPixel="false" text="Button" />
+                  <Button layoutX="101.0" layoutY="171.0" mnemonicParsing="false" snapToPixel="false" text="Google" />
+               </children>
+            </AnchorPane>
+         </content></Tab>
   </tabs>
 </TabPane>
