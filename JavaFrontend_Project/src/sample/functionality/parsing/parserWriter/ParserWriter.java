@@ -32,11 +32,34 @@ public class ParserWriter implements ParserWriterInterface
         }
 
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fullPath, false));
+        bufferedWriter.write(String.valueOf(parseDoc));
 
         for (Element tag : tagContent)
         {
             bufferedWriter.write(tag+"\n");
         }
+        bufferedWriter.close();
+    }
+
+
+    /***
+     * CAUTION, THIS IS AN UNSAFE METHOD, ONLY INTENDED FOR TESTING PURPOSES
+     * @param parseDoc
+     * @throws IOException
+     */
+    public void writeEntireHtmlToFile(Document parseDoc) throws IOException
+    {
+        String fileName = parseDoc.title().replace(":", "-")+".html";
+        String fullPath = "./resource_parsed_files/"+fileName;
+
+        if(new File(fullPath+"1").exists())
+        {
+            throw new IOException("File \"" + fileName + "\" at location \"" +fullPath + "\" already exists");
+        }
+
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fullPath, false));
+        bufferedWriter.write(String.valueOf(parseDoc));
+
         bufferedWriter.close();
     }
 }
