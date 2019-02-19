@@ -7,15 +7,18 @@ import java.io.IOException;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
+
 public class ParserTest
 {
 
     @Test
-    public void parseEntireHtml() {
+    public void parseEntireHtml()
+    {
     }
 
     @Test
-    public void parseSpecificTag() {
+    public void parseSpecificTag()
+    {
     }
 
 

@@ -89,8 +89,8 @@ public class Parser implements ParserInterface
      * This method standardises the file names where parsed data is stored
      * This may need to be amended and made thread safe, also keep in mind that pulling form the same site is a possibility
      * May need to look into automating the naming system
-     * @param fname
-     * @return
+     * @param fname This is the file name that we want to standardise
+     * @return fname This will return the newly generated file name that will be used
      */
     @Override
     public String standardiseFileName(String fname) throws IOException
