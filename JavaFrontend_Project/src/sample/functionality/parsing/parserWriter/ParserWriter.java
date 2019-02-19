@@ -22,7 +22,8 @@ public class ParserWriter implements ParserWriterInterface
     @Override
     public void writeParsedToFile(Elements tagContent, Document parseDoc) throws IOException
     {
-        String fileName = parseDoc.title()+".html";
+        /*Look into getting a lib to do this for : spaces and other types of punctuation */
+        String fileName = parseDoc.title().replace(":", "-")+".html";
         String fullPath = "./resource_parsed_files/"+fileName;
 
         if(new File(fullPath).exists())
