@@ -6,4 +6,5 @@ public interface ParserInterface
 {
     void parseEntireHtml(String url) throws IOException;
     void parseSpecificTag(String tag, String url);
+    String standardiseFileName(String fname);
 }
