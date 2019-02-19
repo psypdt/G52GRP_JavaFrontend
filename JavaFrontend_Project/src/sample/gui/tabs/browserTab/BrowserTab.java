@@ -8,7 +8,7 @@ import sample.gui.tabs.Tab;
 /*
 * This houses what mode the screen is in (browser/ scraper mode)
 */
-public class BrowserTab extends Tab
+public class BrowserTab implements Tab
 {
     private boolean scraperMode = true; /*Tells us if the tab will redirect to it's linked site in browser or scraper mode*/
     private ScraperscreenModel linkedSiteScraperMode;
