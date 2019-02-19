@@ -1,4 +1,4 @@
-package sample.functionality.jSoupParsing.parserWriter;
+package sample.functionality.parsing.parserWriter;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;

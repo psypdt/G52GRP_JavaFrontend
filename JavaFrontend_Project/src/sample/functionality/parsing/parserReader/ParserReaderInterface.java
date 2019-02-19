@@ -1,4 +1,4 @@
-package sample.functionality.jSoupParsing.parserReader;
+package sample.functionality.parsing.parserReader;
 
 import java.io.IOException;
 

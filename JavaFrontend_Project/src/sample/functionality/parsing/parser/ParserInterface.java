@@ -1,4 +1,4 @@
-package sample.functionality.parsing;
+package sample.functionality.parsing.parser;
 
 import java.io.IOException;
 

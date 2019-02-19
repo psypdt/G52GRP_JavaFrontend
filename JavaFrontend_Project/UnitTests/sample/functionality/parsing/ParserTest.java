@@ -1,6 +1,7 @@
-package sample.functionality.jSoupParsing;
+package sample.functionality.parsing;
 
 import org.junit.Test;
+import sample.functionality.parsing.parser.Parser;
 
 import static org.junit.Assert.*;
 
