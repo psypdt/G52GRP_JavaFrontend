@@ -68,7 +68,7 @@ public class Parser implements ParserInterface
                 {
                     Document doc = Jsoup.connect(inputUrl).get();
                     Elements targetTags = doc.select(inputTag);
-                    System.out.println("Input URL = "+doc.title());
+                    System.out.println("Input URL = "+doc.title()); /*Use html title as file name*/
 
                     ParserWriter parserWriter = new ParserWriter();
                     parserWriter.writeParsedToFile(targetTags, doc);
@@ -86,14 +86,32 @@ public class Parser implements ParserInterface
 
 
     /***
-     * 
-     * @param fname
-     * @return
+     * This method standardises the file names where parsed data is stored
+     * This may need to be amended and made thread safe, also keep in mind that pulling form the same site is a possibility
+     * May need to look into automating the naming system
+     * @param fname This is the file name that we want to standardise
+     * @return fname This will return the newly generated file name that will be used
      */
     @Override
-    public String standardiseFileName(String fname)
+    public String standardiseFileName(String fname) throws IOException
     {
-        return null;
+        if(fname.equals(""))
+        {
+            throw new IOException("No file Name for file");
+        }
+
+        fname = fname.replace(" ", "-");
+        fname = fname.replace("/", "-");
+        fname = fname.replace("\\", "-");
+        fname = fname.replace(":", "-");
+        fname = fname.replace("*", "-");
+        fname = fname.replace("?", "-");
+        fname = fname.replace("\"", "-");
+        fname = fname.replace("<", "-");
+        fname = fname.replace(">", "-");
+        fname = fname.replace("|", "-");
+
+        return fname;
     }
 
 
