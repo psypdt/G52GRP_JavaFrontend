@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.runApplication.ToolBarController">
-    <VBox>
-            <ToolBar>
-                <Button fx:id="start_button" mnemonicParsing="false" text="Start" />
-                <Button fx:id="tasks_button" mnemonicParsing="false" text="Tasks" />
-                <Button mnemonicParsing="false" text="Settings" />
-            </ToolBar>
-            <StackPane fx:id="main_pane" VBox.vgrow="ALWAYS" />
-    </VBox>
-</StackPane>
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+  <tabs>
+    <Tab closable="false" text="Home" />
+  </tabs>
+</TabPane>
