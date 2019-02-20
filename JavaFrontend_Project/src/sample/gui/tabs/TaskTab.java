@@ -19,8 +19,12 @@ public class TaskTab extends Tab implements iTaskTab {
         super();
 
         background = new StackPane();
+        background.setAlignment(Pos.TOP_RIGHT);
+
         scraperView = new StackPane();
+
         browserView = new TabPane();
+        browserView.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
         browserButton = new Button("Go to browser view");
         browserButton.setOnAction(e -> goToBrowserMode());
