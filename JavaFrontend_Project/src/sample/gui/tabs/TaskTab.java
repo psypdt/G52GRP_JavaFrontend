@@ -34,6 +34,14 @@ public class TaskTab extends Tab implements iTaskTab {
     public TaskTab(String id) {
         this();
         setText(id);
+        switch (id) {
+            case "Moodle (courses)":
+                browserView.getTabs().add(new WebViewTab("https://moodle.nottingham.ac.uk"));
+                break;
+            case "Blue Castle (Grades)":
+                browserView.getTabs().add(new WebViewTab("https://bluecastle.nottingham.ac.uk"));
+                break;
+        }
         goToBrowserMode();
     }
 
