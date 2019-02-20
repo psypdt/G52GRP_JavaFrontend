@@ -19,6 +19,9 @@ public class Main extends Application
     private static TabPane tasksPage;
     private static ScrollPane startPage;
 
+    private static Main self;
+    private GuiHandler guiHandler;
+
     /*This function allows us to get the main stage from anywhere by calling Main.getStage()*/
     public static Stage getStage()
     {
@@ -28,6 +31,7 @@ public class Main extends Application
     @Override
     public void start(Stage primaryStage) throws Exception
     {
+        self = this;
         mainStage = primaryStage;
 
         /* set a minimum window size */
@@ -37,11 +41,10 @@ public class Main extends Application
         initStartPage();
         initTasksPage();
 
-        Parent root = FXMLLoader.load(getClass().getResource("ToolBar.fxml"));
-        primaryStage.setTitle("Java Front-end");
-        primaryStage.setScene(new Scene(root, 600, 400));
-        primaryStage.show();
+        guiHandler = new GuiHandler(primaryStage);
     }
+
+    public static iGuiHandler getApp() { return self.guiHandler; }
 
     /***
      * This method initialises the StartScreenView, calls fxml that will be displayed
