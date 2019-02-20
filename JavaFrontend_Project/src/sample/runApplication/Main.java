@@ -29,6 +29,8 @@ public class Main extends Application
     public void start(Stage primaryStage) throws Exception
     {
         mainStage = primaryStage;
+
+        /* set a minimum window size */
         mainStage.setMinWidth(300);
         mainStage.setMinHeight(200);
 
@@ -49,7 +51,7 @@ public class Main extends Application
     {
         /*Works when wanting to load alternative view*/
 //        startPage = FXMLLoader.load(getClass().getResource("/sample/gui/startScreen/StartScreenView.fxml"));
-        startPage = FXMLLoader.load(getClass().getResource("StartScreenView.fxml"));
+        //startPage = FXMLLoader.load(getClass().getResource("StartScreenView.fxml"));
     }
 
 

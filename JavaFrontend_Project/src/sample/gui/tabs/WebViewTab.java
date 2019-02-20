@@ -6,7 +6,7 @@ import javafx.scene.web.WebView;
 import sample.runApplication.Main;
 
 /*Note: There is currently no means of returning to the previous instant of a page (no back button)*/
-public class WebViewTab extends Tab
+public class WebViewTab extends Tab implements BrowserTab
 {
     private WebView webpage;
 
@@ -31,4 +31,7 @@ public class WebViewTab extends Tab
             }
         });
     }
+
+    @Override
+    public void disableFunctionality() {}
 }
