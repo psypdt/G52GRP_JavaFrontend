@@ -112,7 +112,7 @@ public class FormSender extends Tab implements FormSenderInterface
         final String USERNAME = userName;
         final String PASSWORD = password;
 
-        //Go to login page
+        /*Go to login page*/
         Connection.Response loginFormResponse = Jsoup.connect(LOGIN_FORM_URL)
                 .method(Connection.Method.GET)
                 .userAgent(USER_AGENT)
@@ -139,8 +139,16 @@ public class FormSender extends Tab implements FormSenderInterface
                 .userAgent(USER_AGENT)
                 .execute();
 
+
         System.out.println("Url after login was: " + loginActionResponse.url());
-        webpage.getEngine().load(loginActionResponse.url().toString());
+        this.url = loginActionResponse.url().toString();
+
+        Connection.Response check = Jsoup.connect(url)
+                .method(Connection.Method.GET)
+                .userAgent(USER_AGENT)
+                .execute();
+
+        webpage.getEngine().load(url);
         loginStates--;
         System.out.println("LoginStates is: " + loginStates);
 
