@@ -6,7 +6,6 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.FormElement;
 import javax.xml.transform.OutputKeys;
@@ -14,19 +13,23 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.File;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.net.MalformedURLException;
 
 
 public class FormSender extends Tab implements FormSenderInterface
 {
     private String url;
-    public WebView webpage;
+    private WebView webpage;
     private int loginStates = 2; /*2 = form page loaded & sent the login form to server, 1 = got the final page, is it thread safe???*/
 
     /*If this is added to something like a button or anything that can be "listened to", then it seems like it works*/
+
+    /***
+     * Constructor for the FormSender Class, Creates a new WebView (and WebEngine)
+     * Automatically loads the {@code dest} url
+     * @param dest The URL where the login form is located
+     */
     public FormSender(String dest)
     {
         super();
@@ -56,18 +59,21 @@ public class FormSender extends Tab implements FormSenderInterface
 
                 if(loginStates == 1)
                 {
-                    tmp(webpage.getEngine());
+                    printHtmlToConsole(webpage.getEngine());
                 }
             }
         });
         System.out.println("Outside");
         this.url = dest;
-        webpage.getEngine().load(url); /*After the tmp() runs the first time, this can be executed*/
+        webpage.getEngine().load(url); /*After the printHtmlToConsole() runs the first time, this can be executed*/
     }
 
 
-
-    public void tmp(WebEngine webEngine)
+    /***
+     * This method prints the HTML after a successful login to the console
+     * @param webEngine The {@code WebView}'s {@code WebEngine} is passed to extract it's contents
+     */
+    public void printHtmlToConsole(WebEngine webEngine)
     {
         org.w3c.dom.Document doc = webEngine.getDocument();
 
@@ -90,10 +96,10 @@ public class FormSender extends Tab implements FormSenderInterface
 
 
     /***
-     *
-     * @param userName
-     * @param password
-     * @return
+     * This method is what will automate the login process for the user
+     * @param userName The users userName from the fxml form
+     * @param password The users password from the fxml form
+     * @throws IOException the {@code parse()} function can throw an {@code IOException}
      */
     @Override
     public void login(String userName, String password) throws IOException
@@ -146,30 +152,49 @@ public class FormSender extends Tab implements FormSenderInterface
 
 
     /***
-     *
-     * @param name
-     * @param elem
+     * This method checks if the element we want to use is actually available in the source of the page
+     * @param name The name of the tag that we want to check, Ex. {@code "Login Form"}
+     * @param elem The actual {@code Jsoup.Element} that we want to pass
+     * @throws RuntimeException Throws a {@code RuntimeException} if the element is not found
      */
-    public static void checkElement(String name, Element elem)
+    public static void checkElement(String name, Element elem) throws RuntimeException
     {
-        if (elem == null) {
+        if (elem == null)
+        {
             throw new RuntimeException("Unable to find " + name);
         }
     }
 
 
-
-
-
-
-    public static void main(String args[])
+    /***
+     * This method can be used to get the username input from fxml form
+     * @param uName The text from the FXML files username field
+     * @return Returns the username from the FXML file
+     */
+    public String fetchUsrName(String uName)
     {
-        FormSender formSender = new FormSender("https://moodle.nottingham.ac.uk/index.php");
-        try {
-            formSender.login("psypdt", "");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        return uName;
     }
+
+
+    /***
+     * This method ca be used to get the passeord input from the fxml form
+     * @param pwd The text form the FXML files password field
+     * @return Returns the password from the FXML file
+     */
+    public String fetchPassWord(String pwd)
+    {
+        return pwd;
+    }
+
+
+    /***
+     * To enforce encapsulation, this getter can be used to get the WebView if needed
+     * @return Returns the WebView of the FormSender object
+     */
+    public WebView getWebView()
+    {
+        return this.webpage;
+    }
+
 }
