@@ -7,7 +7,6 @@ import java.sql.Statement;
 public class Connection_test {    
     // Create static global variables   
     static Connection conn;    
-    
     static Statement st;    
     
     /*public static void main(String[] args) {    
@@ -42,7 +41,7 @@ public class Connection_test {
             		+ " VALUES ('4315722','Yisong Wang','G52OSC','Opreating system','100','10')";
             st = (Statement) conn.createStatement();    // Create a Statement object for executing static SQL statements   
                 
-            int count1 = st.executeUpdate(sql1);  // 执行插入操作的sql语句，并返回插入数据的个数    
+            int count1 = st.executeUpdate(sql1);  // SQL statement that performs the insert operation and returns the number of inserted data   
             int count2 = st.executeUpdate(sql2);
             System.out.println("insert into module " + count1 + " data"); //输出插入操作的处理结果    
             System.out.println("insert into grades " + count2 + " data");     

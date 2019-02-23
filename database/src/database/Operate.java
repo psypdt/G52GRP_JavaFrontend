@@ -13,6 +13,7 @@ public class Operate {
         Op.update();   //update data    
         Op.delete();   //delete data 
         Op.query();    //Query records and display    
+        
 	}
 
 }
