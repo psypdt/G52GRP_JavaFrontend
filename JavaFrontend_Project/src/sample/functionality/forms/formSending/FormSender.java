@@ -20,10 +20,8 @@ import java.io.OutputStreamWriter;
 public class FormSender extends Tab implements FormSenderInterface
 {
     private String url;
-    private WebView webpage;
-    private int loginStates = 2; /*2 = form page loaded & sent the login form to server, 1 = got the final page, is it thread safe???*/
-
-    /*If this is added to something like a button or anything that can be "listened to", then it seems like it works*/
+    private WebView webView; /*Where the webpage will be displayed*/
+    private int loginStates = 2; /*2 = page loaded & sent login form to server, 1 = got the final page*/
 
     /***
      * Constructor for the FormSender Class, Creates a new WebView (and WebEngine)
@@ -33,10 +31,10 @@ public class FormSender extends Tab implements FormSenderInterface
     public FormSender(String dest)
     {
         super();
-        webpage = new WebView();
-        webpage.getEngine().setJavaScriptEnabled(true);
+        webView = new WebView();
+        webView.getEngine().setJavaScriptEnabled(true);
 
-        webpage.getEngine().getLoadWorker().stateProperty().addListener((obs, oldValue, newValue) ->
+        webView.getEngine().getLoadWorker().stateProperty().addListener((obs, oldValue, newValue) ->
         {
             System.out.println(newValue);
             /*Make sure this is joined, otherwise the main finishes before this and kills the thread, hence it doesn't print*/
@@ -49,7 +47,7 @@ public class FormSender extends Tab implements FormSenderInterface
                 {
                     try
                     {
-                        login("", "");
+                        login("psypdt", "");
                     }
                     catch (IOException e)
                     {
@@ -59,13 +57,13 @@ public class FormSender extends Tab implements FormSenderInterface
 
                 if(loginStates == 1)
                 {
-                    printHtmlToConsole(webpage.getEngine());
+                    printHtmlToConsole(webView.getEngine());
                 }
             }
         });
         System.out.println("Outside");
         this.url = dest;
-        webpage.getEngine().load(url); /*After the printHtmlToConsole() runs the first time, this can be executed*/
+        webView.getEngine().load(url); /*After the printHtmlToConsole() runs the first time, this can be executed*/
     }
 
 
@@ -108,7 +106,7 @@ public class FormSender extends Tab implements FormSenderInterface
         final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.109 Safari/537.36";
         final String LOGIN_FORM_URL = "https://moodle.nottingham.ac.uk/login/index.php";
         final String USERNAME = userName;
-        final String PASSWORD = password;
+        final String PASSWORD = password; /*Need a way to save the password safely, maybe en/decryption?*/
 
         /*Go to login page*/
         Connection.Response loginFormResponse = Jsoup.connect(LOGIN_FORM_URL)
@@ -146,7 +144,7 @@ public class FormSender extends Tab implements FormSenderInterface
                 .userAgent(USER_AGENT)
                 .execute();
 
-        webpage.getEngine().load(url);
+        webView.getEngine().load(url);
         loginStates--;
     }
 
@@ -157,7 +155,8 @@ public class FormSender extends Tab implements FormSenderInterface
      * @param elem The actual {@code Jsoup.Element} that we want to pass
      * @throws RuntimeException Throws a {@code RuntimeException} if the element is not found
      */
-    public static void checkElement(String name, Element elem) throws RuntimeException
+    @Override
+    public void checkElement(String name, Element elem) throws RuntimeException
     {
         if (elem == null)
         {
@@ -192,9 +191,10 @@ public class FormSender extends Tab implements FormSenderInterface
      * To enforce encapsulation, this getter can be used to get the WebView if needed
      * @return Returns the WebView of the FormSender object
      */
+    @Override
     public WebView getWebView()
     {
-        return this.webpage;
+        return this.webView;
     }
 
 }
