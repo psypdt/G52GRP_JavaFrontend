@@ -40,15 +40,13 @@ public class FormSender extends Tab implements FormSenderInterface
             if (newValue == Worker.State.SUCCEEDED)
             {
                 System.out.println(newValue);
-//                HTMLInputElement element = (HTMLInputElement) webpage.getEngine().getDocument().getElementsByTagName("body").item(0);
-//                element.click();
 
                 /*These method will keep being repeated in the background everytime the webengine is asked to load something new*/
                 if(loginStates == 2)
                 {
                     try
                     {
-                        login("psypdt", "");
+                        login("", "");
                     }
                     catch (IOException e)
                     {
@@ -87,15 +85,9 @@ public class FormSender extends Tab implements FormSenderInterface
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-//        HTMLInputElement element = (HTMLInputElement) doc.getElementsByTagName("button").item(0);
-//        element.click();
     }
 
 
-
-
-
-    /*================================================================================================================*/
 
     /***
      *
@@ -150,13 +142,6 @@ public class FormSender extends Tab implements FormSenderInterface
 
         webpage.getEngine().load(url);
         loginStates--;
-        System.out.println("LoginStates is: " + loginStates);
-
-//        Document runp = Jsoup.connect("https://moodle.nottingham.ac.uk/theme/yui_combo.php?rollup/3.17.2/yui-moodlesimple-min.js")
-//                .ignoreContentType(true)
-//                .get();
-
-//        System.out.println(runp);
     }
 
 
