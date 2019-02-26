@@ -7,12 +7,25 @@ import java.sql.Statement;
 public class Operate {
 	static Connection conn;    
 	static Statement st; 
-	static Module Op = new Module();
+	static Module module = new Module();
+	static User user = new User();
+	static Grades grades = new Grades();
+	
 	public static void main(String[] args) {
-		Op.insert();   //insert data    
-        Op.update();   //update data    
-        Op.delete();   //delete data 
-        Op.query();    //Query records and display    
+		module.insert();   //insert data    
+        module.update();   //update data    
+        module.delete();   //delete data 
+        module.query();//Query records and display 
+        
+        /*user.insert();
+        user.update();
+        user.delete();
+        user.query();*/
+        
+        grades.insert();
+        grades.update();
+        grades.delete();
+        grades.query();
 	}
 
 }

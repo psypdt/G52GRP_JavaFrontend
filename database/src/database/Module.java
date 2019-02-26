@@ -6,8 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;    
 public class Module {    
     // Create static global variables   
-    static Connection conn;    
-    
+    static Connection conn;   
     static Statement st;    
     
     /*public static void main(String[] args) {    
@@ -38,14 +37,14 @@ public class Module {
         try {    
             String sql1 = "INSERT INTO module(ModuleID, Modulename)"    
                     + " VALUES ('G52OSC','Opreating system')";  // SQL statement to insert data
-            String sql2 = "INSERT INTO grades(StudentID,Studentname,ModuleID,Modulename,Grade,Credit)" 
-            		+ " VALUES ('4315722','Yisong Wang','G52OSC','Opreating system','100','10')";
+            /*String sql2 = "INSERT INTO grades(StudentID,Studentname,ModuleID,Modulename,Grade,Credit)" 
+            		+ " VALUES ('4315722','Yisong Wang','G52OSC','Opreating system','100','10')";*/
             st = (Statement) conn.createStatement();    // Create a Statement object for executing static SQL statements   
                 
             int count1 = st.executeUpdate(sql1);  // SQL statement that performs the insert operation and returns the number of inserted data    
-            int count2 = st.executeUpdate(sql2);
+            /*int count2 = st.executeUpdate(sql2);*/
             System.out.println("insert into module " + count1 + " data"); //Outputs the processing results of the insert operation   
-            System.out.println("insert into grades " + count2 + " data");     
+            /*System.out.println("insert into grades " + count2 + " data");     */
             conn.close();   //Close the database connection   
                 
         } catch (SQLException e) {    
@@ -84,7 +83,7 @@ public class Module {
             ResultSet rs1 = st.executeQuery(sql1);  //Execute the SQL query statement and return the result set of the query data  
             /*ResultSet rs2 = st.executeQuery(sql2);  */
             System.out.println("search result：");    
-           /*while (rs1.next()) { // Determine if there is another piece of data
+           while (rs1.next()) { // Determine if there is another piece of data
                     
                 // Gets the value based on the field name  
             	String MI1 = rs1.getString("ModuleID");  
@@ -93,16 +92,7 @@ public class Module {
                 //Output the values of the fields of the record being looked up 
                 System.out.println(MI1+" "+Mn1);    
                 
-            } */
-            while (rs1.next()) {
-            	String SI = rs1.getString("StudentID");  
-                String Sn = rs1.getString("Studentname"); 
-                String MI2 = rs1.getString("ModuleID");  
-                String Mn2 = rs1.getString("Modulename"); 
-                String Grade = rs1.getString("Grade");  
-                String Credit = rs1.getString("Credit"); 
-                System.out.println(SI+" "+Sn + " " + MI2+ " "+ Mn2 + " "+ Grade +" "+Credit);  
-            }
+            } 
             conn.close();   //Close the database connection   
                 
         } catch (SQLException e) {    
