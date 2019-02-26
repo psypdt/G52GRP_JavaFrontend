@@ -7,7 +7,7 @@ import java.sql.Statement;
 public class Operate {
 	static Connection conn;    
 	static Statement st; 
-	static Connection_test Op = new Connection_test();
+	static Module Op = new Module();
 	public static void main(String[] args) {
 		Op.insert();   //insert data    
         Op.update();   //update data    
