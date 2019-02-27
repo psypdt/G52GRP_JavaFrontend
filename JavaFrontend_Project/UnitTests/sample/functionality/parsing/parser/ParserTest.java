@@ -31,6 +31,14 @@ public class ParserTest
     }
 
 
+    @Test
+    public void parse_image_myNottingham_data()
+    {
+        Parser parser = new Parser();
+        parser.parseSpecificTag("img[src$=.png]", "https://mynottingham.nottingham.ac.uk/psp/psprd/EMPLOYEE/EMPL/h/?tab=PAPP_GUEST");
+    }
+
+
 
     @Test
     public void standardiseFileName_empty_str_exception()

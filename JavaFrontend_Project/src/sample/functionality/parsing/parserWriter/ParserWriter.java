@@ -3,10 +3,12 @@ package sample.functionality.parsing.parserWriter;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.net.URL;
 
 
 public class ParserWriter implements ParserWriterInterface
@@ -25,6 +27,12 @@ public class ParserWriter implements ParserWriterInterface
         /*Look into getting a lib to do this for : spaces and other types of punctuation */
         String fileName = parseDoc.title().replace(":", "-")+".html";
         String fullPath = "./resource_parsed_files/"+fileName;
+
+        /*Create a new statement that will allow us to save images if the specific condition is met*/
+//        URL url = new URL("https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png");
+//        BufferedImage img = ImageIO.read(url);
+//        File file = new File("./resource_parsed_files/thing.png");
+//        ImageIO.write(img, "png", file);
 
         if(new File(fullPath).exists())
         {
