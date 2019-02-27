@@ -1,23 +1,55 @@
 package sample.functionality.forms.formSending;
 
+
+import javafx.application.Application;
+import javafx.stage.Stage;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.FormElement;
+import org.junit.Before;
 import org.junit.Test;
 import java.io.IOException;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
 
+/*
+* Notice: Currently everything fails because its not running on the application thread, need class to actually run this.
+* The reason for this specifically is, that (again) the WebEngine runs Asynchronously (needs to be bound to app thread)
+*/
 public class FormSenderTest
 {
+
+    public class CreationClass extends Application
+    {
+        FormSender formSender;
+
+        public FormSender createSender(String constructorArgs)
+        {
+            formSender = new FormSender(constructorArgs);
+            return formSender;
+        }
+
+        @Override
+        public void start(Stage primaryStage) throws Exception
+        {
+        }
+
+        public void main(String args[])
+        {
+            launch(args);
+        }
+    }
+
+
     /*We can debate if this should be the way we handle an invalid input, maybe we have a method to change the URL?*/
     @Test
     public void blank_constructor_arg()
     {
+        CreationClass creationClass = new CreationClass();
         try
         {
-            FormSender formSender = new FormSender("");
+            creationClass.formSender = creationClass.createSender("");
         }
         catch (ExceptionInInitializerError e)
         {
@@ -29,7 +61,8 @@ public class FormSenderTest
     @Test
     public void create_FormSender_obj()
     {
-        FormSender formSender = new FormSender("https://moodle.nottingham.ac.uk/login/index.php");
+        CreationClass creationClass = new CreationClass();
+        FormSender formSender = creationClass.createSender("https://moodle.nottingham.ac.uk/login/index.php");
         assertNotNull(formSender);
     }
 
@@ -76,6 +109,22 @@ public class FormSenderTest
         catch (IOException e)
         {
             assertThat(e.getMessage(), is("Error: Invalid username or password"));
+        }
+    }
+
+
+    /*Note: This should return a JSON object that contains the relevant information */
+    @Test
+    public void correct_Moodle_Login()
+    {
+        FormSender form = new FormSender("https://moodle.nottingham.ac.uk/login/index.php");
+        try
+        {
+            form.login("CorrectUsername", "CorrectPassword");
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
         }
     }
 
@@ -233,7 +282,4 @@ public class FormSenderTest
         FormSender form = new FormSender("https://moodle.nottingham.ac.uk/login/index.php");
         assertNotNull(form.getWebView());
     }
-
-
-
 }
