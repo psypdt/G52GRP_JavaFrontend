@@ -2,6 +2,7 @@ package sample.functionality.parsing.parser;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import sample.functionality.parsing.parserWriter.ParserWriter;
 import java.io.*;
@@ -9,7 +10,7 @@ import java.io.*;
 
 public class Parser implements ParserInterface
 {
-    public Parser() {}
+    public Parser(){}
 
     /***
      * This function will the entire page, need a way to check if method fails
@@ -37,6 +38,7 @@ public class Parser implements ParserInterface
             System.out.println(content);
         }
     }
+
 
     /***
      * This method should allow us to parse specific elements from a website
@@ -68,7 +70,13 @@ public class Parser implements ParserInterface
                 {
                     Document doc = Jsoup.connect(inputUrl).get();
                     Elements targetTags = doc.select(inputTag);
-                    System.out.println("Input URL = "+doc.title()); /*Use html title as file name*/
+
+                    for(Element e : targetTags )
+                    {
+                        System.out.println(e.text());
+                    }
+
+//                    System.out.println("Input URL = "+doc.title()); /*Use html title as file name*/
 
                     ParserWriter parserWriter = new ParserWriter();
                     parserWriter.writeParsedToFile(targetTags, doc);
@@ -82,6 +90,11 @@ public class Parser implements ParserInterface
         /*Run the contents inside run(), would be better if we had a function to call, makes things more clear (maybe)*/
         Thread t1 = new Thread(new ScrapingTask(tag, url));
         t1.start();
+        try {
+            t1.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 

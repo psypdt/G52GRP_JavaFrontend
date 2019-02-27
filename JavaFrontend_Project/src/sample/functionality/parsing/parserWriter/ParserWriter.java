@@ -32,7 +32,7 @@ public class ParserWriter implements ParserWriterInterface
         }
 
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fullPath, false));
-        bufferedWriter.write(String.valueOf(parseDoc));
+//        bufferedWriter.write(String.valueOf(parseDoc));
 
         for (Element tag : tagContent)
         {

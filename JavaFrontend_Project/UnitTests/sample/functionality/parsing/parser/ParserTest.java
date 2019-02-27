@@ -22,6 +22,16 @@ public class ParserTest
     }
 
 
+
+    @Test
+    public void parse_column_div_tag() throws InterruptedException
+    {
+        Parser parser = new Parser();
+        parser.parseSpecificTag("div.col-md-12", "https://moodle.nottingham.ac.uk/login/index.php");
+    }
+
+
+
     @Test
     public void standardiseFileName_empty_str_exception()
     {
