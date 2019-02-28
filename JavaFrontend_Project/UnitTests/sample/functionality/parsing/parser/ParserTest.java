@@ -56,6 +56,63 @@ public class ParserTest
     }
 
 
+    @Test
+    public void test_non_existent_tag()
+    {
+        String illegalTag = "DeFiNeTlY-N0T-a-7Ag";
+        Parser parser = new Parser();
+
+        try
+        {
+            JSONObject object = parser.parseSpecificTag(illegalTag, "https://moodle.nottingham.ac.uk/login/index.php");
+        }
+        catch (RuntimeException except)
+        {
+            assertThat(except.getMessage(), is("Tag \"" + illegalTag + "\" doesnt exist."));
+        }
+    }
+
+
+    @Test
+    public void test_empty_tag()
+    {
+        String emptyTag = "";
+        Parser parser = new Parser();
+
+        try
+        {
+            JSONObject object = parser.parseSpecificTag(emptyTag, "https://moodle.nottingham.ac.uk/login/index.php");
+        }
+        catch (RuntimeException except)
+        {
+            assertThat(except.getMessage(), is("NOTICE: Empty Tags are not allowed."));
+        }
+    }
+
+
+
+    @Test
+    public void test_two_tags()
+    {
+        String tags = "title, h1";
+        Parser parser = new Parser();
+
+        JSONObject object = parser.parseSpecificTag(tags, "https://moodle.nottingham.ac.uk/login/index.php");
+        try
+        {
+            assertEquals("{\"title,h1\": [\n" +
+                    "    \"University of Nottingham Moodle: Log in to the site\",\n" +
+                    "    \"Log in to moodle...\"\n" +
+                    "]}", object.toString(4));
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+
+
     /*Wont work because writing images isn't implemented yet, it's commented otu*/
     @Test
     public void parse_image_myNottingham_data()

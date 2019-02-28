@@ -52,7 +52,12 @@ public class Parser implements ParserInterface
     @Override
     public JSONObject parseSpecificTag(String tag, String url)
     {
-        JSONObject jsonObject = new JSONObject(); /*The JSONobject that will contain all the tags*/
+        if(tag.equals(""))
+        {
+            throw new RuntimeException("NOTICE: Empty Tags are not allowed.");
+        }
+
+        JSONObject jsonObject = new JSONObject(); /*The JSON object that will contain all the tags*/
 
         /*This class exists because it allows us to "pass parameters" to the thread, maybe make this a separate class file*/
         class ScrapingTask implements Runnable
@@ -75,12 +80,18 @@ public class Parser implements ParserInterface
                     Document doc = Jsoup.connect(inputUrl).get();
                     Elements targetTags = doc.select(inputTag);
 
+                    /*Throw new exception if Tag doesn't exist*/
+                    if(targetTags.isEmpty())
+                    {
+                        throw new RuntimeException("Tag \"" + inputTag + "\" doesnt exist.");
+                    }
+
                     for(Element tagContent : targetTags)
                     {
                         jsonObject.append(tag, tagContent.text());
 //                        System.out.println("The tag element contains: " + tagContent.text());
                     }
-                    jsonObject.append("Tag", tag);
+//                    jsonObject.append("Tag", tag); /*List of tags in object*/
 
 //                    ParserWriter parserWriter = new ParserWriter();
 //                    parserWriter.writeParsedToFile(targetTags, doc);
