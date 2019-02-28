@@ -12,7 +12,9 @@ public class StartScreenController
 
     @FXML private void initialize()
     {
-        /* Set up the Open Google button to open a new Google tab */
+        /**
+         *  Set up the Open Google button to open a new Google tab and a new moodle tab
+         *  */
         open_google.setOnAction(e -> Main.getTasksPage().getTabs().add(new WebViewTab("https://www.google.com")));
         open_moodle.setOnAction(e -> Main.getTasksPage().getTabs().add(new WebViewTab("https://moodle.nottingham.ac.uk")));
     }

@@ -10,7 +10,8 @@ import sample.gui.tabs.iTab;
 */
 public class BrowserTab implements iTab
 {
-    private boolean scraperMode = true; /*Tells us if the tab will redirect to it's linked site in browser or scraper mode*/
+    /* Tells us if the tab will redirect to it's linked site in browser or scraper mode */
+    private boolean scraperMode = true;
     private ScraperscreenModel linkedSiteScraperMode;
     private BrowserScreenModel linkedSiteBrowserMode;
 }

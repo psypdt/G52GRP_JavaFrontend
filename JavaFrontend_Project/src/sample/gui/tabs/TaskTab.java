@@ -15,6 +15,9 @@ public class TaskTab extends Tab implements iTaskTab {
     private Button browserButton;
     private Button scraperButton;
 
+    /**
+     * Added the button for browser view and Scraper view
+     */
     private TaskTab() {
         super();
 
@@ -39,6 +42,7 @@ public class TaskTab extends Tab implements iTaskTab {
         this();
         setText(id);
         switch (id) {
+            /* Set a id for the URL, so when the URL needs to be used it can only input the id */
             case "Moodle (courses)":
                 browserView.getTabs().add(new WebViewTab("https://moodle.nottingham.ac.uk"));
                 break;
@@ -50,6 +54,9 @@ public class TaskTab extends Tab implements iTaskTab {
     }
 
     @Override
+    /**
+     *  Once the Scraper mode button has been activated, it will go to a Scraper mode and allow the developer to edit
+     *  */
     public void goToScraperMode() {
         background.getChildren().clear();
         background.getChildren().add(scraperView);
@@ -57,6 +64,9 @@ public class TaskTab extends Tab implements iTaskTab {
     }
 
     @Override
+    /**
+     *  Once the Browser mode button has been activated, it will go to a Browser mode and will not allow the developer to edit
+     *  */
     public void goToBrowserMode() {
         background.getChildren().clear();
         background.getChildren().add(browserView);

@@ -5,7 +5,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Pane;
 
-/*This is responsible for controlling the Tool bar, aka. fixed "Tasks" & "Start" buttons*/
+/**
+ * This is responsible for controlling the Tool bar, aka. fixed "Tasks" & "Start" buttons
+ * */
 public class ToolBarController
 {
     @FXML private TabPane tab_pane;
