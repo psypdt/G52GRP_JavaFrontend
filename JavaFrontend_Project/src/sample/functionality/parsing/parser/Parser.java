@@ -1,10 +1,11 @@
 package sample.functionality.parsing.parser;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import sample.functionality.parsing.parserWriter.ParserWriter;
 import java.io.*;
 
 
@@ -46,10 +47,13 @@ public class Parser implements ParserInterface
      * @param tag The tag that we want to extract
      * @param url The website that we want to parse from
      * @throws IOException This is a side effect of the Jsoup.connect() method
+     * @return Returns a JSONObject that will contain the parsed information
      */
     @Override
-    public void parseSpecificTag(String tag, String url)
+    public JSONObject parseSpecificTag(String tag, String url)
     {
+        JSONObject jsonObject = new JSONObject(); /*The JSONobject that will contain all the tags*/
+
         /*This class exists because it allows us to "pass parameters" to the thread, maybe make this a separate class file*/
         class ScrapingTask implements Runnable
         {
@@ -71,30 +75,36 @@ public class Parser implements ParserInterface
                     Document doc = Jsoup.connect(inputUrl).get();
                     Elements targetTags = doc.select(inputTag);
 
-                    for(Element e : targetTags )
+                    for(Element tagContent : targetTags)
                     {
-                        System.out.println(e.text());
+                        jsonObject.append(tag, tagContent.text());
+//                        System.out.println("The tag element contains: " + tagContent.text());
                     }
+                    jsonObject.append("Tag", tag);
 
-//                    System.out.println("Input URL = "+doc.title()); /*Use html title as file name*/
-
-                    ParserWriter parserWriter = new ParserWriter();
-                    parserWriter.writeParsedToFile(targetTags, doc);
+//                    ParserWriter parserWriter = new ParserWriter();
+//                    parserWriter.writeParsedToFile(targetTags, doc);
                 }
-                catch (IOException e)
+                catch (IOException | JSONException e)
                 {
                     e.printStackTrace();
                 }
             }
         }
         /*Run the contents inside run(), would be better if we had a function to call, makes things more clear (maybe)*/
-        Thread t1 = new Thread(new ScrapingTask(tag, url));
-        t1.start();
-        try {
-            t1.join();
-        } catch (InterruptedException e) {
+        Thread parserThread = new Thread(new ScrapingTask(tag, url));
+        parserThread.start();
+
+        try
+        {
+            parserThread.join();
+        }
+        catch (InterruptedException e)
+        {
             e.printStackTrace();
         }
+
+        return jsonObject;
     }
 
 
@@ -103,7 +113,7 @@ public class Parser implements ParserInterface
      * This may need to be amended and made thread safe, also keep in mind that pulling form the same site is a possibility
      * May need to look into automating the naming system
      * @param fname This is the file name that we want to standardise
-     * @return fname This will return the newly generated file name that will be used
+     * @return This will return the newly generated file name that will be used
      */
     @Override
     public String standardiseFileName(String fname) throws IOException

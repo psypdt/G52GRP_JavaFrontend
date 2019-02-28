@@ -1,5 +1,7 @@
 package sample.functionality.parsing.parser;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -23,14 +25,38 @@ public class ParserTest
 
 
 
+    /*Check that the object exists*/
     @Test
-    public void parse_column_div_tag() throws InterruptedException
+    public void parse_existing_column_div_tag() throws InterruptedException
     {
         Parser parser = new Parser();
-        parser.parseSpecificTag("div.col-md-12", "https://moodle.nottingham.ac.uk/login/index.php");
+        JSONObject object = parser.parseSpecificTag("div.col-md-12", "https://moodle.nottingham.ac.uk/login/index.php");
+        assertNotNull(object);
     }
 
 
+    @Test
+    public void test_correct_json_content()
+    {
+        String tag = "div.col-md-12";
+        Parser parser = new Parser();
+        JSONObject object = parser.parseSpecificTag(tag, "https://moodle.nottingham.ac.uk/login/index.php");
+
+        try
+        {
+            assertEquals(object.toString(4), "{\"div.col-md-12\": [\n" +
+                    "    \"Username Password Remember username Log in\",\n" +
+                    "    \"Forgotten your username or password? Cookies must be enabled in your browser\"\n" +
+                    "]}");
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+
+    /*Wont work because writing images isn't implemented yet, it's commented otu*/
     @Test
     public void parse_image_myNottingham_data()
     {
