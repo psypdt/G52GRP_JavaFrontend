@@ -89,8 +89,8 @@ public class ParserTest
         }
     }
 
-
-
+    
+    /*This test should ensure that this is not possible, the parseMultipleTags() function should achieve this*/
     @Test
     public void test_two_tags()
     {
@@ -110,6 +110,42 @@ public class ParserTest
             e.printStackTrace();
         }
     }
+
+
+
+    @Test
+    public void test_empty_file()
+    {
+        String emptyFile = "./test_resources/emptyTagFile.txt";
+        String url = "https://moodle.nottingham.ac.uk/login/index.php";
+        Parser parser = new Parser();
+
+        try
+        {
+            parser.parseMultipleTags(emptyFile, url);
+        }
+        catch (RuntimeException exception)
+        {
+            assertThat(exception.getMessage(), is("Error: The file \"" + emptyFile + "\" contains no tags"));
+        }
+    }
+
+
+    @Test
+    public void test_title_h1_tags()
+    {
+        String tagFile = "./test_resources/TitleH1File.txt";
+        String url = "https://moodle.nottingham.ac.uk/login/index.php";
+        Parser parser = new Parser();
+
+        JSONObject jsonObject = parser.parseMultipleTags(tagFile, url);
+
+        System.out.println(jsonObject.toString());
+
+        assertEquals("{\"h1\":[\"Log in to moodle...\"]," +
+                        "\"title\":[\"University of Nottingham Moodle: Log in to the site\"]}", jsonObject.toString());
+    }
+
 
 
 
