@@ -3,9 +3,7 @@ package sample.functionality.parsing.parser;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
-
 import java.io.IOException;
-
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
@@ -89,7 +87,7 @@ public class ParserTest
         }
     }
 
-    
+
     /*This test should ensure that this is not possible, the parseMultipleTags() function should achieve this*/
     @Test
     public void test_two_tags()
@@ -110,6 +108,7 @@ public class ParserTest
             e.printStackTrace();
         }
     }
+
 
 
 
@@ -140,10 +139,35 @@ public class ParserTest
 
         JSONObject jsonObject = parser.parseMultipleTags(tagFile, url);
 
-        System.out.println(jsonObject.toString());
-
         assertEquals("{\"h1\":[\"Log in to moodle...\"]," +
                         "\"title\":[\"University of Nottingham Moodle: Log in to the site\"]}", jsonObject.toString());
+    }
+
+
+    @Test
+    public void test_h2_h4()
+    {
+        String tagFile = "./test_resources/H2H4.txt";
+        String url = "https://moodle.nottingham.ac.uk/login/index.php";
+        Parser parser = new Parser();
+
+        JSONObject jsonObject = parser.parseMultipleTags(tagFile, url);
+
+        assertEquals("{\"h2\":[\"Log in\"]," + "\"h4\":[\"Site Information\",\"Get in touch\"]}",
+                jsonObject.toString());
+    }
+
+    @Test
+    public void test_h1_h2_h4()
+    {
+        String tagFile = "./test_resources/H1H2H4.txt";
+        String url = "https://moodle.nottingham.ac.uk/login/index.php";
+        Parser parser = new Parser();
+
+        JSONObject jsonObject = parser.parseMultipleTags(tagFile, url);
+
+        assertEquals("{\"h1\":[\"Log in to moodle...\"]," + "\"h2\":[\"Log in\"]," +
+                        "\"h4\":[\"Site Information\",\"Get in touch\"]}", jsonObject.toString());
     }
 
 
