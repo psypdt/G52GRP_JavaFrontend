@@ -6,7 +6,10 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import sample.functionality.parsing.parserReader.ParserReader;
+
 import java.io.*;
+import java.util.ArrayList;
 
 
 public class Parser implements ParserInterface
@@ -89,7 +92,6 @@ public class Parser implements ParserInterface
                     for(Element tagContent : targetTags)
                     {
                         jsonObject.append(tag, tagContent.text());
-//                        System.out.println("The tag element contains: " + tagContent.text());
                     }
 //                    jsonObject.append("Tag", tag); /*List of tags in object*/
 
@@ -118,6 +120,71 @@ public class Parser implements ParserInterface
         return jsonObject;
     }
 
+
+    /***
+     *
+     * @param tagFile The file where all the tags that are of interest are stored
+     * @param url The url where the tags are to be scraped (Site that is to be scraped)
+     * @return Returns a JSONObject that stores the contents of the tags that reside in the "tagFile"
+     * May need to check that only one file type (txt, html, etc.) is used
+     */
+    public JSONObject parseMultipleTags(String tagFile, String url)
+    {
+        JSONObject jsonObject = new JSONObject();
+        ParserReader parserReader = new ParserReader(); /*Will return array list, each element is one file line*/
+
+        /*Internal class that runs as a thread to read contents of file and parse tags*/
+        class MultiTagScrapingTask implements Runnable
+        {
+            @Override
+            public void run()
+            {
+                ArrayList<String> tags;
+                try
+                {
+                    tags = parserReader.readParsedFile(tagFile);
+
+                    if(tags.isEmpty())
+                    {
+                        throw new RuntimeException("Error: The file \"" + tagFile + "\" contains no tags");
+                    }
+
+                    for(String tag : tags)
+                    {
+                        Document document = Jsoup.connect(url).get();
+                        Elements elements = document.select(tag);
+
+                        if(elements.isEmpty())
+                        {
+                            continue; /*Move to the next loop iteration*/
+                        }
+
+                        for(Element element : elements)
+                        {
+                            jsonObject.append(tag, element.text());
+                        }
+                    }
+                }
+                catch (IOException | JSONException exception)
+                {
+                    exception.printStackTrace();
+                }
+            }
+        }
+        Thread thread = new Thread(new MultiTagScrapingTask());
+        thread.start();
+
+        try
+        {
+            thread.join();
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+
+        return jsonObject;
+    }
 
     /***
      * This method standardises the file names where parsed data is stored
