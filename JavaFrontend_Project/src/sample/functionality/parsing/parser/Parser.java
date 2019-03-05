@@ -16,6 +16,33 @@ public class Parser implements ParserInterface
 {
     public Parser(){}
 
+
+    /**
+     * This method is used to add children of the {@code jsonObject}
+     * @param tagElement
+     * @throws JSONException
+     */
+    private Object addNestedTags(Element tagElement) throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        Elements children = tagElement.children();
+
+        for(Element child : children)
+        {
+            jsonObject.put(child.nodeName(), addNestedTags(child));
+
+            if(child.children().isEmpty())
+            {
+                return child.text();
+            }
+
+        }
+
+        System.out.println("Obj is: " + jsonObject.toString());
+        return jsonObject;
+    }
+
+
+
     /***
      * This function will the entire page, need a way to check if method fails
      * @param url The page we want to parse
@@ -122,7 +149,7 @@ public class Parser implements ParserInterface
 
 
     /***
-     *
+     * This method reads a file containing specific tags, it then parses the tags and returns a JSON object
      * @param tagFile The file where all the tags that are of interest are stored
      * @param url The url where the tags are to be scraped (Site that is to be scraped)
      * @return Returns a JSONObject that stores the contents of the tags that reside in the "tagFile"
@@ -161,7 +188,13 @@ public class Parser implements ParserInterface
 
                         for(Element element : elements)
                         {
-                            jsonObject.append(tag, element.text());
+//                            System.out.println("Children of " + tag + " are: " + element.children().outerHtml());
+
+//                            for(Element element1 : element.getAllElements())
+//                            {
+//                                System.out.println("Children of are: " + element1.nodeName());
+//                            }
+                            jsonObject.append(tag, addNestedTags(element));
                         }
                     }
                 }
@@ -182,9 +215,10 @@ public class Parser implements ParserInterface
         {
             e.printStackTrace();
         }
-
+        
         return jsonObject;
     }
+
 
     /***
      * This method standardises the file names where parsed data is stored
