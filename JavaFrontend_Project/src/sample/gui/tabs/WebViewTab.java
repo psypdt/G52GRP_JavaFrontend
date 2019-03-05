@@ -5,10 +5,15 @@ import javafx.scene.control.Tab;
 import javafx.scene.web.WebView;
 
 /*Note: There is currently no means of returning to the previous instant of a page (no back button)*/
+
 public class WebViewTab extends Tab implements iBrowserTab
 {
     private WebView webpage;
 
+    /**
+     * To load the tab in web
+     * @param url
+     */
     public WebViewTab(String url)
     {
         super();

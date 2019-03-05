@@ -36,9 +36,11 @@ public class GuiHandler implements iGuiHandler {
     }
 
     @Override
+
     /**
-     *  Will open a new tap when it was activated
-     *  */
+     * Will open a new tap when it was activated
+     * @param id
+     */
     public void openTab(String id) {
         iTaskTab task = new TaskTab(id);
         tabPane.getTabs().add((Tab)task);

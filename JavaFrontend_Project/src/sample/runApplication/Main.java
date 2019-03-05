@@ -24,21 +24,28 @@ public class Main extends Application
 
     /**
      * This function allows us to get the main stage from anywhere by calling Main.getStage()
-     * */
+     * @return
+     */
     public static Stage getStage()
     {
         return mainStage;
     }
 
+    /**
+     * What the screen going to be look like at the begining
+     * @param primaryStage
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception
     {
         self = this;
         mainStage = primaryStage;
 
-        /** set a minimum window size of 300 x 200
-        * The guiHandler will makes the the window opening in a fixed size every time when it was opened
-        * */
+        /**
+         * set a minimum window size of 300 x 200
+         * The guiHandler will makes the the window opening in a fixed size every time when it was opened
+         */
         mainStage.setMinWidth(300);
         mainStage.setMinHeight(200);
 
@@ -47,6 +54,7 @@ public class Main extends Application
 
         guiHandler = new GuiHandler(primaryStage);
     }
+
 
     public static iGuiHandler getApp() { return self.guiHandler; }
 
@@ -73,6 +81,7 @@ public class Main extends Application
 //        tasksPage = FXMLLoader.load(getClass().getResource("TaskView.fxml"));
 //    }
 
+
     public static TabPane getTasksPage() { return tasksPage; }
 
 
@@ -91,7 +100,10 @@ public class Main extends Application
 //        main_pane = p;
 //    }
 
-
+    /**
+     * To launch the pogram
+     * @param args
+     */
     public static void main(String[] args)
     {
         launch(args);
