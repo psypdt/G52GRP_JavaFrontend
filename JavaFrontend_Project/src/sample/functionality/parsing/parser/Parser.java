@@ -28,16 +28,22 @@ public class Parser implements ParserInterface
 
         for(Element child : children)
         {
-            jsonObject.put(child.nodeName(), addNestedTags(child));
-
-            if(child.children().isEmpty())
+            if(child.childNodeSize() < 0)
             {
                 return child.text();
             }
 
+            if (child.hasText())
+            {
+                System.out.println("child exists for " + child.nodeName());
+                //System.out.println("Text is: " + child.attributes().get("href"));
+            }
+
+            jsonObject.put(child.nodeName(), addNestedTags(child));
         }
 
-        System.out.println("Obj is: " + jsonObject.toString());
+//        System.out.println("Obj is: " + jsonObject.toString(2));
+        System.out.println(jsonObject.toString(4));
         return jsonObject;
     }
 
@@ -194,7 +200,7 @@ public class Parser implements ParserInterface
 //                            {
 //                                System.out.println("Children of are: " + element1.nodeName());
 //                            }
-                            jsonObject.append(tag, addNestedTags(element));
+                            jsonObject.put(tag, addNestedTags(element));
                         }
                     }
                 }
@@ -215,7 +221,12 @@ public class Parser implements ParserInterface
         {
             e.printStackTrace();
         }
-        
+
+        try {
+            System.out.println("Content is: " + jsonObject.toString(3));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         return jsonObject;
     }
 
