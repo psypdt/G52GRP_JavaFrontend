@@ -7,7 +7,8 @@ import java.sql.Statement;
 public class Module {    
     // Create static global variables   
     static Connection conn;   
-    static Statement st;    
+    static Statement st;
+    
     
     /*public static void main(String[] args) {    
         insert();   //insert data    

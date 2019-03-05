@@ -8,7 +8,8 @@ import java.sql.Statement;
 
 public class Grades {
 	static Connection conn;    
-    static Statement st;    
+    static Statement st; 
+
     
 public static Connection getConnection() {    
         Connection con = null;  //Create a Connection object to connect to the database 
@@ -24,15 +25,15 @@ public static Connection getConnection() {
         return con; //Returns the established database connection
     }  
 
-	public void insert() {    
+	public void insert(String name) {    
     
     conn = getConnection(); // The first step is to get a connection, that is, to the database  
 
     try {      
         String sql1 = "INSERT INTO grades(StudentID,Studentname,ModuleID,Modulename,Grade,Credit)" 
-        		+ " VALUES ('4315722','Yisong Wang','G52OSC','Opreating system','100','10')";
+        		+ " VALUES ('4315722','"+name+"','G52OSC','Opreating system','100','10')";
         String sql2 = "INSERT INTO grades(StudentID,Studentname,ModuleID,Modulename,Grade,Credit)" 
-        		+ " VALUES ('4315722','Yisong Wang','G52ACE','Algorithm efficiency','95','20')";// SQL statement to insert data
+        		+ " VALUES ('4315722','"+name+"','G52ACE','Algorithm efficiency','95','20')";// SQL statement to insert data
         st = (Statement) conn.createStatement();    // Create a Statement object for executing static SQL statements   
             
         int count1 = st.executeUpdate(sql1);  // SQL statement that performs the insert operation and returns the number of inserted data    

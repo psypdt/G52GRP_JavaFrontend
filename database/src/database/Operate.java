@@ -5,12 +5,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;    
 import java.sql.Statement; 
 public class Operate {
-	static Connection conn;    
-	static Statement st; 
+	static String name = "Yisong Wang";
 	static Module module = new Module();
 	static User user = new User();
 	static Grades grades = new Grades();
-	
+	static CreateTable table = new CreateTable();
 	public static void main(String[] args) {
 		module.insert();   //insert data    
         module.update();   //update data    
@@ -22,10 +21,12 @@ public class Operate {
         user.delete();
         user.query();*/
         
-        grades.insert();
+        grades.insert(name);
         grades.update();
         grades.delete();
         grades.query();
+        
+        table.createtable();
 	}
 
 }
