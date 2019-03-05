@@ -1,6 +1,6 @@
 package sample.gui.tabs;
 
-public interface Tab
+public interface iTab
 {
 
 }

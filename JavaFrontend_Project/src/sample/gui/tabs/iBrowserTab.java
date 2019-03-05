@@ -1,6 +1,6 @@
 package sample.gui.tabs;
 
-public interface BrowserTab extends Tab {
+public interface iBrowserTab extends iTab {
 
     void disableFunctionality();
 }

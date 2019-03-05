@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.text.Font?>
 
-<TabPane prefHeight="468.0" prefWidth="411.0" style="-fx-background-color: lightsteelblue;" tabClosingPolicy="ALL_TABS" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<TabPane fx:id="tab_pane" prefHeight="468.0" prefWidth="411.0" style="-fx-background-color: lightsteelblue;" tabClosingPolicy="ALL_TABS" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.runApplication.ToolBarController">
   <tabs>
     <Tab closable="false" style="-fx-background-color: lightsteelblue; -fx-font-size: 16; -fx-text-fill: white;" text="Home">
          <content>
@@ -20,7 +16,7 @@
                <content>
                   <TilePane alignment="CENTER" hgap="25.0" vgap="25.0">
                      <children>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: cornflowerblue;" text="Blue Castle (Grades)" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                        <Button fx:id="blue_castle_button" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: cornflowerblue;" text="Blue Castle (Grades)" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                            <font>
                               <Font size="15.0" />
                            </font></Button>
@@ -32,7 +28,7 @@
                            <font>
                               <Font size="15.0" />
                            </font></Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: cornflowerblue;" text="Moodle (courses)" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                        <Button fx:id="open_moodle_button" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: cornflowerblue;" text="Moodle (courses)" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                            <font>
                               <Font size="15.0" />
                            </font></Button>
