@@ -25,7 +25,7 @@ public class ParserTest
 
     /*Check that the object exists*/
     @Test
-    public void parse_existing_column_div_tag() throws InterruptedException
+    public void parse_existing_column_div_tag()
     {
         Parser parser = new Parser();
         JSONObject object = parser.parseSpecificTag("div.col-md-12", "https://moodle.nottingham.ac.uk/login/index.php");
@@ -98,7 +98,7 @@ public class ParserTest
         JSONObject object = parser.parseSpecificTag(tags, "https://moodle.nottingham.ac.uk/login/index.php");
         try
         {
-            assertEquals("{\"title,h1\": [\n" +
+            assertEquals("{\"title, h1\": [\n" +
                     "    \"University of Nottingham Moodle: Log in to the site\",\n" +
                     "    \"Log in to moodle...\"\n" +
                     "]}", object.toString(4));
@@ -145,7 +145,7 @@ public class ParserTest
 
 
     @Test
-    public void test_h2_h4()
+    public void test_h2_h4_tags()
     {
         String tagFile = "./test_resources/H2H4.txt";
         String url = "https://moodle.nottingham.ac.uk/login/index.php";
@@ -158,7 +158,7 @@ public class ParserTest
     }
 
     @Test
-    public void test_h1_h2_h4()
+    public void test_h1_h2_h4_tags()
     {
         String tagFile = "./test_resources/H1H2H4.txt";
         String url = "https://moodle.nottingham.ac.uk/login/index.php";
@@ -170,6 +170,20 @@ public class ParserTest
                         "\"h4\":[\"Site Information\",\"Get in touch\"]}", jsonObject.toString());
     }
 
+
+    /*Test if we are able to pull out nested tags and label them as "children" of the parent tag*/
+    @Test
+    public void test_nested_table_tags()
+    {
+        String tagFile = "./test_resources/Table.txt";
+        String url = "https://moodle.nottingham.ac.uk/login/index.php";
+        Parser parser = new Parser();
+
+        JSONObject jsonObject = parser.parseMultipleTags(tagFile, url);
+
+        System.out.println(jsonObject.toString());
+        assertEquals("", jsonObject.toString());
+    }
 
 
 
