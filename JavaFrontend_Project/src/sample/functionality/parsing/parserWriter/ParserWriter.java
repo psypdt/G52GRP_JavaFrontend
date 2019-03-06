@@ -3,10 +3,12 @@ package sample.functionality.parsing.parserWriter;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.net.URL;
 
 
 public class ParserWriter implements ParserWriterInterface
@@ -26,13 +28,19 @@ public class ParserWriter implements ParserWriterInterface
         String fileName = parseDoc.title().replace(":", "-")+".html";
         String fullPath = "./resource_parsed_files/"+fileName;
 
+        /*Create a new statement that will allow us to save images if the specific condition is met*/
+//        URL url = new URL("https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png");
+//        BufferedImage img = ImageIO.read(url);
+//        File file = new File("./resource_parsed_files/thing.png");
+//        ImageIO.write(img, "png", file);
+
         if(new File(fullPath).exists())
         {
             throw new IOException("File \"" + fileName + "\" at location \"" +fullPath + "\" already exists");
         }
 
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fullPath, false));
-        bufferedWriter.write(String.valueOf(parseDoc));
+//        bufferedWriter.write(String.valueOf(parseDoc));
 
         for (Element tag : tagContent)
         {

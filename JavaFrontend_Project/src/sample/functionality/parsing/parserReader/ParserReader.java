@@ -3,10 +3,11 @@ package sample.functionality.parsing.parserReader;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class ParserReader implements ParserReaderInterface
 {
-    ParserReader(){}
+    public ParserReader(){}
 
     /***
      * This function will read the file containing the parsed site data.
@@ -15,17 +16,19 @@ public class ParserReader implements ParserReaderInterface
      * @throws IOException Thrown due to BufferReader(), thrown if file not found
      */
     @Override
-    public void readParsedFile(String filePath) throws IOException
+    public ArrayList<String> readParsedFile(String filePath) throws IOException
     {
-        String fileContent = "";
-        String tempstr;
+        ArrayList <String> fileContents = new ArrayList<>();
+        String fileLine; /*A single line in the file*/
         BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
 
         /*Reads the file into a string */
-        while((tempstr = bufferedReader.readLine()) != null)
+        while((fileLine = bufferedReader.readLine()) != null)
         {
-            fileContent.concat(tempstr);
+            fileContents.add(fileLine);
         }
         bufferedReader.close();
+
+        return fileContents;
     }
 }
