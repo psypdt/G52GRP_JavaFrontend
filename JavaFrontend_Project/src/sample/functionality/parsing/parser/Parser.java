@@ -17,38 +17,6 @@ public class Parser implements ParserInterface
     public Parser(){}
 
 
-    /**
-     * This method is used to add children of the {@code jsonObject}
-     * @param tagElement
-     * @throws JSONException
-     */
-    private Object addNestedTags(Element tagElement) throws JSONException {
-        JSONObject jsonObject = new JSONObject();
-        Elements children = tagElement.children();
-
-        for(Element child : children)
-        {
-            if(child.childNodeSize() < 0)
-            {
-                return child.text();
-            }
-
-            if (child.hasText())
-            {
-                System.out.println("child exists for " + child.nodeName());
-                //System.out.println("Text is: " + child.attributes().get("href"));
-            }
-
-            jsonObject.put(child.nodeName(), addNestedTags(child));
-        }
-
-//        System.out.println("Obj is: " + jsonObject.toString(2));
-        System.out.println(jsonObject.toString(4));
-        return jsonObject;
-    }
-
-
-
     /***
      * This function will the entire page, need a way to check if method fails
      * @param url The page we want to parse
@@ -84,6 +52,7 @@ public class Parser implements ParserInterface
      * @param url The website that we want to parse from
      * @throws IOException This is a side effect of the Jsoup.connect() method
      * @return Returns a JSONObject that will contain the parsed information
+     * @deprecated This method is not safe to use, the {@code 0arseMultipleTags()} method should be used instead
      */
     @Override
     public JSONObject parseSpecificTag(String tag, String url)
@@ -160,57 +129,18 @@ public class Parser implements ParserInterface
      * @param url The url where the tags are to be scraped (Site that is to be scraped)
      * @return Returns a JSONObject that stores the contents of the tags that reside in the "tagFile"
      * May need to check that only one file type (txt, html, etc.) is used
+     * @throws IOException If the {@code readParsedFile()} method fails
      */
-    public JSONObject parseMultipleTags(String tagFile, String url)
+    public ArrayList<String> parseMultipleTags(String tagFile, String url) throws IOException
     {
-        JSONObject jsonObject = new JSONObject();
-        ParserReader parserReader = new ParserReader(); /*Will return array list, each element is one file line*/
+        ArrayList<String> jsonContent;
+        ArrayList<String> tagList;
+        ParserReader parserReader = new ParserReader();
 
-        /*Internal class that runs as a thread to read contents of file and parse tags*/
-        class MultiTagScrapingTask implements Runnable
-        {
-            @Override
-            public void run()
-            {
-                ArrayList<String> tags;
-                try
-                {
-                    tags = parserReader.readParsedFile(tagFile);
+        tagList = parserReader.readParsedFile(tagFile);
+        MultiTagScraperThread scraperThread = new MultiTagScraperThread(tagList, url);
 
-                    if(tags.isEmpty())
-                    {
-                        throw new RuntimeException("Error: The file \"" + tagFile + "\" contains no tags");
-                    }
-
-                    for(String tag : tags)
-                    {
-                        Document document = Jsoup.connect(url).get();
-                        Elements elements = document.select(tag);
-
-                        if(elements.isEmpty())
-                        {
-                            continue; /*Move to the next loop iteration*/
-                        }
-
-                        for(Element element : elements)
-                        {
-//                            System.out.println("Children of " + tag + " are: " + element.children().outerHtml());
-
-//                            for(Element element1 : element.getAllElements())
-//                            {
-//                                System.out.println("Children of are: " + element1.nodeName());
-//                            }
-                            jsonObject.put(tag, addNestedTags(element));
-                        }
-                    }
-                }
-                catch (IOException | JSONException exception)
-                {
-                    exception.printStackTrace();
-                }
-            }
-        }
-        Thread thread = new Thread(new MultiTagScrapingTask());
+        Thread thread = new Thread(scraperThread);
         thread.start();
 
         try
@@ -222,12 +152,9 @@ public class Parser implements ParserInterface
             e.printStackTrace();
         }
 
-        try {
-            System.out.println("Content is: " + jsonObject.toString(3));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return jsonObject;
+        jsonContent = scraperThread.getJsonContent();
+
+        return jsonContent;
     }
 
 
@@ -261,4 +188,77 @@ public class Parser implements ParserInterface
     }
 
 
+}
+
+
+
+
+
+/*Class that runs as a thread to read contents of file and parse tags*/
+class MultiTagScraperThread implements Runnable
+{
+    private String siteUrl;
+    private ArrayList<String> fileTags;
+    private ArrayList<String> jsonContent = new ArrayList<>();
+
+
+    /**
+     * The constructor for the thread that will parse the HTML tags
+     * @param tags The list of tags we extracted form the TagFile
+     * @param url The website that will be scraped
+     */
+    public MultiTagScraperThread(ArrayList<String> tags, String url)
+    {
+        this.fileTags = tags;
+        this.siteUrl = url;
+    }
+
+
+    @Override
+    public void run()
+    {
+        HTMLtoJSON htmLtoJSON = new HTMLtoJSON(siteUrl);
+
+        /*Move through array list with file tags & place them in the jsonContent array list*/
+        for(String tag : fileTags)
+        {
+            jsonContent.add(htmLtoJSON.getJSON(tag));
+        }
+    }
+
+
+    /**
+     * Getter for the {@code jsonContent} object
+     * @return  ArrayList containing all parsed tags
+     */
+    public ArrayList<String> getJsonContent()
+    {
+        return jsonContent;
+    }
+
+
+    /**
+     * This method is used when we want to clear the {@code jsonContent} list so that we can reuse it later
+     */
+    public void resetJsonContent()
+    {
+        jsonContent.clear();
+    }
+
+
+    /**
+     * This method resets the url to a new link, or "" if no input is given
+     * @param newUrl The new site that we want to scrape
+     */
+    public void setSiteUrlUrl(String newUrl)
+    {
+        if(newUrl.isEmpty())
+        {
+            this.siteUrl = "";
+        }
+        else
+        {
+            this.siteUrl = newUrl;
+        }
+    }
 }

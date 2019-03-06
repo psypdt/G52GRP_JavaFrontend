@@ -4,6 +4,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
 import java.io.IOException;
+import java.util.ArrayList;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
@@ -126,6 +128,8 @@ public class ParserTest
         catch (RuntimeException exception)
         {
             assertThat(exception.getMessage(), is("Error: The file \"" + emptyFile + "\" contains no tags"));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -137,10 +141,15 @@ public class ParserTest
         String url = "https://moodle.nottingham.ac.uk/login/index.php";
         Parser parser = new Parser();
 
-        JSONObject jsonObject = parser.parseMultipleTags(tagFile, url);
+        ArrayList<String> jsonObject = null;
+        try {
+            jsonObject = parser.parseMultipleTags(tagFile, url);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         assertEquals("{\"h1\":[\"Log in to moodle...\"]," +
-                        "\"title\":[\"University of Nottingham Moodle: Log in to the site\"]}", jsonObject.toString());
+                        "\"title\":[\"University of Nottingham Moodle: Log in to the site\"]}", jsonObject);
     }
 
 
@@ -151,11 +160,17 @@ public class ParserTest
         String url = "https://moodle.nottingham.ac.uk/login/index.php";
         Parser parser = new Parser();
 
-        JSONObject jsonObject = parser.parseMultipleTags(tagFile, url);
+        ArrayList<String> jsonObject = null;
+        try {
+            jsonObject = parser.parseMultipleTags(tagFile, url);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         assertEquals("{\"h2\":[\"Log in\"]," + "\"h4\":[\"Site Information\",\"Get in touch\"]}",
-                jsonObject.toString());
+                jsonObject);
     }
+
 
     @Test
     public void test_h1_h2_h4_tags()
@@ -164,10 +179,15 @@ public class ParserTest
         String url = "https://moodle.nottingham.ac.uk/login/index.php";
         Parser parser = new Parser();
 
-        JSONObject jsonObject = parser.parseMultipleTags(tagFile, url);
+        ArrayList<String> jsonObject = null;
+        try {
+            jsonObject = parser.parseMultipleTags(tagFile, url);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         assertEquals("{\"h1\":[\"Log in to moodle...\"]," + "\"h2\":[\"Log in\"]," +
-                        "\"h4\":[\"Site Information\",\"Get in touch\"]}", jsonObject.toString());
+                        "\"h4\":[\"Site Information\",\"Get in touch\"]}", jsonObject);
     }
 
 
@@ -179,10 +199,18 @@ public class ParserTest
         String url = "https://moodle.nottingham.ac.uk/login/index.php";
         Parser parser = new Parser();
 
-        JSONObject jsonObject = parser.parseMultipleTags(tagFile, url);
+        ArrayList<String> jsonObject = null;
+        try {
+            jsonObject = parser.parseMultipleTags(tagFile, url);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        System.out.println(jsonObject.toString());
-        assertEquals("", jsonObject.toString());
+        assertEquals("[[{\"type\":\"table\",\"children\":[{\"type\":\"tbody\",\"children\"" +
+                ":[{\"type\":\"tr\",\"children\":[{\"type\":\"td\",\"children\"" +
+                ":[{\"type\":\"div\",\"children\":[{\"type\":\"strong\",\"children\"" + ":[{\"type\":\"span\"," +
+                "\"text\":\"Your current browser is incompatible with this new version of Moodle.\"," +
+                "\"children\":[{\"type\":\"a\",\"text\":\"More Information\"}]}]}]}]}]}]}]}]]", jsonObject.toString());
     }
 
 
