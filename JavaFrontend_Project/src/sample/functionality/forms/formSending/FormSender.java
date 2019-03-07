@@ -8,6 +8,8 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.FormElement;
+import sample.functionality.parsing.parser.Parser;
+
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
@@ -15,13 +17,22 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 
+
+/**
+ * NOTE: There is an issue with our threads, they are not synced, so we need to resolve this (has to do with race conditions)
+ * ALSO: Note that this is probably because the webengine can't keep up with the other threads, OR because the nested threads
+ * in {@code Parser()} are not synced
+ */
 
 public class FormSender extends Tab implements FormSenderInterface
 {
     private String url;
-    private WebView webView; /*Where the webpage will be displayed*/
+    private WebView webView; /*Where the website will be displayed*/
     private int loginStates = 2; /*2 = page loaded & sent login form to server, 1 = got the final page*/
+    public Parser parser = new Parser();
+    private ArrayList<String> list = new ArrayList<>();
 
     /***
      * Constructor for the FormSender Class, Creates a new WebView (and WebEngine)
@@ -43,8 +54,9 @@ public class FormSender extends Tab implements FormSenderInterface
                 System.out.println(newValue);
 
                 /*These method will keep being repeated in the background everytime the webengine is asked to load something new*/
-                if(loginStates == 2)
+                if(loginStates == 2) /*All of this needs to be cleaned, it's messy and hard to understand*/
                 {
+                    /*Why is this here? Need to refactor, make code clear.*/
                     try
                     {
                         login("psypdt", "");
@@ -57,13 +69,21 @@ public class FormSender extends Tab implements FormSenderInterface
 
                 if(loginStates == 1)
                 {
-                    printHtmlToConsole(webView.getEngine());
+//                    printHtmlToConsole(webView.getEngine());
+
+                    try {
+                        list = parser.parseMultipleTags("./resource_parsed_files/loginFile.txt", url);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("LIST IS: " + list.toString());
                 }
             }
         });
         System.out.println("Outside");
         this.url = dest;
-        webView.getEngine().load(url); /*After the printHtmlToConsole() runs the first time, this can be executed*/
+        /*rm to test if login works, it appears that this has partially contributed to the issue */
+//        webView.getEngine().load(url); /*After the printHtmlToConsole() runs the first time, this can be executed*/
     }
 
 
@@ -74,6 +94,7 @@ public class FormSender extends Tab implements FormSenderInterface
     public void printHtmlToConsole(WebEngine webEngine)
     {
         org.w3c.dom.Document doc = webEngine.getDocument();
+
 
         /*This prints everything to the command line*/
         try {
@@ -89,6 +110,7 @@ public class FormSender extends Tab implements FormSenderInterface
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+
     }
 
 
@@ -138,12 +160,14 @@ public class FormSender extends Tab implements FormSenderInterface
 
         System.out.println("Url after login was: " + loginActionResponse.url());
         this.url = loginActionResponse.url().toString();
-
+        list = parser.parseMultipleTags("./resource_parsed_files/loginFile.txt", url);
+        System.out.println("LIST IS: " + list.toString());
+        /*
         Connection.Response check = Jsoup.connect(url)
                 .method(Connection.Method.GET)
                 .userAgent(USER_AGENT)
                 .execute();
-
+           */
         webView.getEngine().load(url);
         loginStates--;
     }
