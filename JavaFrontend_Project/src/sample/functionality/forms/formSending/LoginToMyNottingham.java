@@ -10,13 +10,21 @@ import org.w3c.dom.html.HTMLCollection;
 import org.w3c.dom.html.HTMLFormElement;
 import org.w3c.dom.html.HTMLInputElement;
 
-
-class FuckingLetMeIn extends Task {
+/**
+ * This class is used to automate the login process for MyNottingham because it has a more complex login process
+ */
+class AutomateMyNottinghamLogin extends Task {
     private WebEngine engine;
     private String username;
     private String password;
 
-    FuckingLetMeIn (WebEngine engine, String username, String password) {
+    /**
+     * This is the constructor for the {@code AutomateMyNottinghamLogin} class
+     * @param engine The {@code WebEngine} that is being used to display the sites
+     * @param username The Username, should be changed asap (shouldn't be plane text)
+     * @param password The Password, should be changed asap (shouldn't be plane text)
+     */
+    AutomateMyNottinghamLogin(WebEngine engine, String username, String password) {
         this.engine = engine;
         this.username = username;
         this.password = password;
@@ -67,7 +75,7 @@ public class LoginToMyNottingham {
                 System.out.printf("current URL = %s\n", webEngine.getLocation());
 
                 if (webEngine.getLocation().equals("https://mynottingham.nottingham.ac.uk/psp/psprd/EMPLOYEE/EMPL/h/?tab=PAPP_GUEST")) {
-                    FuckingLetMeIn f = new FuckingLetMeIn(webEngine, "", "");
+                    AutomateMyNottinghamLogin f = new AutomateMyNottinghamLogin(webEngine, "", "");
                     new Thread(f).start();
                 }
             }
