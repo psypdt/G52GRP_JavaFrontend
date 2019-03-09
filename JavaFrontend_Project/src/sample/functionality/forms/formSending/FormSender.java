@@ -6,6 +6,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.FormElement;
 import sample.functionality.parsing.parser.Parser;
@@ -25,7 +26,6 @@ import java.util.ArrayList;
  * ALSO: Note that this is probably because the webengine can't keep up with the other threads, OR because the nested threads
  * in {@code Parser()} are not synced
  */
-
 public class FormSender extends Tab implements FormSenderInterface
 {
     private String url;
@@ -33,6 +33,7 @@ public class FormSender extends Tab implements FormSenderInterface
     private int loginStates = 2; /*2 = page loaded & sent login form to server, 1 = got the final page*/
     public Parser parser = new Parser();
     private ArrayList<String> list = new ArrayList<>();
+
 
     /***
      * Constructor for the FormSender Class, Creates a new WebView (and WebEngine)
@@ -42,6 +43,7 @@ public class FormSender extends Tab implements FormSenderInterface
     public FormSender(String dest)
     {
         super();
+        this.url = dest;
         webView = new WebView();
         webView.getEngine().setJavaScriptEnabled(true);
 
@@ -53,7 +55,7 @@ public class FormSender extends Tab implements FormSenderInterface
             {
                 System.out.println(newValue);
 
-                /*These method will keep being repeated in the background everytime the webengine is asked to load something new*/
+                /*These method will keep being repeated in the background every time the webengine is asked to load something new*/
                 if(loginStates == 2) /*All of this needs to be cleaned, it's messy and hard to understand*/
                 {
                     /*Why is this here? Need to refactor, make code clear.*/
@@ -81,9 +83,12 @@ public class FormSender extends Tab implements FormSenderInterface
             }
         });
         System.out.println("Outside");
-        this.url = dest;
-        /*rm to test if login works, it appears that this has partially contributed to the issue */
-//        webView.getEngine().load(url); /*After the printHtmlToConsole() runs the first time, this can be executed*/
+
+        /*rm to test if login works, it appears that this has partially contributed to the issue,
+        this seems to be a neccesity to display the mynottingham site
+        Note that adding this back in seems to allow consistant logging in to the Moodle site. Not sure why this is.
+        */
+        webView.getEngine().load(url); /*After the printHtmlToConsole() runs the first time, this can be executed*/
     }
 
 
@@ -120,13 +125,15 @@ public class FormSender extends Tab implements FormSenderInterface
      * @param userName The users userName from the fxml form
      * @param password The users password from the fxml form
      * @throws IOException the {@code parse()} function can throw an {@code IOException}
+     * NOTE: We may want to find a way to read in the parameter names as well for {@code checkElement()}
+     * and {@code loginFormResponse.parse().select(SomeVar).first()}
      */
     @Override
     public void login(String userName, String password) throws IOException
     {
         /*Constants used in this example*/
         final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.109 Safari/537.36";
-        final String LOGIN_FORM_URL = "https://moodle.nottingham.ac.uk/login/index.php";
+        final String LOGIN_FORM_URL = url;
         final String USERNAME = userName;
         final String PASSWORD = password; /*Need a way to save the password safely, maybe en/decryption?*/
 
@@ -136,8 +143,8 @@ public class FormSender extends Tab implements FormSenderInterface
                 .userAgent(USER_AGENT)
                 .execute();
 
-
-        /*Find the login from via its tag*/
+        printHtmlToConsole(webView.getEngine());
+        /*Find the login form via its tag*/
         FormElement loginForm = (FormElement)loginFormResponse.parse().select("#login").first();
         checkElement("Login Form", loginForm);
 
@@ -176,7 +183,7 @@ public class FormSender extends Tab implements FormSenderInterface
     /***
      * This method checks if the element we want to use is actually available in the source of the page
      * @param name The name of the tag that we want to check, Ex. {@code "Login Form"}
-     * @param elem The actual {@code Jsoup.Element} that we want to pass
+     * @param elem The actual {@code Jsoup.Element} that we want to pass and check if it exists
      * @throws RuntimeException Throws a {@code RuntimeException} if the element is not found
      */
     @Override
