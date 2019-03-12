@@ -1,9 +1,12 @@
 package sample.functionality.forms.formSending;
 
+import javafx.application.Application;
 import javafx.concurrent.Task;
 import javafx.concurrent.Worker;
+import javafx.scene.Scene;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.Stage;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.html.HTMLCollection;
@@ -56,14 +59,12 @@ class AutomateMyNottinghamLogin extends Task {
     }
 }
 
-
-
 /*This class is no longer needed, it has been moved into FormSender*/
-public class LoginToMyNottingham {
+public class LoginToMyNottingham extends Application {
 
     private WebEngine webEngine;
 
-    public void start() {
+    public void start(Stage primaryStage) {
         WebView root = new WebView();
         webEngine = root.getEngine();
 
@@ -85,11 +86,13 @@ public class LoginToMyNottingham {
         });
 
         webEngine.load("https://mynottingham.nottingham.ac.uk");
+
+        primaryStage.setScene(new Scene(root, 640, 480));
+        primaryStage.show();
     }
 
 
     public static void main(String[] args) {
-        LoginToMyNottingham login = new LoginToMyNottingham();
-        login.start();
+        launch(args);
     }
 }
