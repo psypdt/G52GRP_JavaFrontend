@@ -97,6 +97,7 @@ class AutomateMyNottinghamLogin extends Task {
 public class LoginToMyNottingham extends Application {
 
     private WebEngine webEngine;
+    private boolean attemptedLogin = false;
 
     public void start(Stage primaryStage) {
         WebView root = new WebView();
@@ -112,9 +113,11 @@ public class LoginToMyNottingham extends Application {
                 //DEBUGGING : print the current URL
                 System.out.printf("current URL = %s\n", webEngine.getLocation());
 
-                if (webEngine.getLocation().equals("https://mynottingham.nottingham.ac.uk/psp/psprd/EMPLOYEE/EMPL/h/?tab=PAPP_GUEST")) {
-                    dynamicFormLogin f = new dynamicFormLogin(webEngine, "", "");
+                if (!attemptedLogin) {
+                    AutomateMyNottinghamLogin f = new AutomateMyNottinghamLogin(webEngine, "", "");
                     new Thread(f).start();
+
+                    attemptedLogin = true;
                 }
             }
         });
