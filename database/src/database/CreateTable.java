@@ -21,10 +21,10 @@ public class CreateTable {
         }    
         return con; //Returns the established database connection
     }  
-    public void createtable() {
+    public void createtable(String tablename) {
     	conn = getConnection();
     	try {
-    		String sql = "create table new(UserId int(10),Username varchar(30));";
+    		String sql = "create table "+tablename+"(UserId int(10),Username varchar(30));";
     		st = (Statement) conn.createStatement(); 
     		int count = st.executeUpdate(sql);
     		System.out.println("create " + count + "new table");

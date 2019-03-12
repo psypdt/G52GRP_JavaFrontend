@@ -25,31 +25,31 @@ public static Connection getConnection() {
         return con; //Returns the established database connection
     }  
 
-	public void insert(String name) {    
+	public void insert(String studentname,int studentID, String moduleID, String modulename, int grade, int credit   ) {    
     
     conn = getConnection(); // The first step is to get a connection, that is, to the database  
 
     try {      
         String sql1 = "INSERT INTO grades(StudentID,Studentname,ModuleID,Modulename,Grade,Credit)" 
-        		+ " VALUES ('4315722','"+name+"','G52OSC','Opreating system','100','10')";
-        String sql2 = "INSERT INTO grades(StudentID,Studentname,ModuleID,Modulename,Grade,Credit)" 
-        		+ " VALUES ('4315722','"+name+"','G52ACE','Algorithm efficiency','95','20')";// SQL statement to insert data
+        		+ " VALUES ('"+studentID+"','"+studentname+"','"+moduleID+"','"+modulename+"','"+grade+"','"+credit+"')";
+        /*String sql2 = "INSERT INTO grades(StudentID,Studentname,ModuleID,Modulename,Grade,Credit)" 
+        		+ " VALUES ('"+studentID+"','"+studentname+"','G52ACE','Algorithm efficiency','95','20')";// SQL statement to insert data*/
         st = (Statement) conn.createStatement();    // Create a Statement object for executing static SQL statements   
             
         int count1 = st.executeUpdate(sql1);  // SQL statement that performs the insert operation and returns the number of inserted data    
-        int count2 = st.executeUpdate(sql2);
+        /*int count2 = st.executeUpdate(sql2);*/
         System.out.println("insert into grades " + count1 + " data"); //Outputs the processing results of the insert operation   
-        System.out.println("insert into grades " + count2 + " data");
+        /*System.out.println("insert into grades " + count2 + " data");*/
         conn.close();   //Close the database connection   
             
     } catch (SQLException e) {    
         System.out.println("insert fail" + e.getMessage());    
     }    
 }
-	 public void update() {    
+	 public void update(String newmodulename, String moduleID) {    
 	        conn = getConnection(); //Again, get the connection first, that is, connect to the database    
 	        try {    
-	            String sql = "update  grades set Modulename ='Operating system and concurrency' where ModuleID = 'G52OSC'";// SQL statement that updates data   
+	            String sql = "update  grades set Modulename ='"+newmodulename+"' where ModuleID = '"+moduleID+"'";// SQL statement that updates data   
 	                
 	            st = (Statement) conn.createStatement();    //Create a Statement object for executing static SQL statements, st being a local variable  
 	                
@@ -87,11 +87,11 @@ public static Connection getConnection() {
 	            System.out.println("search information fail");    
 	        }    
 	    }  
-	    public void delete() {    
+	    public void delete(String moduleID) {    
 	        
 	        conn = getConnection(); //Again, get the connection first, that is, connect to the database  
 	        try {    
-	            String sql = "delete from grades  where ModuleID = 'G52OSC'";// SQL statement to delete data    
+	            String sql = "delete from grades  where ModuleID = '"+moduleID+"'";// SQL statement to delete data    
 	            st = (Statement) conn.createStatement();    //Create a Statement object for executing static SQL statements, st being a local variable 
 	                
 	            int count = st.executeUpdate(sql);// Execute the SQL delete statement to return the number of deleted data  

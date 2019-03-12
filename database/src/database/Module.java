@@ -31,13 +31,13 @@ public class Module {
         return con; //Returns the established database connection
     }  
     /* inserts a data record and outputs the number of inserted data records*/    
-    public void insert() {    
+    public void insert(String moduleID, String modulename) {    
             
         conn = getConnection(); // The first step is to get a connection, that is, to the database  
     
         try {    
             String sql1 = "INSERT INTO module(ModuleID, Modulename)"    
-                    + " VALUES ('G52OSC','Opreating system')";  // SQL statement to insert data
+                    + " VALUES ('"+moduleID+"','"+modulename+"')";  // SQL statement to insert data
             /*String sql2 = "INSERT INTO grades(StudentID,Studentname,ModuleID,Modulename,Grade,Credit)" 
             		+ " VALUES ('4315722','Yisong Wang','G52OSC','Opreating system','100','10')";*/
             st = (Statement) conn.createStatement();    // Create a Statement object for executing static SQL statements   
@@ -54,10 +54,10 @@ public class Module {
     }    
         
     /* Updates the required records and returns the number of updated records*/    
-    public void update() {    
+    public void update(String newmodulename , String moduleID) {    
         conn = getConnection(); //Again, get the connection first, that is, connect to the database    
         try {    
-            String sql = "update module set Modulename ='language and computation' where ModuleID = 'G52LAC'";// SQL statement that updates data   
+            String sql = "update module set Modulename ='"+newmodulename+"' where ModuleID = '"+moduleID+"'";// SQL statement that updates data   
                 
             st = (Statement) conn.createStatement();    //Create a Statement object for executing static SQL statements, st being a local variable  
                 
@@ -102,11 +102,11 @@ public class Module {
     }    
     
     /* Delete the required records, output*/    
-    public void delete() {    
+    public void delete(String moduleID) {    
     
         conn = getConnection(); //Again, get the connection first, that is, connect to the database  
         try {    
-            String sql = "delete from module  where ModuleID = 'G52ACE'";// SQL statement to delete data    
+            String sql = "delete from module  where ModuleID = '"+moduleID+"'";// SQL statement to delete data    
             st = (Statement) conn.createStatement();    //Create a Statement object for executing static SQL statements, st being a local variable 
                 
             int count = st.executeUpdate(sql);// Execute the SQL delete statement to return the number of deleted data  
