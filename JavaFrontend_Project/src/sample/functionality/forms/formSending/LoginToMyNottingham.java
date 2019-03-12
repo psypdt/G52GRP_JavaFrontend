@@ -11,7 +11,7 @@ import org.w3c.dom.html.HTMLFormElement;
 import org.w3c.dom.html.HTMLInputElement;
 
 /**
- * This class is used to automate the login process for MyNottingham because it has a more complex login process
+ * This class is used to automate the staticFormLogin process for MyNottingham because it has a more complex staticFormLogin process
  */
 class AutomateMyNottinghamLogin extends Task {
     private WebEngine engine;
@@ -56,6 +56,9 @@ class AutomateMyNottinghamLogin extends Task {
     }
 }
 
+
+
+/*This class is no longer needed, it has been moved into FormSender*/
 public class LoginToMyNottingham {
 
     private WebEngine webEngine;
@@ -75,7 +78,7 @@ public class LoginToMyNottingham {
                 System.out.printf("current URL = %s\n", webEngine.getLocation());
 
                 if (webEngine.getLocation().equals("https://mynottingham.nottingham.ac.uk/psp/psprd/EMPLOYEE/EMPL/h/?tab=PAPP_GUEST")) {
-                    AutomateMyNottinghamLogin f = new AutomateMyNottinghamLogin(webEngine, "", "");
+                    dynamicFormLogin f = new dynamicFormLogin(webEngine, "", "");
                     new Thread(f).start();
                 }
             }

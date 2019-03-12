@@ -30,7 +30,7 @@ public class ParserTest
     public void parse_existing_column_div_tag()
     {
         Parser parser = new Parser();
-        JSONObject object = parser.parseSpecificTag("div.col-md-12", "https://moodle.nottingham.ac.uk/login/index.php");
+        JSONObject object = parser.parseSpecificTag("div.col-md-12", "https://moodle.nottingham.ac.uk/staticFormLogin/index.php");
         assertNotNull(object);
     }
 
@@ -40,7 +40,7 @@ public class ParserTest
     {
         String tag = "div.col-md-12";
         Parser parser = new Parser();
-        JSONObject object = parser.parseSpecificTag(tag, "https://moodle.nottingham.ac.uk/login/index.php");
+        JSONObject object = parser.parseSpecificTag(tag, "https://moodle.nottingham.ac.uk/staticFormLogin/index.php");
 
         try
         {
@@ -64,7 +64,7 @@ public class ParserTest
 
         try
         {
-            JSONObject object = parser.parseSpecificTag(illegalTag, "https://moodle.nottingham.ac.uk/login/index.php");
+            JSONObject object = parser.parseSpecificTag(illegalTag, "https://moodle.nottingham.ac.uk/staticFormLogin/index.php");
         }
         catch (RuntimeException except)
         {
@@ -81,7 +81,7 @@ public class ParserTest
 
         try
         {
-            JSONObject object = parser.parseSpecificTag(emptyTag, "https://moodle.nottingham.ac.uk/login/index.php");
+            JSONObject object = parser.parseSpecificTag(emptyTag, "https://moodle.nottingham.ac.uk/staticFormLogin/index.php");
         }
         catch (RuntimeException except)
         {
@@ -97,7 +97,7 @@ public class ParserTest
         String tags = "title, h1";
         Parser parser = new Parser();
 
-        JSONObject object = parser.parseSpecificTag(tags, "https://moodle.nottingham.ac.uk/login/index.php");
+        JSONObject object = parser.parseSpecificTag(tags, "https://moodle.nottingham.ac.uk/staticFormLogin/index.php");
         try
         {
             assertEquals("{\"title, h1\": [\n" +
@@ -118,7 +118,7 @@ public class ParserTest
     public void test_empty_file()
     {
         String emptyFile = "./test_resources/emptyTagFile.txt";
-        String url = "https://moodle.nottingham.ac.uk/login/index.php";
+        String url = "https://moodle.nottingham.ac.uk/staticFormLogin/index.php";
         Parser parser = new Parser();
 
         try
@@ -138,7 +138,7 @@ public class ParserTest
     public void test_title_h1_tags()
     {
         String tagFile = "./test_resources/TitleH1File.txt";
-        String url = "https://moodle.nottingham.ac.uk/login/index.php";
+        String url = "https://moodle.nottingham.ac.uk/staticFormLogin/index.php";
         Parser parser = new Parser();
 
         ArrayList<String> jsonObject = null;
@@ -157,7 +157,7 @@ public class ParserTest
     public void test_h2_h4_tags()
     {
         String tagFile = "./test_resources/H2H4.txt";
-        String url = "https://moodle.nottingham.ac.uk/login/index.php";
+        String url = "https://moodle.nottingham.ac.uk/staticFormLogin/index.php";
         Parser parser = new Parser();
 
         ArrayList<String> jsonObject = null;
@@ -176,7 +176,7 @@ public class ParserTest
     public void test_h1_h2_h4_tags()
     {
         String tagFile = "./test_resources/H1H2H4.txt";
-        String url = "https://moodle.nottingham.ac.uk/login/index.php";
+        String url = "https://moodle.nottingham.ac.uk/staticFormLogin/index.php";
         Parser parser = new Parser();
 
         ArrayList<String> jsonObject = null;
@@ -196,7 +196,7 @@ public class ParserTest
     public void test_nested_table_tags()
     {
         String tagFile = "./test_resources/Table.txt";
-        String url = "https://moodle.nottingham.ac.uk/login/index.php";
+        String url = "https://moodle.nottingham.ac.uk/staticFormLogin/index.php";
         Parser parser = new Parser();
 
         ArrayList<String> jsonObject = null;

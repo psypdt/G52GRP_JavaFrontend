@@ -73,7 +73,7 @@ public class Main extends Application
 
         /*Create parser, should be moved into a controller in future so that url can be extracted from there*/
         Parser parser = new Parser();
-        parser.parseSpecificTag("input", "https://moodle.nottingham.ac.uk/login/index.php");
+        parser.parseSpecificTag("input", "https://moodle.nottingham.ac.uk/staticFormLogin/index.php");
     }
 
     public static void setMainPane(Pane p)

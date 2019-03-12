@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public interface FormSenderInterface
 {
-    void login(String userName, String password) throws IOException;
+    void staticFormLogin(String userName, String password) throws IOException;
     void checkElement(String name, Element elem) throws RuntimeException;
     WebView getWebView();
 }

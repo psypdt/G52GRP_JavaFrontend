@@ -1,14 +1,18 @@
 package sample.functionality.forms.formSending;
 
+import javafx.concurrent.Task;
 import javafx.concurrent.Worker;
 import javafx.scene.control.Tab;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.FormElement;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.html.HTMLCollection;
+import org.w3c.dom.html.HTMLFormElement;
+import org.w3c.dom.html.HTMLInputElement;
 import sample.functionality.parsing.parser.Parser;
 
 import javax.xml.transform.OutputKeys;
@@ -23,77 +27,55 @@ import java.util.ArrayList;
 
 /**
  * NOTE: There is an issue with our threads, they are not synced, so we need to resolve this (has to do with race conditions)
- * ALSO: Note that this is probably because the webengine can't keep up with the other threads, OR because the nested threads
- * in {@code Parser()} are not synced
+ * in {@link Parser()} are not synced
  */
 public class FormSender extends Tab implements FormSenderInterface
 {
     private String url;
     private WebView webView; /*Where the website will be displayed*/
-    private int loginStates = 2; /*2 = page loaded & sent login form to server, 1 = got the final page*/
+    private WebEngine webEngine;
     public Parser parser = new Parser();
     private ArrayList<String> list = new ArrayList<>();
-
 
     /***
      * Constructor for the FormSender Class, Creates a new WebView (and WebEngine)
      * Automatically loads the {@code dest} url
-     * @param dest The URL where the login form is located
+     * @param dest The URL where the staticFormLogin form is located
      */
     public FormSender(String dest)
     {
         super();
-        this.url = dest;
+        url = dest;
         webView = new WebView();
-        webView.getEngine().setJavaScriptEnabled(true);
 
-        webView.getEngine().getLoadWorker().stateProperty().addListener((obs, oldValue, newValue) ->
+        webEngine = webView.getEngine();
+        webEngine.setJavaScriptEnabled(true);
+
+        webEngine.getLoadWorker().stateProperty().addListener((obs, oldValue, newValue) ->
         {
-            System.out.println(newValue);
-            /*Make sure this is joined, otherwise the main finishes before this and kills the thread, hence it doesn't print*/
+            // DEBUGGING : check current load status
+            //System.out.printf("oldVal = %s, newVal = %s\n", oldVal.toString(), newVal.toString());
+
+            // when page has finished loading
             if (newValue == Worker.State.SUCCEEDED)
             {
-                System.out.println(newValue);
+                //DEBUGGING : print the current URL
+                System.out.printf("current URL = %s\n", webEngine.getLocation());
 
-                /*These method will keep being repeated in the background every time the webengine is asked to load something new*/
-                if(loginStates == 2) /*All of this needs to be cleaned, it's messy and hard to understand*/
+                if (webEngine.getLocation().equals("https://mynottingham.nottingham.ac.uk/psp/psprd/EMPLOYEE/EMPL/h/?tab=PAPP_GUEST"))
                 {
-                    /*Why is this here? Need to refactor, make code clear.*/
-                    try
-                    {
-                        login("psypdt", "");
-                    }
-                    catch (IOException e)
-                    {
-                        e.printStackTrace();
-                    }
-                }
-
-                if(loginStates == 1)
-                {
-//                    printHtmlToConsole(webView.getEngine());
-
-                    try {
-                        list = parser.parseMultipleTags("./resource_parsed_files/loginFile.txt", url);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    System.out.println("LIST IS: " + list.toString());
+                    dynamicFormLogin autoLogin = new dynamicFormLogin(webEngine, "", "");
+                    new Thread(autoLogin).start();
                 }
             }
         });
-        System.out.println("Outside");
 
-        /*rm to test if login works, it appears that this has partially contributed to the issue,
-        this seems to be a neccesity to display the mynottingham site
-        Note that adding this back in seems to allow consistant logging in to the Moodle site. Not sure why this is.
-        */
         webView.getEngine().load(url); /*After the printHtmlToConsole() runs the first time, this can be executed*/
     }
 
 
     /***
-     * This method prints the HTML after a successful login to the console
+     * This method prints the HTML after a successful staticFormLogin to the console
      * @param webEngine The {@code WebView}'s {@code WebEngine} is passed to extract it's contents
      */
     public void printHtmlToConsole(WebEngine webEngine)
@@ -121,15 +103,15 @@ public class FormSender extends Tab implements FormSenderInterface
 
 
     /***
-     * This method is what will automate the login process for the user
+     * This method is what will automate the staticFormLogin process for the user
      * @param userName The users userName from the fxml form
      * @param password The users password from the fxml form
-     * @throws IOException the {@code parse()} function can throw an {@code IOException}
+     * @throws IOException the {@code parseMultipleTags()} function can throw an {@code IOException}
      * NOTE: We may want to find a way to read in the parameter names as well for {@code checkElement()}
      * and {@code loginFormResponse.parse().select(SomeVar).first()}
      */
     @Override
-    public void login(String userName, String password) throws IOException
+    public void staticFormLogin(String userName, String password) throws IOException
     {
         /*Constants used in this example*/
         final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.109 Safari/537.36";
@@ -137,35 +119,38 @@ public class FormSender extends Tab implements FormSenderInterface
         final String USERNAME = userName;
         final String PASSWORD = password; /*Need a way to save the password safely, maybe en/decryption?*/
 
-        /*Go to login page*/
+        /*Go to staticFormLogin page*/
         Connection.Response loginFormResponse = Jsoup.connect(LOGIN_FORM_URL)
+                .timeout(8000)
                 .method(Connection.Method.GET)
                 .userAgent(USER_AGENT)
                 .execute();
 
-        printHtmlToConsole(webView.getEngine());
-        /*Find the login form via its tag*/
-        FormElement loginForm = (FormElement)loginFormResponse.parse().select("#login").first();
+        /*Find the staticFormLogin form via its tag*/
+        /*For blue castle, this tag is "form"*/
+        FormElement loginForm = (FormElement)loginFormResponse.parse().select("form#staticFormLogin").first();
         checkElement("Login Form", loginForm);
 
-        /*Complete the login form, user name & password*/
-        Element loginField = loginForm.select("#username").first();
+        /*Complete the staticFormLogin form, user name & password*/
+        /*For blue castle this is called #UserName*/
+        Element loginField = loginForm.select("userid").first();
         checkElement("Login Field", loginField);
         loginField.val(USERNAME);
 
-        Element passwordField = loginForm.select("#password").first();
+        /*For blue castle this field is "#Password"*/
+        Element passwordField = loginForm.select("#Password").first();
         checkElement("Password Field", passwordField);
         passwordField.val(PASSWORD);
 
 
-        /*Send login form*/
+        /*Send staticFormLogin form*/
         Connection.Response loginActionResponse = loginForm.submit()
                 .cookies(loginFormResponse.cookies())
                 .userAgent(USER_AGENT)
                 .execute();
 
 
-        System.out.println("Url after login was: " + loginActionResponse.url());
+        System.out.println("Url after staticFormLogin was: " + loginActionResponse.url());
         this.url = loginActionResponse.url().toString();
         list = parser.parseMultipleTags("./resource_parsed_files/loginFile.txt", url);
         System.out.println("LIST IS: " + list.toString());
@@ -176,7 +161,6 @@ public class FormSender extends Tab implements FormSenderInterface
                 .execute();
            */
         webView.getEngine().load(url);
-        loginStates--;
     }
 
 
@@ -208,7 +192,7 @@ public class FormSender extends Tab implements FormSenderInterface
 
 
     /***
-     * This method ca be used to get the passeord input from the fxml form
+     * This method ca be used to get the password input from the fxml form
      * @param pwd The text form the FXML files password field
      * @return Returns the password from the FXML file
      */
@@ -220,7 +204,7 @@ public class FormSender extends Tab implements FormSenderInterface
 
     /***
      * To enforce encapsulation, this getter can be used to get the WebView if needed
-     * @return Returns the WebView of the FormSender object
+     * @return Returns the {@code WebView} of the {@link FormSender} object
      */
     @Override
     public WebView getWebView()
@@ -228,4 +212,57 @@ public class FormSender extends Tab implements FormSenderInterface
         return this.webView;
     }
 
+}
+
+/**
+ * This class is used to automate the login process for site that dynamically load their login form like MyNottingham
+ */
+class dynamicFormLogin extends Task
+{
+    private WebEngine engine;
+    private String username;
+    private String password;
+
+    /**
+     * This is the constructor for the {@code AutomateMyNottinghamLogin} class
+     * @param engine The {@code WebEngine} that is being used to display the sites
+     * @param username The Username, should be changed asap (shouldn't be plane text)
+     * @param password The Password, should be changed asap (shouldn't be plane text)
+     */
+    dynamicFormLogin(WebEngine engine, String username, String password) {
+        this.engine = engine;
+        this.username = username;
+        this.password = password;
+    }
+
+    /**
+     * This method will try to fetch the login form from websites that generate login froms dynamically
+     * The from will then be populated with the {@code username} and {@code password}
+     * The form will then be submitted to log the user into the respective website 
+     * @return {@code null}, this is overwriting the {@code call()} method from {@code Object} which has no return type
+     */
+    @Override
+    public Object call() {
+        try { Thread.sleep(1000); } catch (Exception e) { e.printStackTrace(); }
+
+        org.w3c.dom.Element doc = engine.getDocument().getDocumentElement();
+
+        /* compare and contrast with the following JavaScript code:
+         *
+         *   let forms = document.getElementsByTagName("form");
+         *   let loginForm = forms[1];
+         *   let inputs = loginForm.elements;
+         *   inputs[2].value = username;
+         *   inputs[3].value = password;
+         *   loginForm.submit();
+         */
+        NodeList forms = doc.getElementsByTagName("form");
+        HTMLFormElement loginForm = (HTMLFormElement)forms.item(1);
+        HTMLCollection inputs = loginForm.getElements();
+        ((HTMLInputElement)inputs.item(2)).setValue(username);
+        ((HTMLInputElement)inputs.item(3)).setValue(password);
+        loginForm.submit();
+
+        return null;
+    }
 }
