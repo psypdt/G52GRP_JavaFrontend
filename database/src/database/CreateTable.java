@@ -8,6 +8,10 @@ import java.sql.Statement;
 public class CreateTable {
 	static Connection conn;    
     static Statement st;
+    /**
+     * @param con connection class
+     * @return con 
+     */
     public static Connection getConnection() {    
         Connection con = null;  //Create a Connection object to connect to the database 
         try {    
@@ -21,6 +25,10 @@ public class CreateTable {
         }    
         return con; //Returns the established database connection
     }  
+    /**
+     * 
+     * @param tablename the name for the table created
+     */
     public void createtable(String tablename) {
     	conn = getConnection();
     	try {

@@ -9,7 +9,10 @@ import java.sql.Statement;
 public class User {
 	static Connection conn;    
     static Statement st;    
-    
+/**
+ * @param con connection class   
+ * @return con connection
+ */
 public static Connection getConnection() {    
         Connection con = null;  //Create a Connection object to connect to the database 
         try {    
@@ -23,7 +26,13 @@ public static Connection getConnection() {
         }    
         return con; //Returns the established database connection
     }  
-/* inserts a data record and outputs the number of inserted data records*/    
+/* inserts a data record and outputs the number of inserted data records*/
+/**
+ * 
+ * @param lastname user's last name
+ * @param firstname user's first name
+ * @param userID user's ID
+ */
 public void insert(String lastname,String firstname,int userID) {    
         
 	conn = getConnection(); // The first step is to get a connection, that is, to the database  
@@ -44,6 +53,11 @@ public void insert(String lastname,String firstname,int userID) {
         System.out.println("insert fail" + e.getMessage());    
     }    
 }
+/**
+ * 
+ * @param firstname user's first name
+ * @param userID user's ID
+ */
 public void update(String firstname , int userID) {    
     conn = getConnection(); //Again, get the connection first, that is, connect to the database    
     try {    
@@ -82,6 +96,10 @@ public void query() {
         System.out.println("search information fail");    
     }    
 }
+/**
+ * 
+ * @param userID user's ID
+ */
 public void delete(int userID) {    
     
     conn = getConnection(); //Again, get the connection first, that is, connect to the database  

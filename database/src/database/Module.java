@@ -1,3 +1,4 @@
+
 package database;
 import java.sql.Connection;    
 import java.sql.DriverManager;    
@@ -16,7 +17,11 @@ public class Module {
         delete();   //delete data 
         query();    //Query records and display    
     }    
-    /* Function to get a database connection*/    
+    /* Function to get a database connection*/
+    /**
+     * @param con connection class
+     * @return con connection
+     */
     public static Connection getConnection() {    
         Connection con = null;  //Create a Connection object to connect to the database 
         try {    
@@ -30,7 +35,12 @@ public class Module {
         }    
         return con; //Returns the established database connection
     }  
-    /* inserts a data record and outputs the number of inserted data records*/    
+    /* inserts a data record and outputs the number of inserted data records*/ 
+    /**
+     * 
+     * @param moduleID moduleID
+     * @param modulename module's name
+     */
     public void insert(String moduleID, String modulename) {    
             
         conn = getConnection(); // The first step is to get a connection, that is, to the database  
@@ -53,7 +63,12 @@ public class Module {
         }    
     }    
         
-    /* Updates the required records and returns the number of updated records*/    
+    /* Updates the required records and returns the number of updated records*/
+    /**
+     * 
+     * @param newmodulename new module name
+     * @param moduleID module's ID
+     */
     public void update(String newmodulename , String moduleID) {    
         conn = getConnection(); //Again, get the connection first, that is, connect to the database    
         try {    
@@ -101,7 +116,11 @@ public class Module {
         }    
     }    
     
-    /* Delete the required records, output*/    
+    /* Delete the required records, output*/ 
+   /**
+    * 
+    * @param moduleID module's ID
+    */
     public void delete(String moduleID) {    
     
         conn = getConnection(); //Again, get the connection first, that is, connect to the database  

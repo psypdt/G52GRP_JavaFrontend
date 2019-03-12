@@ -10,7 +10,10 @@ public class Grades {
 	static Connection conn;    
     static Statement st; 
 
-    
+/**
+ * @param con connection class    
+ * @return con 
+ */
 public static Connection getConnection() {    
         Connection con = null;  //Create a Connection object to connect to the database 
         try {    
@@ -24,7 +27,15 @@ public static Connection getConnection() {
         }    
         return con; //Returns the established database connection
     }  
-
+/**
+ * 
+ * @param studentname student's name
+ * @param studentID student's ID
+ * @param moduleID this module ID
+ * @param modulename this module name
+ * @param grade student's grade for this module
+ * @param credit this module's credit
+ */
 	public void insert(String studentname,int studentID, String moduleID, String modulename, int grade, int credit   ) {    
     
     conn = getConnection(); // The first step is to get a connection, that is, to the database  
@@ -46,6 +57,11 @@ public static Connection getConnection() {
         System.out.println("insert fail" + e.getMessage());    
     }    
 }
+	/**
+	 * 
+	 * @param newmodulename new module's name
+	 * @param moduleID module's ID
+	 */
 	 public void update(String newmodulename, String moduleID) {    
 	        conn = getConnection(); //Again, get the connection first, that is, connect to the database    
 	        try {    
@@ -87,6 +103,10 @@ public static Connection getConnection() {
 	            System.out.println("search information fail");    
 	        }    
 	    }  
+	   /**
+	    * 
+	    * @param moduleID module's ID
+	    */
 	    public void delete(String moduleID) {    
 	        
 	        conn = getConnection(); //Again, get the connection first, that is, connect to the database  
