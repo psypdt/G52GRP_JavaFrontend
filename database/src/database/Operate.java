@@ -13,6 +13,9 @@ public class Operate {
 	static String modulename="Operating system";
 	static String newmodulename = "Operating sysetem and concurrency";
 	static String tablename = "new";
+	static String lastname = "Wang";
+	static String firstname = "Yisong";
+	static int userID = 4315722;
 	static Module module = new Module();
 	static User user = new User();
 	static Grades grades = new Grades();
@@ -23,10 +26,10 @@ public class Operate {
         module.delete(moduleID);   //delete data 
         module.query();//Query records and display 
         
-        /*user.insert();
-        user.update();
-        user.delete();
-        user.query();*/
+        user.insert(lastname,firstname,userID);
+        user.update(firstname,userID);
+        user.delete(userID);
+        user.query();
         
         grades.insert(studentname,studentID, moduleID,modulename,grade,credit);
         grades.update(newmodulename,moduleID);
