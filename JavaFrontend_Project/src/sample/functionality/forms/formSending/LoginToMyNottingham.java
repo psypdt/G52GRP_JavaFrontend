@@ -17,9 +17,12 @@ import org.w3c.dom.html.HTMLInputElement;
  * This class is used to automate the staticFormLogin process for MyNottingham because it has a more complex staticFormLogin process
  */
 class AutomateMyNottinghamLogin extends Task {
+
     private WebEngine engine;
     private String username;
     private String password;
+
+    private final long TIMEOUT = 10 * 1000;  // 10 seconds
 
     /**
      * This is the constructor for the {@code AutomateMyNottinghamLogin} class
@@ -35,9 +38,11 @@ class AutomateMyNottinghamLogin extends Task {
 
     @Override
     public Object call() {
-        try { Thread.sleep(1000); } catch (Exception e) { e.printStackTrace(); }
 
-        Element doc = engine.getDocument().getDocumentElement();
+        // timing variables
+        long    startTime = System.currentTimeMillis(),
+                timeElapsed,
+                millisToWait = 100;
 
         // HTML elements
         Element doc;
@@ -55,7 +60,7 @@ class AutomateMyNottinghamLogin extends Task {
          *   loginForm.submit();
          */
 
-        do {  // keep polling for the form
+        do {  // keep polling for the form, or time-out
 
             System.out.println("Finding the form...");
             try { Thread.sleep(millisToWait); } catch (Exception e) { e.printStackTrace(); }
@@ -68,15 +73,21 @@ class AutomateMyNottinghamLogin extends Task {
 
             //millisToWait *= 2;  // exponential back-off
             millisToWait += 100;  // incremental back-off
+            timeElapsed = System.currentTimeMillis() - startTime;
 
-        } while (loginForm == null);
+        } while (loginForm == null && timeElapsed < TIMEOUT);  // time-out after 10 seconds
 
-        System.out.println("Found it!");
+        // if the page didn't time-out, continue with auto-login
+        if (loginForm != null) {
+            System.out.println("Found it!");
 
-        HTMLCollection inputs = loginForm.getElements();
-        ((HTMLInputElement)inputs.item(2)).setValue(username);
-        ((HTMLInputElement)inputs.item(3)).setValue(password);
-        loginForm.submit();
+            HTMLCollection inputs = loginForm.getElements();
+            ((HTMLInputElement)inputs.item(2)).setValue(username);
+            ((HTMLInputElement)inputs.item(3)).setValue(password);
+            loginForm.submit();
+        } else {
+            System.out.println("Page timed out");
+        }
 
         return null;
     }
