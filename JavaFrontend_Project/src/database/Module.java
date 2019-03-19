@@ -19,8 +19,8 @@ public class Module {
     }    
     /* Function to get a database connection*/
     /**
-     * @param con connection class
-     * @return con connection
+     * 
+     * @return con database connection
      */
     public static Connection getConnection() {    
         Connection con = null;  //Create a Connection object to connect to the database 

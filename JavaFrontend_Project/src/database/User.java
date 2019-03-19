@@ -10,8 +10,8 @@ public class User {
 	static Connection conn;    
     static Statement st;    
 /**
- * @param con connection class   
- * @return con connection
+ *   
+ * @return con database connection
  */
 public static Connection getConnection() {    
         Connection con = null;  //Create a Connection object to connect to the database 

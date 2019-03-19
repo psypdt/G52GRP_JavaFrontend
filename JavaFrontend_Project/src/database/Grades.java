@@ -11,8 +11,8 @@ public class Grades {
     static Statement st; 
 
 /**
- * @param con connection class    
- * @return con 
+ *  
+ * @return con database connection
  */
 public static Connection getConnection() {    
         Connection con = null;  //Create a Connection object to connect to the database 
