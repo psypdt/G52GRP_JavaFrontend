@@ -11,7 +11,9 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import sample.functionality.jSoupParsing.Parser;
 
-
+/**
+ * Main entry point for the application.
+ */
 public class Main extends Application
 {
     private static Stage mainStage;
@@ -33,7 +35,7 @@ public class Main extends Application
 
     /**
      * @param primaryStage: What the screen going to be look like at the begining
-     * @throws Exception
+     * @throws Exception if the GUI Handler fails to initailize.
      */
     @Override
     public void start(Stage primaryStage) throws Exception
@@ -41,8 +43,7 @@ public class Main extends Application
         self = this;
         mainStage = primaryStage;
 
-        /**
-         * set a minimum window size of 300 x 200
+        /* Set a minimum window size of 300 x 200.
          * The guiHandler will makes the the window opening in a fixed size every time when it was opened
          */
         mainStage.setMinWidth(300);
@@ -69,6 +70,7 @@ public class Main extends Application
 
 
     /**
+     * Fallback function to launch the application.
      * @param args: To launch the program
      */
     public static void main(String[] args)

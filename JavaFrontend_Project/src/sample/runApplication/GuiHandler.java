@@ -19,9 +19,10 @@ public class GuiHandler implements iGuiHandler {
     private TabPane tabPane;
 
     /**
-     *
+     * Constructor function for the GUI Handler. Initializes the application with a pre-specified FXML file and
+     * displays it on the screen.
      * @param mainStage To generate the main page
-     * @throws IOException
+     * @throws IOException if the FXML file fails to load.
      */
     public GuiHandler(Stage mainStage) throws IOException {
 
@@ -40,12 +41,11 @@ public class GuiHandler implements iGuiHandler {
         mainStage.show();
     }
 
-    @Override
-
     /**
      * Will open a new tap when it was activated
      * @param id Add id for the "add tab"
      */
+    @Override
     public void openTab(String id) {
         iTaskTab task = new TaskTab(id);
         tabPane.getTabs().add((Tab)task);
