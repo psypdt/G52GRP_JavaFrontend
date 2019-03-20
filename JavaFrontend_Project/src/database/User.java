@@ -75,7 +75,7 @@ public void update(String firstname , int userID) {
         System.out.println("update fail");    
     }    
 } 
-public void query() {    
+public ResultSet query() {    
     
     conn = getConnection(); //Again, get the connection first, that is, connect to the database    
     try {    
@@ -90,11 +90,13 @@ public void query() {
             String UID = rs1.getString("UserID");  
             System.out.println(Fn+" "+Ln + " " + UID);  
         }
-        conn.close();   //Close the database connection   
+        conn.close();   //Close the database connection 
+        return rs1;
             
     } catch (SQLException e) {    
         System.out.println("search information fail");    
-    }    
+    }
+	return null;    
 }
 /**
  * 

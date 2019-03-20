@@ -88,7 +88,7 @@ public class Module {
     }    
     	
     /* Query the database to output the required records*/    
-   public void query() {    
+   public ResultSet query() {    
             
         conn = getConnection(); //Again, get the connection first, that is, connect to the database    
         try {    
@@ -110,10 +110,11 @@ public class Module {
                 
             } 
             conn.close();   //Close the database connection   
-                
+            return rs1;    
         } catch (SQLException e) {    
             System.out.println("search information fail");    
-        }    
+        }
+		return null;    
     }    
     
     /* Delete the required records, output*/ 

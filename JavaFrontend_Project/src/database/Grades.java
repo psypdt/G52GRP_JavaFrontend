@@ -79,7 +79,7 @@ public static Connection getConnection() {
 	            System.out.println("update fail");    
 	        }    
 	    }
-	   public void query() {    
+	   public ResultSet query() {    
            
 	        conn = getConnection(); //Again, get the connection first, that is, connect to the database    
 	        try {    
@@ -98,10 +98,13 @@ public static Connection getConnection() {
 	                System.out.println(SI+" "+Sn + " " + MI2+ " "+ Mn2 + " "+ Grade +" "+Credit);  
 	            }
 	            conn.close();   //Close the database connection   
+	            return rs1;
 	                
 	        } catch (SQLException e) {    
 	            System.out.println("search information fail");    
-	        }    
+	        }
+			return null;    
+	     
 	    }  
 	   /**
 	    * 
