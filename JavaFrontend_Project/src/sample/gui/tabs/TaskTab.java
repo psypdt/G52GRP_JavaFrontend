@@ -16,6 +16,9 @@ public class TaskTab extends Tab implements iTaskTab {
     private Button scraperButton;
 
     /**
+     * Note:
+     * background: Generate the background
+     * ScraperView: Generate the stackPane when is inn scraperview
      * Added the button for browser view and Scraper view
      */
     private TaskTab() {
@@ -38,6 +41,10 @@ public class TaskTab extends Tab implements iTaskTab {
         this.setContent(background);
     }
 
+    /**
+     *
+     * @param id Add the id for the tab
+     */
     public TaskTab(String id) {
         this();
         setText(id);

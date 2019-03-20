@@ -24,7 +24,7 @@ public class Main extends Application
 
     /**
      * This function allows us to get the main stage from anywhere by calling Main.getStage()
-     * @return
+     * @return mainStage: return to the new page that has been generated
      */
     public static Stage getStage()
     {
@@ -32,8 +32,7 @@ public class Main extends Application
     }
 
     /**
-     * What the screen going to be look like at the begining
-     * @param primaryStage
+     * @param primaryStage: What the screen going to be look like at the begining
      * @throws Exception
      */
     @Override
@@ -55,54 +54,22 @@ public class Main extends Application
         guiHandler = new GuiHandler(primaryStage);
     }
 
-
+    /**
+     *
+     * @return guiHandler: Return to the guihandler
+     */
     public static iGuiHandler getApp() { return self.guiHandler; }
 
-    /***
-     * This method initialises the StartScreenView, calls fxml that will be displayed
-     * @throws Exception This throws an Exception due to the FXMLLoader.load() method
+
+    /**
+     *
+     * @return taskPage: Return to the taskPage
      */
-//    private void initStartPage() throws Exception
-//    {
-//        /*Works when wanting to load alternative view*/
-////        startPage = FXMLLoader.load(getClass().getResource("/sample/gui/startScreen/StartScreenView.fxml"));
-//        //startPage = FXMLLoader.load(getClass().getResource("StartScreenView.fxml"));
-//    }
-
-
-//    public static void goToStartPage()
-//    {
-//        main_pane.getChildren().clear();
-//        main_pane.getChildren().add(startPage);
-//    }
-//
-//    private void initTasksPage() throws Exception
-//    {
-//        tasksPage = FXMLLoader.load(getClass().getResource("TaskView.fxml"));
-//    }
-
-
     public static TabPane getTasksPage() { return tasksPage; }
 
 
-//    public static void goToTasksPage()
-//    {
-//        main_pane.getChildren().clear();
-//        main_pane.getChildren().add(tasksPage);
-//
-//        /*Create parser, should be moved into a controller in future so that url can be extracted from there*/
-//        Parser parser = new Parser();
-//        parser.parseSpecificTag("input", "https://moodle.nottingham.ac.uk/login/index.php");
-//    }
-//
-//    public static void setMainPane(Pane p)
-//    {
-//        main_pane = p;
-//    }
-
     /**
-     * To launch the pogram
-     * @param args
+     * @param args: To launch the program
      */
     public static void main(String[] args)
     {
