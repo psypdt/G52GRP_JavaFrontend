@@ -1,57 +1,37 @@
 package sample.runApplication;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import sample.functionality.jSoupParsing.Parser;
 
 /**
- * Main entry point for the application.
+ * The Main class serves as the entry point for the application. This class initializes the JavaFX context and
+ * displays a window on the screen.
  */
 public class Main extends Application
 {
-    private static Stage mainStage;
-    private static Pane main_pane;
     private static TabPane tasksPage;
-    private static ScrollPane startPage;
 
     private static Main self;
+
     private GuiHandler guiHandler;
 
     /**
-     * This function allows us to get the main stage from anywhere by calling Main.getStage()
-     * @return mainStage: return to the new page that has been generated
-     */
-    public static Stage getStage()
-    {
-        return mainStage;
-    }
-
-    /**
-     * @param primaryStage: What the screen going to be look like at the begining
-     * @throws Exception if the GUI Handler fails to initailize.
+     * @param primaryStage Container for displaying the GUI.
+     * @throws Exception if the GUI Handler fails to initialize.
      */
     @Override
     public void start(Stage primaryStage) throws Exception
     {
+        // Save a reference to this instance of Main
         self = this;
-        mainStage = primaryStage;
 
-        /* Set a minimum window size of 300 x 200.
-         * The guiHandler will makes the the window opening in a fixed size every time when it was opened
-         */
-        mainStage.setMinWidth(300);
-        mainStage.setMinHeight(200);
+        // Set a minimum window size of 300 x 200.
+        // The default window size is set by the GUI Handler on startup.
+        primaryStage.setMinWidth(300);
+        primaryStage.setMinHeight(200);
 
-        //initStartPage();
-        //initTasksPage();
-
+        // Initialize a GUI Handler to do all the heavy lifting
         guiHandler = new GuiHandler(primaryStage);
     }
 
@@ -63,18 +43,16 @@ public class Main extends Application
 
 
     /**
-     *
-     * @return taskPage: Return to the taskPage
+     * Access the task page of the application.
+     * @return A reference to the task page.
      */
     public static TabPane getTasksPage() { return tasksPage; }
 
 
     /**
      * Fallback function to launch the application.
-     * @param args: To launch the program
+     * @param args Arguments to launch the program with
      */
-    public static void main(String[] args)
-    {
-        launch(args);
-    }
+    public static void main(String[] args) { launch(args); }
+
 }
