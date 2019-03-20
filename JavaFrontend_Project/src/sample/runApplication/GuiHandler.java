@@ -27,10 +27,10 @@ public class GuiHandler implements iGuiHandler {
     public GuiHandler(Stage mainStage) throws IOException {
 
         /*It will show the screen with the fxml file */
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ToolBar.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Application.fxml"));
         Parent root = loader.load();
 
-        ToolBarController c = loader.getController();
+        ApplicationController c = loader.getController();
         tabPane = c.getTabPane();
 
         /* The window title will be set as Java Front-end */

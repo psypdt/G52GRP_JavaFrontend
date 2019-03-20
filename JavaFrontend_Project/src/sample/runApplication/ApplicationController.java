@@ -8,7 +8,7 @@ import javafx.scene.layout.Pane;
 /**
  * This is responsible for controlling the Tool bar, aka. fixed "Tasks" & "Start" buttons
  */
-public class ToolBarController
+public class ApplicationController
 {
     @FXML private TabPane tab_pane;
     @FXML private Button open_moodle_button;

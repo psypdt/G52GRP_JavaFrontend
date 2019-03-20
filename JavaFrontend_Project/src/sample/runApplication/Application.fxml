@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.text.Font?>
 
-<TabPane fx:id="tab_pane" prefHeight="468.0" prefWidth="411.0" style="-fx-background-color: lightsteelblue;" tabClosingPolicy="ALL_TABS" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.runApplication.ToolBarController">
+<TabPane fx:id="tab_pane" prefHeight="468.0" prefWidth="411.0" style="-fx-background-color: lightsteelblue;" tabClosingPolicy="ALL_TABS" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.runApplication.ApplicationController">
   <tabs>
     <Tab closable="false" style="-fx-background-color: lightsteelblue; -fx-font-size: 16; -fx-text-fill: white;" text="Home">
          <content>
