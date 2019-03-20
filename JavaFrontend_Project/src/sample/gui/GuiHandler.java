@@ -1,4 +1,4 @@
-package sample.runApplication;
+package sample.gui;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,12 +21,12 @@ public class GuiHandler implements iGuiHandler {
     /**
      * Constructor function for the GUI Handler. Initializes the application with a pre-specified FXML file and
      * displays it on the screen.
-     * @param mainStage To generate the main page
+     * @param mainStage Graphical context display the home screen in.
      * @throws IOException if the FXML file fails to load.
      */
     public GuiHandler(Stage mainStage) throws IOException {
 
-        /*It will show the screen with the fxml file */
+        /*It will show the screen based on the fxml file */
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Application.fxml"));
         Parent root = loader.load();
 
@@ -42,8 +42,8 @@ public class GuiHandler implements iGuiHandler {
     }
 
     /**
-     * Will open a new tap when it was activated
-     * @param id Add id for the "add tab"
+     * Open a new tab and add it to the primary tab pane.
+     * @param id Identifier for the tab to create.
      */
     @Override
     public void openTab(String id) {

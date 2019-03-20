@@ -1,4 +1,4 @@
-package sample.runApplication;
+package sample.gui;
 
 public interface iGuiHandler {
 

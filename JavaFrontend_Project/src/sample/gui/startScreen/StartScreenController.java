@@ -3,7 +3,7 @@ package sample.gui.startScreen;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import sample.gui.tabs.WebViewTab;
-import sample.runApplication.Main;
+import sample.application.Main;
 
 public class StartScreenController
 {

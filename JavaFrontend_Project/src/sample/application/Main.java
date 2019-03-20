@@ -1,8 +1,10 @@
-package sample.runApplication;
+package sample.application;
 
 import javafx.application.Application;
 import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
+import sample.gui.GuiHandler;
+import sample.gui.iGuiHandler;
 
 /**
  * The Main class serves as the entry point for the application. This class initializes the JavaFX context and

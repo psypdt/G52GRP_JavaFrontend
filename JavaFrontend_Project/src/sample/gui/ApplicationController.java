@@ -1,8 +1,9 @@
-package sample.runApplication;
+package sample.gui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TabPane;
+import sample.application.Main;
 
 /**
  * This class is responsible for setting up the functionality of the buttons on the home screen.
