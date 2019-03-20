@@ -16,31 +16,31 @@
                <content>
                   <TilePane alignment="CENTER" hgap="25.0" vgap="25.0">
                      <children>
-                        <Button fx:id="blue_castle_button" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: cornflowerblue;" text="Blue Castle (Grades)" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                        <Button fx:id="button_blue_castle" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: cornflowerblue;" text="Blue Castle (Grades)" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                            <font>
                               <Font size="15.0" />
                            </font></Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: cornflowerblue;" text="Portal (Module Choices)" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                        <Button fx:id="button_portal" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: cornflowerblue;" text="Portal (Module Choices)" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                            <font>
                               <Font size="15.0" />
                            </font></Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: cornflowerblue;" text="Grades and Modules" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                        <Button fx:id="button_grades_modules" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: cornflowerblue;" text="Grades and Modules" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                            <font>
                               <Font size="15.0" />
                            </font></Button>
-                        <Button fx:id="open_moodle_button" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: cornflowerblue;" text="Moodle (courses)" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                        <Button fx:id="button_moodle" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: cornflowerblue;" text="Moodle (courses)" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                            <font>
                               <Font size="15.0" />
                            </font></Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: cornflowerblue;" text="MyNottingham" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                        <Button fx:id="button_mynottingham" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: cornflowerblue;" text="MyNottingham" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                            <font>
                               <Font size="15.0" />
                            </font></Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: cornflowerblue;" text="Load from Database" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                        <Button fx:id="load_database" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: cornflowerblue;" text="Load from Database" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                            <font>
                               <Font size="15.0" />
                            </font></Button>
-                        <Button mnemonicParsing="false" style="-fx-background-color: coral;" text="Setting">
+                        <Button fx:id="button_settings" mnemonicParsing="false" style="-fx-background-color: coral;" text="Setting">
                            <font>
                               <Font size="12.0" />
                            </font>
