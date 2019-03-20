@@ -36,10 +36,10 @@ public class Main extends Application
     }
 
     /**
-     *
-     * @return guiHandler: Return to the guihandler
+     * Get a reference to the current instance of the GUI handler.
+     * @return An instance of GUI handler.
      */
-    public static iGuiHandler getApp() { return self.guiHandler; }
+    public static iGuiHandler getGuiHandler() { return self.guiHandler; }
 
 
     /**
