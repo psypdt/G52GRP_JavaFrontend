@@ -36,7 +36,7 @@ public static Connection getConnection() {
  * @param grade student's grade for this module
  * @param credit this module's credit
  */
-	public void insert(String studentname,int studentID, String moduleID, String modulename, int grade, int credit   ) {    
+	public void insert(int studentID,String studentname, String moduleID, String modulename, int grade, int credit   ) {    
     
     conn = getConnection(); // The first step is to get a connection, that is, to the database  
 

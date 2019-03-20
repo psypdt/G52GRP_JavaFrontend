@@ -31,7 +31,7 @@ public class Operate {
         user.delete(userID);
         user.query();
         
-        grades.insert(studentname,studentID, moduleID,modulename,grade,credit);
+        grades.insert(studentID,studentname, moduleID,modulename,grade,credit);
         grades.update(newmodulename,moduleID);
         grades.delete(moduleID);
         grades.query();
