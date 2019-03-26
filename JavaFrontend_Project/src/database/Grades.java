@@ -79,8 +79,8 @@ public static Connection getConnection() {
 	            System.out.println("update fail");    
 	        }    
 	    }
-	   public ResultSet query() {    
-           
+	   public String query() {    
+            String searchresult = null;
 	        conn = getConnection(); //Again, get the connection first, that is, connect to the database    
 	        try {    
 	            String sql1 = "select * from grades";// SQL statements that query data   
@@ -95,15 +95,18 @@ public static Connection getConnection() {
 	                String Mn2 = rs1.getString("Modulename"); 
 	                String Grade = rs1.getString("Grade");  
 	                String Credit = rs1.getString("Credit"); 
-	                System.out.println(SI+" "+Sn + " " + MI2+ " "+ Mn2 + " "+ Grade +" "+Credit);  
+	                searchresult = SI+" "+Sn + " " + MI2+ " "+ Mn2 + " "+ Grade +" "+Credit;
+	                System.out.println(searchresult);
 	            }
+	            
+	            
 	            conn.close();   //Close the database connection   
-	            return rs1;
+	            return searchresult;
 	                
 	        } catch (SQLException e) {    
 	            System.out.println("search information fail");    
 	        }
-			return null;    
+			return null;
 	     
 	    }  
 	   /**
