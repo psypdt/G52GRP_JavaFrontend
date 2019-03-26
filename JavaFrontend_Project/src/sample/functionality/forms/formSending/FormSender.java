@@ -35,7 +35,7 @@ public class FormSender extends Tab implements FormSenderInterface
     private WebView webView; /*Where the website will be displayed*/
     private WebEngine webEngine;
     public Parser parser = new Parser();
-    private ArrayList<String> list = new ArrayList<>();
+    private ArrayList<String> tagList = new ArrayList<>();
 
     /***
      * Constructor for the FormSender Class, Creates a new WebView (and WebEngine)
@@ -67,10 +67,18 @@ public class FormSender extends Tab implements FormSenderInterface
                     dynamicFormLogin autoLogin = new dynamicFormLogin(webEngine, "", "");
                     new Thread(autoLogin).start();
                 }
+                else
+                {
+                    try {
+                        staticFormLogin("psypdt", "");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         });
-
         webView.getEngine().load(url); /*After the printHtmlToConsole() runs the first time, this can be executed*/
+
     }
 
 
@@ -127,18 +135,24 @@ public class FormSender extends Tab implements FormSenderInterface
                 .execute();
 
         /*Find the staticFormLogin form via its tag*/
-        /*For blue castle, this tag is "form"*/
-        FormElement loginForm = (FormElement)loginFormResponse.parse().select("form#staticFormLogin").first();
+        /*For BlueCastle, this tag is "form"*/
+        /*For MyNottingham, #login or form#staticFormLogin*/
+        /*For Moodle, #login*/
+        FormElement loginForm = (FormElement)loginFormResponse.parse().select("#login").first();
         checkElement("Login Form", loginForm);
 
         /*Complete the staticFormLogin form, user name & password*/
-        /*For blue castle this is called #UserName*/
-        Element loginField = loginForm.select("userid").first();
+        /*For BlueCastle this is called #UserName*/
+        /*For MyNottingham, #userid*/
+        /*For Moodle #username*/
+        Element loginField = loginForm.select("#username").first();
         checkElement("Login Field", loginField);
         loginField.val(USERNAME);
 
-        /*For blue castle this field is "#Password"*/
-        Element passwordField = loginForm.select("#Password").first();
+        /*For BlueCastle this field is "#Password"*/
+        /*For MyNottingham, #pwd*/
+        /*For Moodle, #password*/
+        Element passwordField = loginForm.select("#password").first();
         checkElement("Password Field", passwordField);
         passwordField.val(PASSWORD);
 
@@ -152,8 +166,8 @@ public class FormSender extends Tab implements FormSenderInterface
 
         System.out.println("Url after staticFormLogin was: " + loginActionResponse.url());
         this.url = loginActionResponse.url().toString();
-        list = parser.parseMultipleTags("./resource_parsed_files/loginFile.txt", url);
-        System.out.println("LIST IS: " + list.toString());
+        tagList = parser.parseMultipleTags("./resource_parsed_files/loginFile.txt", url);
+        System.out.println("LIST IS: " + tagList.toString());
         /*
         Connection.Response check = Jsoup.connect(url)
                 .method(Connection.Method.GET)
@@ -214,6 +228,9 @@ public class FormSender extends Tab implements FormSenderInterface
 
 }
 
+
+
+
 /**
  * This class is used to automate the login process for site that dynamically load their login form like MyNottingham
  */
@@ -223,11 +240,13 @@ class dynamicFormLogin extends Task
     private String username;
     private String password;
 
+    private final long TIMEOUT = 10 * 1000;  // 10 seconds
+
     /**
      * This is the constructor for the {@code AutomateMyNottinghamLogin} class
      * @param engine The {@code WebEngine} that is being used to display the sites
-     * @param username The Username, should be changed asap (shouldn't be plane text)
-     * @param password The Password, should be changed asap (shouldn't be plane text)
+     * @param username The Username, should be changed asap (shouldn't be plain text)
+     * @param password The Password, should be changed asap (shouldn't be plain text)
      */
     dynamicFormLogin(WebEngine engine, String username, String password) {
         this.engine = engine;
@@ -235,33 +254,58 @@ class dynamicFormLogin extends Task
         this.password = password;
     }
 
-    /**
-     * This method will try to fetch the login form from websites that generate login froms dynamically
-     * The from will then be populated with the {@code username} and {@code password}
-     * The form will then be submitted to log the user into the respective website 
-     * @return {@code null}, this is overwriting the {@code call()} method from {@code Object} which has no return type
-     */
     @Override
     public Object call() {
-        try { Thread.sleep(1000); } catch (Exception e) { e.printStackTrace(); }
 
-        org.w3c.dom.Element doc = engine.getDocument().getDocumentElement();
+        // timing variables
+        long    startTime = System.currentTimeMillis(),
+                timeElapsed,
+                millisToWait = 100;
 
-        /* compare and contrast with the following JavaScript code:
+        // HTML elements
+        org.w3c.dom.Element doc;
+        NodeList forms;
+        HTMLFormElement loginForm = null;
+
+        /* Compare and contrast with the following JavaScript code:
          *
          *   let forms = document.getElementsByTagName("form");
          *   let loginForm = forms[1];
+         *
          *   let inputs = loginForm.elements;
          *   inputs[2].value = username;
          *   inputs[3].value = password;
          *   loginForm.submit();
          */
-        NodeList forms = doc.getElementsByTagName("form");
-        HTMLFormElement loginForm = (HTMLFormElement)forms.item(1);
-        HTMLCollection inputs = loginForm.getElements();
-        ((HTMLInputElement)inputs.item(2)).setValue(username);
-        ((HTMLInputElement)inputs.item(3)).setValue(password);
-        loginForm.submit();
+
+        do {  // keep polling for the form, or time-out
+
+            System.out.println("Finding the form...");
+            try { Thread.sleep(millisToWait); } catch (Exception e) { e.printStackTrace(); }
+
+            if (engine.getDocument() != null) {
+                doc = engine.getDocument().getDocumentElement();
+                forms = doc.getElementsByTagName("form");
+                loginForm = (HTMLFormElement)forms.item(1);
+            }
+
+            //millisToWait *= 2;  // exponential back-off
+            millisToWait += 100;  // incremental back-off
+            timeElapsed = System.currentTimeMillis() - startTime;
+
+        } while (loginForm == null && timeElapsed < TIMEOUT);  // time-out after 10 seconds
+
+        // if the page didn't time-out, continue with auto-login
+        if (loginForm != null) {
+            System.out.println("Found it!");
+
+            HTMLCollection inputs = loginForm.getElements();
+            ((HTMLInputElement)inputs.item(2)).setValue(username);
+            ((HTMLInputElement)inputs.item(3)).setValue(password);
+            loginForm.submit();
+        } else {
+            System.out.println("Page timed out");
+        }
 
         return null;
     }
