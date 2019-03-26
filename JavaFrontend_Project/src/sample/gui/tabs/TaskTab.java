@@ -92,34 +92,35 @@ public class TaskTab extends Tab implements iTaskTab {
         switch (id) {
             /* Set a id for the URL, so when the URL needs to be used it can only input the id, set relevant form tags*/
             case "Moodle (courses)":
-//                browserView.getTabs().add(new WebViewTab("https://moodle.nottingham.ac.uk"));
+                browserView.getTabs().add(new WebViewTab("https://moodle.nottingham.ac.uk"));
                 taskUrl = "https://moodle.nottingham.ac.uk";
                 formTags.add("#login");
                 formTags.add("#username");
                 formTags.add("#password");
                 break;
             case "Blue Castle (Grades)":
-//                browserView.getTabs().add(new WebViewTab("https://bluecastle.nottingham.ac.uk"));
-                taskUrl = "https://bluecastle-results.nottingham.ac.uk/login";
+                browserView.getTabs().add(new WebViewTab("https://bluecastle-results.nottingham.ac.uk/Account/Login?ReturnUrl=%2f"));
+                taskUrl = "https://bluecastle-results.nottingham.ac.uk/Account/Login?ReturnUrl=%2f";
                 formTags.add("form");
                 formTags.add("#UserName");
                 formTags.add("#Password");
                 break;
             case "MyNottingham":
-//                browserView.getTabs().add(new WebViewTab("http://mynottingham.nottingham.ac.uk"));
+                browserView.getTabs().add(new WebViewTab("http://mynottingham.nottingham.ac.uk"));
                 taskUrl = "http://mynottingham.nottingham.ac.uk";
                 formTags.add("form#login");
                 formTags.add("#userid");
                 formTags.add("#pwd");
                 break;
         }
-        formSender = new FormSender(taskUrl); /*This logs the user in, but need to find a way to pass correct url back*/
+        /* This cause extreme slowdown, manually logging into Moodle is not possible (not sure why that is yet)*/
+//        formSender = new FormSender(taskUrl); /*This logs the user in, but need to find a way to pass correct url back*/
 
         /*
         * This displays the incorrect page due to the async method taking longer, displayed url is outdated
         * This needs to be resolved in the FormSender class
         */
-        browserView.getTabs().add(new WebViewTab(formSender.getWebView().getEngine().getLocation()));
+//        browserView.getTabs().add(new WebViewTab(formSender.getWebView().getEngine().getLocation()));
     }
 
 
