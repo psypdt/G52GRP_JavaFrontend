@@ -75,8 +75,8 @@ public void update(String firstname , int userID) {
         System.out.println("update fail");    
     }    
 } 
-public ResultSet query() {    
-    
+public String query() {    
+    String searchresult =null;
     conn = getConnection(); //Again, get the connection first, that is, connect to the database    
     try {    
         String sql1 = "select * from user";// SQL statements that query data   
@@ -87,11 +87,12 @@ public ResultSet query() {
         while (rs1.next()) {
         	String Ln = rs1.getString("Lastname");  
             String Fn = rs1.getString("Firstname"); 
-            String UID = rs1.getString("UserID");  
-            System.out.println(Fn+" "+Ln + " " + UID);  
+            String UID = rs1.getString("UserID");
+            searchresult = Fn+" "+Ln + " " + UID;
+            System.out.println(searchresult);  
         }
         conn.close();   //Close the database connection 
-        return rs1;
+        return searchresult;
             
     } catch (SQLException e) {    
         System.out.println("search information fail");    
