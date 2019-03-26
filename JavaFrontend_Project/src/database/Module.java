@@ -88,8 +88,8 @@ public class Module {
     }    
     	
     /* Query the database to output the required records*/    
-   public ResultSet query() {    
-            
+   public String query() {    
+         String searchresult = null;   
         conn = getConnection(); //Again, get the connection first, that is, connect to the database    
         try {    
             String sql1 = "select * from module";// SQL statements that query data   
@@ -106,11 +106,12 @@ public class Module {
                 String Mn1 = rs1.getString("Modulename");        
                     
                 //Output the values of the fields of the record being looked up 
-                System.out.println(MI1+" "+Mn1);    
+                searchresult = MI1 + " " + Mn1;
+                System.out.println(searchresult);    
                 
             } 
             conn.close();   //Close the database connection   
-            return rs1;    
+            return searchresult;    
         } catch (SQLException e) {    
             System.out.println("search information fail");    
         }
