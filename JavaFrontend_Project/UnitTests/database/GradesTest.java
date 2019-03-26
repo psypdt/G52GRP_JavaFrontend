@@ -58,6 +58,16 @@ public class GradesTest {
 		assertEquals("10",Credit);*/
 	}
 	@Test
+	public void testupdate() {
+		Grades grade = new Grades();
+		grade.update("Introduction to Distributed system", "G52DSY");
+		String testresult = grade.query();
+		assertEquals("4315722 Y G52DSY Introduction to Distributed system 99 10",testresult);
+		
+		
+		
+	}
+	@Test
 	public void testdelete() {
 		Grades grade = new Grades();
 		grade.delete("G52DSY");
@@ -65,7 +75,7 @@ public class GradesTest {
 		assertEquals(null,testresult);
 		
 	}		
-		
+	
 		
 		
 }
