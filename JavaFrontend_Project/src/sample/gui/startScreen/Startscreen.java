@@ -1,6 +1,6 @@
 package sample.gui.startScreen;
 
-import sample.gui.tabs.browserTab.BrowserTab;
+import sample.gui.tabs.BrowserTab;
 
 public interface Startscreen
 {

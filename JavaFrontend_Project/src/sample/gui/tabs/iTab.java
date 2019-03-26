@@ -1,5 +1,6 @@
 package sample.gui.tabs;
 
-public abstract class Tab
+public interface iTab
 {
+
 }
