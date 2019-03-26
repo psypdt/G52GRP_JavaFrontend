@@ -54,6 +54,7 @@ public class ParserWriter implements ParserWriterInterface
      * CAUTION, THIS IS AN UNSAFE METHOD, ONLY INTENDED FOR TESTING PURPOSES
      * @param parseDoc
      * @throws IOException
+     * @deprecated
      */
     public void writeEntireHtmlToFile(Document parseDoc) throws IOException
     {
