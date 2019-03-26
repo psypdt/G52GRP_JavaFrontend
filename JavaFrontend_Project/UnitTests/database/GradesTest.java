@@ -7,9 +7,11 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
 import org.junit.Test;
 
 public class GradesTest {
+	static Connection conn;  
 	
 	public static Connection getConnection() {    
         Connection con = null;  //Create a Connection object to connect to the database 
@@ -28,31 +30,42 @@ public class GradesTest {
 	@Test
 	public void testinsert() {
 		Grades grades = new Grades();
-		grades.insert(4315722,"longdd","G52DSY","Distributed system",99,10);
-		ResultSet result = grades.query();
+		grades.insert(4315722,"Y","G52DSY","Distributed system",99,10);
+		String testresult = grades.query();
 		
-		String SI = null, Sn = null, MI2 = null, Mn2 = null, Grade = null, Credit = null;
-		
+		/*String Sn = null, MI2 = null, Mn2 = null, Grade = null, Credit = null;
+		int SI = 0;
 		try {
 			while (result.next()) {
-        	SI = result.getString("StudentID");  
-            Sn = result.getString("Studentname"); 
-            MI2 = result.getString("ModuleID");  
-            Mn2 = result.getString("Modulename"); 
-            Grade = result.getString("Grade");  
-            Credit = result.getString("Credit"); 
-            System.out.println(SI+" "+Sn + " " + MI2+ " "+ Mn2 + " "+ Grade +" "+Credit);  
-        }
+	        	SI = result.getInt("StudentID");  
+	            Sn = result.getString("Studentname"); 
+	            MI2 = result.getString("ModuleID");  
+	            Mn2 = result.getString("Modulename"); 
+	            Grade = result.getString("Grade");  
+	            Credit = result.getString("Credit"); 
+	            System.out.println("TEST:"+SI+" "+Sn + " " + MI2+ " "+ Mn2 + " "+ Grade +" "+Credit);
+			}
 		} catch (SQLException e) {
-			System.out.println("search information fail");
-		}
-		
-		assertEquals("4315722", SI);
-		assertEquals("longdd", Sn);
+			//System.out.println("search information fail");
+			 System.out.println("TEST:"+SI+" "+Sn + " " + MI2+ " "+ Mn2 + " "+ Grade +" "+Credit);
+			e.printStackTrace();
+		}*/
+		assertEquals("4315722 Y G52DSY Distributed system 99 10",testresult);
+		/*assertEquals("Y", Sn);
 		assertEquals("G52DSY",MI2);
 		assertEquals("Distributed system",Mn2);
 		assertEquals("99",Grade);
-		assertEquals("10",Credit);
+		assertEquals("10",Credit);*/
 	}
-
+	@Test
+	public void testdelete() {
+		Grades grade = new Grades();
+		grade.delete("G52DSY");
+		String testresult = grade.query();
+		assertEquals(null,testresult);
+		
+	}		
+		
+		
+		
 }
