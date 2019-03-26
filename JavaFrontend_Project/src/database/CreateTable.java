@@ -29,16 +29,19 @@ public class CreateTable {
      * 
      * @param tablename the name for the table created
      */
-    public void createtable(String tablename) {
+    public String createtable(String tablename) {
     	conn = getConnection();
+    	String name = tablename;
     	try {
     		String sql = "create table "+tablename+"(UserId int(10),Username varchar(30));";
     		st = (Statement) conn.createStatement(); 
     		int count = st.executeUpdate(sql);
     		System.out.println("create " + count + "new table");
     		conn.close();
+    		return name;
     	}catch (SQLException e) {    
-            System.out.println("create fail" + e.getMessage());    
+            System.out.println("create fail" + e.getMessage());   
+            return null;
         }    
 }
 

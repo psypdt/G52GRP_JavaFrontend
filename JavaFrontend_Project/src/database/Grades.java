@@ -36,7 +36,7 @@ public static Connection getConnection() {
  * @param grade student's grade for this module
  * @param credit this module's credit
  */
-	public void insert(String studentname,int studentID, String moduleID, String modulename, int grade, int credit   ) {    
+	public void insert(int studentID,String studentname, String moduleID, String modulename, int grade, int credit   ) {    
     
     conn = getConnection(); // The first step is to get a connection, that is, to the database  
 
@@ -79,8 +79,8 @@ public static Connection getConnection() {
 	            System.out.println("update fail");    
 	        }    
 	    }
-	   public void query() {    
-           
+	   public String query() {    
+            String searchresult = null;
 	        conn = getConnection(); //Again, get the connection first, that is, connect to the database    
 	        try {    
 	            String sql1 = "select * from grades";// SQL statements that query data   
@@ -95,13 +95,19 @@ public static Connection getConnection() {
 	                String Mn2 = rs1.getString("Modulename"); 
 	                String Grade = rs1.getString("Grade");  
 	                String Credit = rs1.getString("Credit"); 
-	                System.out.println(SI+" "+Sn + " " + MI2+ " "+ Mn2 + " "+ Grade +" "+Credit);  
+	                searchresult = SI+" "+Sn + " " + MI2+ " "+ Mn2 + " "+ Grade +" "+Credit;
+	                System.out.println(searchresult);
 	            }
+	            
+	            
 	            conn.close();   //Close the database connection   
+	            return searchresult;
 	                
 	        } catch (SQLException e) {    
 	            System.out.println("search information fail");    
-	        }    
+	        }
+			return null;
+	     
 	    }  
 	   /**
 	    * 
