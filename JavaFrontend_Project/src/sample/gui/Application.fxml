@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.text.Font?>
+
+<TabPane fx:id="tab_pane" prefHeight="468.0" prefWidth="411.0" style="-fx-background-color: lightsteelblue;" tabClosingPolicy="ALL_TABS" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.gui.ApplicationController">
+  <tabs>
+    <Tab closable="false" style="-fx-background-color: lightsteelblue; -fx-font-size: 16; -fx-text-fill: white;" text="Home">
+         <content>
+            <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" prefHeight="556.0" prefWidth="450.0" vbarPolicy="ALWAYS">
+               <content>
+                  <TilePane alignment="CENTER" hgap="25.0" vgap="25.0">
+                     <children>
+                        <Button fx:id="button_blue_castle" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: cornflowerblue;" text="Blue Castle (Grades)" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font size="15.0" />
+                           </font></Button>
+                        <Button fx:id="button_portal" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: cornflowerblue;" text="Portal (Module Choices)" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font size="15.0" />
+                           </font></Button>
+                        <Button fx:id="button_grades_modules" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: cornflowerblue;" text="Grades and Modules" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font size="15.0" />
+                           </font></Button>
+                        <Button fx:id="button_moodle" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: cornflowerblue;" text="Moodle (courses)" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font size="15.0" />
+                           </font></Button>
+                        <Button fx:id="button_mynottingham" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: cornflowerblue;" text="MyNottingham" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font size="15.0" />
+                           </font></Button>
+                        <Button fx:id="load_database" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: cornflowerblue;" text="Load from Database" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font size="15.0" />
+                           </font></Button>
+                        <Button fx:id="button_settings" mnemonicParsing="false" style="-fx-background-color: coral;" text="Setting">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <padding>
+                        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                     </padding>
+                  </TilePane>
+               </content></ScrollPane>
+         </content></Tab>
+  </tabs>
+</TabPane>
