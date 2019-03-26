@@ -136,7 +136,7 @@ public class FormSender extends Tab implements FormSenderInterface
 
         /*Find the staticFormLogin form via its tag*/
         /*For BlueCastle, this tag is "form"*/
-        /*For MyNottingham, #login or form#staticFormLogin*/
+        /*For MyNottingham, #login or form#login*/
         /*For Moodle, #login*/
         FormElement loginForm = (FormElement)loginFormResponse.parse().select("#login").first();
         checkElement("Login Form", loginForm);
