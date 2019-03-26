@@ -60,20 +60,22 @@ public class TaskTab extends Tab implements iTaskTab {
         goToBrowserMode();
     }
 
-    @Override
+
     /**
      *  Once the Scraper mode button has been activated, it will go to a Scraper mode and allow the developer to edit
-     *  */
+     */
+    @Override
     public void goToScraperMode() {
         background.getChildren().clear();
         background.getChildren().add(scraperView);
         background.getChildren().add(browserButton);
     }
 
-    @Override
+
     /**
      *  Once the Browser mode button has been activated, it will go to a Browser mode and will not allow the developer to edit
-     *  */
+     */
+    @Override
     public void goToBrowserMode() {
         background.getChildren().clear();
         background.getChildren().add(browserView);
