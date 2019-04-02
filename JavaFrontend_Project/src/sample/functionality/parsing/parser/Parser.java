@@ -6,10 +6,12 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import sample.functionality.forms.formSending.FormSender;
 import sample.functionality.parsing.parserReader.ParserReader;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Map;
 
 
 public class Parser implements ParserInterface
@@ -187,6 +189,33 @@ public class Parser implements ParserInterface
         return fname;
     }
 
+
+    public String parsedHTML(String url2, String tags) throws IOException {
+            //String url2 = "https://moodle.nottingham.ac.uk/login/index.php";
+            FormSender login = new FormSender(url2, false);
+            url2 = login.getWebView().getEngine().getLocation();
+
+            System.out.println(url2);
+            Map<String, String> loginCookies = login.getLoginCookies();
+
+            String pageAsString = "";
+            try {
+                Document pageToScrape = Jsoup.connect(url2)
+                        .cookies(loginCookies)
+                        .get();
+
+                Elements pageScraped = pageToScrape.select(tags);
+                pageAsString = pageScraped.toString();
+
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+
+        //System.out.println(pageAsString);
+        return pageAsString;
+
+    }
 
 }
 
