@@ -23,6 +23,7 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Map;
 
 
 /**
@@ -37,12 +38,14 @@ public class FormSender extends Tab implements FormSenderInterface
     public Parser parser = new Parser();
     private ArrayList<String> tagList = new ArrayList<>();
 
+    private Map<String, String> loginCookies;
+
     /***
      * Constructor for the FormSender Class, Creates a new WebView (and WebEngine)
      * Automatically loads the {@code dest} url
      * @param dest The URL where the staticFormLogin form is located
      */
-    public FormSender(String dest)
+    public FormSender(String dest, Boolean isStatic, String username, String password)
     {
         super();
         url = dest;
@@ -53,6 +56,7 @@ public class FormSender extends Tab implements FormSenderInterface
 
         webEngine.getLoadWorker().stateProperty().addListener((obs, oldValue, newValue) ->
         {
+            System.out.printf("oldVal = %s, newVal = %s\n", oldValue, newValue);
             // DEBUGGING : check current load status
             //System.out.printf("oldVal = %s, newVal = %s\n", oldVal.toString(), newVal.toString());
 
@@ -62,21 +66,31 @@ public class FormSender extends Tab implements FormSenderInterface
                 //DEBUGGING : print the current URL
                 System.out.printf("current URL = %s\n", webEngine.getLocation());
 
-                if (webEngine.getLocation().equals("https://mynottingham.nottingham.ac.uk/psp/psprd/EMPLOYEE/EMPL/h/?tab=PAPP_GUEST"))
+                if (!isStatic) //Eg mynottingham
                 {
-                    dynamicFormLogin autoLogin = new dynamicFormLogin(webEngine, "", "");
+                    System.out.println("NOT STATIC");
+                    dynamicFormLogin autoLogin = new dynamicFormLogin(webEngine, username, password);
                     new Thread(autoLogin).start();
                 }
                 else
                 {
-                    try {
-                        staticFormLogin("psypdt", "");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+//                    try {
+//                        staticFormLogin(username, password);
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
                 }
             }
         });
+
+        if(isStatic)
+        {
+            try {
+                staticFormLogin(username, password);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         webView.getEngine().load(url); /*After the printHtmlToConsole() runs the first time, this can be executed*/
 
     }
@@ -109,6 +123,9 @@ public class FormSender extends Tab implements FormSenderInterface
     }
 
 
+    public Map<String, String> getLoginCookies() {
+        return loginCookies;
+    }
 
     /***
      * This method is what will automate the staticFormLogin process for the user
@@ -133,6 +150,7 @@ public class FormSender extends Tab implements FormSenderInterface
                 .method(Connection.Method.GET)
                 .userAgent(USER_AGENT)
                 .execute();
+
 
         /*Find the staticFormLogin form via its tag*/
         /*For BlueCastle, this tag is "form"*/
@@ -168,13 +186,15 @@ public class FormSender extends Tab implements FormSenderInterface
         this.url = loginActionResponse.url().toString();
         tagList = parser.parseMultipleTags("./resource_parsed_files/loginFile.txt", url);
         System.out.println("LIST IS: " + tagList.toString());
+
+        loginCookies  = loginFormResponse.cookies(); //NEW LINE - Saves the cookies into a map.
         /*
         Connection.Response check = Jsoup.connect(url)
                 .method(Connection.Method.GET)
                 .userAgent(USER_AGENT)
                 .execute();
            */
-        webView.getEngine().load(url);
+        //webView.getEngine().load(url);
     }
 
 
