@@ -29,11 +29,11 @@ public class CreateTable {
      * 
      * @param tablename the name for the table created
      */
-    public String createtable(String tablename) {
+    public String createtable(String tablename, String column1, String column2) {
     	conn = getConnection();
     	String name = tablename;
     	try {
-    		String sql = "create table "+tablename+"(UserId int(10),Username varchar(30));";
+    		String sql = "create table "+tablename+"("+column1+" int(10),"+column2+" varchar(30));";
     		st = (Statement) conn.createStatement(); 
     		int count = st.executeUpdate(sql);
     		System.out.println("create " + count + "new table");
