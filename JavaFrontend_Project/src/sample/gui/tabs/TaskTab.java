@@ -1,6 +1,8 @@
 package sample.gui.tabs;
 
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -8,8 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import sample.functionality.forms.formSending.FormSender;
 
-import java.util.ArrayList;
-
+import java.io.IOException;
 
 public class TaskTab extends Tab implements iTaskTab {
 
@@ -57,70 +58,24 @@ public class TaskTab extends Tab implements iTaskTab {
      */
     public TaskTab(String id) {
         this();
-        formTags = new ArrayList<>(); /*Array list containing tags needed for a static form*/
-        setText(id);
-        initialiseTabUrl(id);
-        goToBrowserMode();
-    }
-
-
-    /**
-     * Overloaded constructor for {@link TaskTab}, can specify if the login form is created dynamically
-     * Useful for {@link FormSender} when choosing login method
-     * @param id Identification of what tab will be opened, Moodle, BlueCastle, etc.
-     * @param bDynamic Disambiguate if the web site dynamically generates the form to log the user in
-     */
-    public TaskTab(String id, boolean bDynamic)
-    {
-        this();
-        isDynamic = bDynamic;
-        formTags = new ArrayList<>(); /*Array list containing tags needed for a static form*/
-        setText(id);
-        initialiseTabUrl(id);
-        goToBrowserMode();
-    }
-
-
-    /**
-     * This method will setup the URL for the tab and the {@code formTags} list
-     * NOTE: Additional initialisation behaviour/properties (Auto-login, form-tags) for websites should be done here
-     * {@code formSender} is instantiated in this method
-     * @param id Identifier for what website will be loaded
-     */
-    private void initialiseTabUrl(String id)
-    {
-        switch (id) {
-            /* Set a id for the URL, so when the URL needs to be used it can only input the id, set relevant form tags*/
-            case "Moodle (courses)":
-                browserView.getTabs().add(new WebViewTab("https://moodle.nottingham.ac.uk"));
-                taskUrl = "https://moodle.nottingham.ac.uk";
-                formTags.add("#login");
-                formTags.add("#username");
-                formTags.add("#password");
-                break;
-            case "Blue Castle (Grades)":
-                browserView.getTabs().add(new WebViewTab("https://bluecastle-results.nottingham.ac.uk/Account/Login?ReturnUrl=%2f"));
-                taskUrl = "https://bluecastle-results.nottingham.ac.uk/Account/Login?ReturnUrl=%2f";
-                formTags.add("form");
-                formTags.add("#UserName");
-                formTags.add("#Password");
-                break;
-            case "MyNottingham":
-                browserView.getTabs().add(new WebViewTab("http://mynottingham.nottingham.ac.uk"));
-                taskUrl = "http://mynottingham.nottingham.ac.uk";
-                formTags.add("form#login");
-                formTags.add("#userid");
-                formTags.add("#pwd");
-                break;
+        try {
+            setText(id);
+            switch (id) {
+                /* Set a id for the URL, so when the URL needs to be used it can only input the id */
+                case "Moodle (courses)":
+                    //System.out.println(getClass().getResource("/sample/gui/scraperScreen/ScraperscreenView.fxml"));
+                    Parent root = FXMLLoader.load(getClass().getResource("/sample/gui/scraperScreen/ScraperscreenView.fxml"));
+                    browserView.getTabs().add(new WebViewTab("https://moodle.nottingham.ac.uk"));
+                    scraperView.getChildren().add(root);
+                    break;
+                case "Blue Castle (Grades)":
+                    browserView.getTabs().add(new WebViewTab("https://bluecastle.nottingham.ac.uk"));
+                    break;
+            }
+            goToBrowserMode();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        /* This cause extreme slowdown, manually logging into Moodle is not possible (not sure why that is yet)*/
-//        formSender = new FormSender(taskUrl); /*This logs the user in, but need to find a way to pass correct url back*/
-
-        /*
-        * This displays the incorrect page due to the async method taking longer, displayed url is outdated
-        * This needs to be resolved in the FormSender class
-        */
-//        browserView.getTabs().add(new WebViewTab(formSender.getWebView().getEngine().getLocation()));
     }
 
 
