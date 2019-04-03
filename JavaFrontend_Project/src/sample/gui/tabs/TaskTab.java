@@ -1,11 +1,15 @@
 package sample.gui.tabs;
 
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+
+import java.io.IOException;
 
 public class TaskTab extends Tab implements iTaskTab {
 
@@ -47,17 +51,24 @@ public class TaskTab extends Tab implements iTaskTab {
      */
     public TaskTab(String id) {
         this();
-        setText(id);
-        switch (id) {
-            /* Set a id for the URL, so when the URL needs to be used it can only input the id */
-            case "Moodle (courses)":
-                browserView.getTabs().add(new WebViewTab("https://moodle.nottingham.ac.uk"));
-                break;
-            case "Blue Castle (Grades)":
-                browserView.getTabs().add(new WebViewTab("https://bluecastle.nottingham.ac.uk"));
-                break;
+        try {
+            setText(id);
+            switch (id) {
+                /* Set a id for the URL, so when the URL needs to be used it can only input the id */
+                case "Moodle (courses)":
+                    //System.out.println(getClass().getResource("/sample/gui/scraperScreen/ScraperscreenView.fxml"));
+                    Parent root = FXMLLoader.load(getClass().getResource("/sample/gui/scraperScreen/ScraperscreenView.fxml"));
+                    browserView.getTabs().add(new WebViewTab("https://moodle.nottingham.ac.uk"));
+                    scraperView.getChildren().add(root);
+                    break;
+                case "Blue Castle (Grades)":
+                    browserView.getTabs().add(new WebViewTab("https://bluecastle.nottingham.ac.uk"));
+                    break;
+            }
+            goToBrowserMode();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        goToBrowserMode();
     }
 
 
