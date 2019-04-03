@@ -28,6 +28,8 @@ public class CreateTable {
     /**
      * 
      * @param tablename the name for the table created
+     * @param column1 first column name
+     * @param column2 second column name
      */
     public String createtable(String tablename, String column1, String column2) {
     	conn = getConnection();
