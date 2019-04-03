@@ -25,8 +25,8 @@ public class CreatetableTest {
 	@Test
 	public void test() {
 		CreateTable create = new CreateTable();
-		String testresult = create.createtable("newnew");
-		assertEquals("newnew",testresult);
+		String testresult = create.createtable("new","UserID","Username");
+		assertEquals("new",testresult);
 	}
 
 }
