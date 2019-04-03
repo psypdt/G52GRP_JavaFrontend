@@ -6,10 +6,12 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import sample.functionality.forms.formSending.FormSender;
 import sample.functionality.parsing.parserReader.ParserReader;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Map;
 
 
 public class Parser implements ParserInterface
