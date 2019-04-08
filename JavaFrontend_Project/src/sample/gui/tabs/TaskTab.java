@@ -8,7 +8,8 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import sample.gui.scraperScreen.ScraperscreenController;
+import sample.functionality.forms.formSending.FormSender;
+import sample.gui.scraperScreen.ScraperScreenController;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -65,7 +66,7 @@ public class TaskTab extends Tab implements iTaskTab {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/gui/scraperScreen/ScraperscreenView.fxml"));
                     Parent root = loader.load();
 
-                    ScraperscreenController c = loader.getController();
+                    ScraperScreenController c = loader.getController();
                     c.setId(id);
             switch (id) {
                 /* Set a id for the URL, so when the URL needs to be used it can only input the id */
