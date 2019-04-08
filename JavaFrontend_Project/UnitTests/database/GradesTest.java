@@ -68,7 +68,7 @@ public class GradesTest {
 		
 	}
 	@Test
-	public void testdelete() {
+	public void testxdelete() {
 		Grades grade = new Grades();
 		grade.delete("G52DSY");
 		String testresult = grade.query();

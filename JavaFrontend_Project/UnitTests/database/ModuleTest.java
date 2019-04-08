@@ -39,7 +39,7 @@ static Connection conn;
 		assertEquals("G52LAC Languages and Computations",testresult);
 	}
 	@Test
-	public void testdelete() {
+	public void testxdelete() {
 		Module module = new Module();
 		module.delete("G52LAC");
 		String testresult = module.query();
