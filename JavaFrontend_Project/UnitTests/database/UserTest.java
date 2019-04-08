@@ -38,7 +38,7 @@ static Connection conn;
 		assertEquals("Y Wang 14375122",testresult);
 	}
 	@Test
-	public void testdelete() {
+	public void testxdelete() {
 		User user = new User();
 		user.delete(14375122);
 		String testresult = user.query();

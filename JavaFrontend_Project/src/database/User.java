@@ -43,9 +43,9 @@ public void insert(String lastname,String firstname,int userID) {
         /*String sql2 = "INSERT INTO grades(StudentID,Studentname,ModuleID,Modulename,Grade,Credit)" 
         		+ " VALUES ('4315722','Yisong Wang','G52OSC','Opreating system','100','10')";*/
         st = (Statement) conn.createStatement();    // Create a Statement object for executing static SQL statements   
-        int count1 = st.executeUpdate(sql);  // SQL statement that performs the insert operation and returns the number of inserted data    
+        st.executeUpdate(sql);  // SQL statement that performs the insert operation and returns the number of inserted data    
         /*int count2 = st.executeUpdate(sql2);*/
-        System.out.println("insert into user " + count1 + " data"); //Outputs the processing results of the insert operation   
+        //System.out.println("insert into user " + count1 + " data"); //Outputs the processing results of the insert operation   
         /*System.out.println("insert into grades " + count2 + " data");     */
         conn.close();   //Close the database connection   
             
@@ -65,9 +65,9 @@ public void update(String firstname , int userID) {
             
         st = (Statement) conn.createStatement();    //Create a Statement object for executing static SQL statements, st being a local variable  
             
-        int count = st.executeUpdate(sql);//SQL statement that performs the update operation and returns the number of updates   
+        st.executeUpdate(sql);//SQL statement that performs the update operation and returns the number of updates   
             
-        System.out.println("update the user data  " + count + " data");      //Outputs the processing results of the update operation  
+        //System.out.println("update the user data  " + count + " data");      //Outputs the processing results of the update operation  
             
         conn.close();   //Close the database connection    
             
@@ -110,9 +110,9 @@ public void delete(int userID) {
         String sql = "delete from user  where UserID = '"+userID+"'";// SQL statement to delete data    
         st = (Statement) conn.createStatement();    //Create a Statement object for executing static SQL statements, st being a local variable 
             
-        int count = st.executeUpdate(sql);// Execute the SQL delete statement to return the number of deleted data  
+        st.executeUpdate(sql);// Execute the SQL delete statement to return the number of deleted data  
             
-        System.out.println("delete from the user " + count + " data\n");    //Outputs the result of the delete operation  
+        //System.out.println("delete from the user " + count + " data\n");    //Outputs the result of the delete operation  
             
         conn.close();   //Close the database connection    
             

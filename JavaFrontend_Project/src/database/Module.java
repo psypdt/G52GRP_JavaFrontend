@@ -52,9 +52,9 @@ public class Module {
             		+ " VALUES ('4315722','Yisong Wang','G52OSC','Opreating system','100','10')";*/
             st = (Statement) conn.createStatement();    // Create a Statement object for executing static SQL statements   
                 
-            int count1 = st.executeUpdate(sql1);  // SQL statement that performs the insert operation and returns the number of inserted data    
+            st.executeUpdate(sql1);  // SQL statement that performs the insert operation and returns the number of inserted data    
             /*int count2 = st.executeUpdate(sql2);*/
-            System.out.println("insert into module " + count1 + " data"); //Outputs the processing results of the insert operation   
+            //System.out.println("insert into module " + count1 + " data"); //Outputs the processing results of the insert operation   
             /*System.out.println("insert into grades " + count2 + " data");     */
             conn.close();   //Close the database connection   
                 
@@ -76,9 +76,9 @@ public class Module {
                 
             st = (Statement) conn.createStatement();    //Create a Statement object for executing static SQL statements, st being a local variable  
                 
-            int count = st.executeUpdate(sql);//SQL statement that performs the update operation and returns the number of updates   
+            st.executeUpdate(sql);//SQL statement that performs the update operation and returns the number of updates   
                 
-            System.out.println("update the module data  " + count + " data");      //Outputs the processing results of the update operation  
+            //System.out.println("update the module data  " + count + " data");      //Outputs the processing results of the update operation  
                 
             conn.close();   //Close the database connection    
                 
@@ -130,9 +130,9 @@ public class Module {
             String sql = "delete from module  where ModuleID = '"+moduleID+"'";// SQL statement to delete data    
             st = (Statement) conn.createStatement();    //Create a Statement object for executing static SQL statements, st being a local variable 
                 
-            int count = st.executeUpdate(sql);// Execute the SQL delete statement to return the number of deleted data  
+            st.executeUpdate(sql);// Execute the SQL delete statement to return the number of deleted data  
                 
-            System.out.println("delete from the module " + count + " data\n");    //Outputs the result of the delete operation  
+            //System.out.println("delete from the module " + count + " data\n");    //Outputs the result of the delete operation  
                 
             conn.close();   //Close the database connection    
                 

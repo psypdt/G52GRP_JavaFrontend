@@ -37,8 +37,8 @@ public class CreateTable {
     	try {
     		String sql = "create table "+tablename+"("+column1+" int(10),"+column2+" varchar(30));";
     		st = (Statement) conn.createStatement(); 
-    		int count = st.executeUpdate(sql);
-    		System.out.println("create " + count + "new table");
+    		st.executeUpdate(sql);
+    		//System.out.println("create " + count + "new table");
     		conn.close();
     		return name;
     	}catch (SQLException e) {    
