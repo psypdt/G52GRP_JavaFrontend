@@ -8,8 +8,10 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import sample.gui.scraperScreen.ScraperscreenController;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class TaskTab extends Tab implements iTaskTab {
 
@@ -18,6 +20,7 @@ public class TaskTab extends Tab implements iTaskTab {
     private TabPane browserView;
     private Button browserButton;
     private Button scraperButton;
+
 
     /**
      * Note:
@@ -47,22 +50,28 @@ public class TaskTab extends Tab implements iTaskTab {
 
     /**
      *
-     * @param id Add the id for the tab
+     * @param id The id for the tab
      */
     public TaskTab(String id) {
         this();
         try {
             setText(id);
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/gui/scraperScreen/ScraperscreenView.fxml"));
+                    Parent root = loader.load();
+
+                    ScraperscreenController c = loader.getController();
+                    c.setId(id);
             switch (id) {
                 /* Set a id for the URL, so when the URL needs to be used it can only input the id */
                 case "Moodle (courses)":
                     //System.out.println(getClass().getResource("/sample/gui/scraperScreen/ScraperscreenView.fxml"));
-                    Parent root = FXMLLoader.load(getClass().getResource("/sample/gui/scraperScreen/ScraperscreenView.fxml"));
+                    //Parent root = FXMLLoader.load(getClass().getResource("/sample/gui/scraperScreen/ScraperscreenView.fxml"));
                     browserView.getTabs().add(new WebViewTab("https://moodle.nottingham.ac.uk"));
                     scraperView.getChildren().add(root);
                     break;
                 case "Blue Castle (Grades)":
                     browserView.getTabs().add(new WebViewTab("https://bluecastle.nottingham.ac.uk"));
+                    scraperView.getChildren().add(root);
                     break;
             }
             goToBrowserMode();
@@ -92,4 +101,5 @@ public class TaskTab extends Tab implements iTaskTab {
         background.getChildren().add(browserView);
         background.getChildren().add(scraperButton);
     }
+
 }

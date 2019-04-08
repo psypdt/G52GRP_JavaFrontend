@@ -192,7 +192,7 @@ public class Parser implements ParserInterface
 
     public String parsedHTML(String url2, String tags) throws IOException {
         //String url2 = "https://moodle.nottingham.ac.uk/login/index.php";
-        FormSender login = new FormSender(url2, false, "", "");
+        FormSender login = new FormSender(url2, false, "", "", null);
         url2 = login.getWebView().getEngine().getLocation();
 
         System.out.println(url2);

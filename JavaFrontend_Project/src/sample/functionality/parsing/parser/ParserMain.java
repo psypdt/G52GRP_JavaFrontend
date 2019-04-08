@@ -3,6 +3,7 @@ package sample.functionality.parsing.parser;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
@@ -26,9 +27,9 @@ public class ParserMain extends Application {
         primaryStage.show();
 
         parser = new JSONParser();
-        String s = parser.login("https://moodle.nottingham.ac.uk/login/index.php", "a.list-group-item", "psyjm9", "");
+        //JSONArray s = parser.login("https://moodle.nottingham.ac.uk/login/index.php", "a.list-group-item", "psyjm9", "", null);
         //String s = parser.getJSON("a.list-group-item");
-        System.out.println(s);
+        //System.out.println(s);
 
 
         /*

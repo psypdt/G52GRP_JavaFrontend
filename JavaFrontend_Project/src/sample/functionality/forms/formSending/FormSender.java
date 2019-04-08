@@ -39,17 +39,20 @@ public class FormSender extends Tab implements FormSenderInterface
     private ArrayList<String> tagList = new ArrayList<>();
 
     private Map<String, String> loginCookies;
+    private ArrayList<String> formTags;
 
     /***
      * Constructor for the FormSender Class, Creates a new WebView (and WebEngine)
      * Automatically loads the {@code dest} url
      * @param dest The URL where the staticFormLogin form is located
      */
-    public FormSender(String dest, Boolean isStatic, String username, String password)
+    public FormSender(String dest, Boolean isStatic, String username, String password, ArrayList<String> loginTags)
     {
         super();
         url = dest;
+
         webView = new WebView();
+        formTags = loginTags;
 
         webEngine = webView.getEngine();
         webEngine.setJavaScriptEnabled(true);
@@ -156,21 +159,21 @@ public class FormSender extends Tab implements FormSenderInterface
         /*For BlueCastle, this tag is "form"*/
         /*For MyNottingham, #login or form#staticFormLogin*/
         /*For Moodle, #login*/
-        FormElement loginForm = (FormElement)loginFormResponse.parse().select("#login").first();
+        FormElement loginForm = (FormElement)loginFormResponse.parse().select(formTags.get(0)).first();
         checkElement("Login Form", loginForm);
 
         /*Complete the staticFormLogin form, user name & password*/
         /*For BlueCastle this is called #UserName*/
         /*For MyNottingham, #userid*/
         /*For Moodle #username*/
-        Element loginField = loginForm.select("#username").first();
+        Element loginField = loginForm.select(formTags.get(1)).first();
         checkElement("Login Field", loginField);
         loginField.val(USERNAME);
 
         /*For BlueCastle this field is "#Password"*/
         /*For MyNottingham, #pwd*/
         /*For Moodle, #password*/
-        Element passwordField = loginForm.select("#password").first();
+        Element passwordField = loginForm.select(formTags.get(2)).first();
         checkElement("Password Field", passwordField);
         passwordField.val(PASSWORD);
 
