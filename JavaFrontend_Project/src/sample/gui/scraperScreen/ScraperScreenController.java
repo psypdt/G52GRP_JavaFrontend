@@ -2,62 +2,67 @@ package sample.gui.scraperScreen;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import sample.functionality.parsing.parser.JSONParser;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
+import java.util.ArrayList;
 
-public class ScraperScreenController {
-    private static Map<String, String> TAGS_TO_VIEWS;
+public class ScraperscreenController
+{
+    private String id;
+    private ArrayList<String> loginTags = new ArrayList<>();
 
-    // setup a hash table to convert HTML elements to FXML nodes
-    static {
-        TAGS_TO_VIEWS = new HashMap<>();
-        TAGS_TO_VIEWS.put("button", "Button");
-    }
-
-    @FXML private AnchorPane pane;
-    @FXML private VBox vertical_grid;
+    @FXML private TextField username_field;
+    @FXML private PasswordField password_field;
+    @FXML private Button login_button;
 
     @FXML private void initialize() {
-        vertical_grid = new VBox();
-        pane.getChildren().add(vertical_grid);
+        login_button.setOnAction((e) -> {
+            //System.out.println(username_field.getText());
+            //System.out.println(password_field.getText());
+            login();
+
+
+
+
+        });
     }
 
-    @FXML
-    public void displayTags (JSONArray tags) throws JSONException {
+    public void setId(String id) {
+        this.id = id;
+    }
 
-        // DEBUG: check length of JSON object
-        System.out.println(tags.length());
-
-        for (int i = 0; i < tags.length(); i++) {
-            JSONObject element = tags.getJSONObject(i);
-
-            // DEBUG: check the contents of the HTML element
-            System.out.println(element.toString());
-
-            // lookup the FXML object to create for a given HTML element
-            String view = TAGS_TO_VIEWS.getOrDefault(element.getString("type"), "Text");
-
-            // create some FXML objects (pull this out into its own function)
-            switch (view) {
-                // HTML Button -> FXML Button
-                case "Button": {
-                    vertical_grid.getChildren().add(new Button(element.getString("text")));
-                    break;
+    @FXML public void login() {
+        JSONParser parser = new JSONParser();
+        switch (id) {
+            /* Set a id for the URL, so when the URL needs to be used it can only input the id, set relevant form tags*/
+            case "Moodle (courses)":
+                loginTags.add("#login");
+                loginTags.add("#username");
+                loginTags.add("#password");
+                try {
+                    //a.list-group-item
+                    JSONArray output = parser.login("https://moodle.nottingham.ac.uk/login/index.php", "a.list-group-item", username_field.getText(), password_field.getText(), loginTags);
+                    System.out.println(output.toString());
+                } catch (IOException e1) {
+                    e1.printStackTrace();
                 }
-                // text elements -> FXML Text
-                default: {
-                    vertical_grid.getChildren().add(new Text(element.getString("text")));
-                    break;
+                break;
+            case "Blue Castle (Grades)":
+                loginTags.add("form");
+                loginTags.add("#UserName");
+                loginTags.add("#Password");
+                try {
+                    JSONArray output = parser.login("https://bluecastle-results.nottingham.ac.uk/Account/Login?ReturnUrl=%2f", "h4", username_field.getText(), password_field.getText(), loginTags);
+                    System.out.println(output.toString());
+                } catch (IOException e1) {
+                    e1.printStackTrace();
                 }
-            }
+                break;
         }
-
     }
+
 }

@@ -8,9 +8,10 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import sample.functionality.forms.formSending.FormSender;
+import sample.gui.scraperScreen.ScraperscreenController;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class TaskTab extends Tab implements iTaskTab {
 
@@ -23,6 +24,7 @@ public class TaskTab extends Tab implements iTaskTab {
     private ArrayList<String> formTags; /*Convention: [0] = form_name, [1] = username_tag, [2] = password_tag*/
     private FormSender formSender; /*Used to automate the login process*/
     private String taskUrl; /*The URL that the tab is displaying*/
+
 
     /**
      * Private constructor, gets called by the public constructors:
@@ -60,16 +62,22 @@ public class TaskTab extends Tab implements iTaskTab {
         this();
         try {
             setText(id);
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/gui/scraperScreen/ScraperscreenView.fxml"));
+                    Parent root = loader.load();
+
+                    ScraperscreenController c = loader.getController();
+                    c.setId(id);
             switch (id) {
                 /* Set a id for the URL, so when the URL needs to be used it can only input the id */
                 case "Moodle (courses)":
                     //System.out.println(getClass().getResource("/sample/gui/scraperScreen/ScraperscreenView.fxml"));
-                    Parent root = FXMLLoader.load(getClass().getResource("/sample/gui/scraperScreen/ScraperscreenView.fxml"));
+                    //Parent root = FXMLLoader.load(getClass().getResource("/sample/gui/scraperScreen/ScraperscreenView.fxml"));
                     browserView.getTabs().add(new WebViewTab("https://moodle.nottingham.ac.uk"));
                     scraperView.getChildren().add(root);
                     break;
                 case "Blue Castle (Grades)":
                     browserView.getTabs().add(new WebViewTab("https://bluecastle.nottingham.ac.uk"));
+                    scraperView.getChildren().add(root);
                     break;
             }
             goToBrowserMode();
@@ -101,33 +109,4 @@ public class TaskTab extends Tab implements iTaskTab {
         background.getChildren().add(scraperButton);
     }
 
-
-    /**
-     * Getter for {@code formTags}, will be used by {@link FormSender} to get necessary login-form tags
-     * @return {@code formTags} The list containing tags required to find the login form for a website
-     */
-    public ArrayList<String> getFormTags()
-    {
-        return formTags;
-    }
-
-
-    /**
-     * Getter for {@code isDynamic}, will be used by {@link FormSender} to choose the appropriate login method
-     * @return {@code isDynamic}
-     */
-    public boolean isDynamic()
-    {
-        return isDynamic;
-    }
-
-
-    /**
-     * Getter for the {@code taskUrl}, the url that the {@link TaskTab} is displaying
-     * @return {@code taskUrl}
-     */
-    public String getTaskUrl()
-    {
-        return taskUrl;
-    }
 }

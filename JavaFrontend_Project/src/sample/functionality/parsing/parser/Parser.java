@@ -6,10 +6,12 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import sample.functionality.forms.formSending.FormSender;
 import sample.functionality.parsing.parserReader.ParserReader;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Map;
 
 
 public class Parser implements ParserInterface
@@ -188,6 +190,33 @@ public class Parser implements ParserInterface
     }
 
 
+    public String parsedHTML(String url2, String tags) throws IOException {
+        //String url2 = "https://moodle.nottingham.ac.uk/login/index.php";
+        FormSender login = new FormSender(url2, false, "", "", null);
+        url2 = login.getWebView().getEngine().getLocation();
+
+        System.out.println(url2);
+        Map<String, String> loginCookies = login.getLoginCookies();
+
+        String pageAsString = "";
+        try {
+            Document pageToScrape = Jsoup.connect(url2)
+                    .cookies(loginCookies)
+                    .get();
+
+            Elements pageScraped = pageToScrape.select(tags);
+            pageAsString = pageScraped.toString();
+
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
+        //System.out.println(pageAsString);
+        return pageAsString;
+
+    }
+
 }
 
 
@@ -217,12 +246,12 @@ class MultiTagScraperThread implements Runnable
     @Override
     public void run()
     {
-        HTMLtoJSON htmLtoJSON = new HTMLtoJSON(siteUrl);
+        //HTMLtoJSON htmLtoJSON = new HTMLtoJSON(siteUrl);
 
         /*Move through array list with file tags & place them in the jsonContent array list*/
         for(String tag : fileTags)
         {
-            jsonContent.add(htmLtoJSON.getJSON(tag));
+            //jsonContent.add(htmLtoJSON.getJSON(tag));
         }
     }
 
