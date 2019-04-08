@@ -15,11 +15,9 @@ public class CreateTable {
     public static Connection getConnection() {    
         Connection con = null;  //Create a Connection object to connect to the database 
         try {    
-            Class.forName("com.mysql.cj.jdbc.Driver");// load Mysql driver   
-                
+            Class.forName("com.mysql.cj.jdbc.Driver");// load Mysql driver  
             con = DriverManager.getConnection(    
                     "jdbc:mysql://localhost:3306/database", "root", "sh279000");// create database connection  
-                
         } catch (Exception e) {    
             System.out.println("connect to the database fail" + e.getMessage());    
         }    
@@ -38,7 +36,6 @@ public class CreateTable {
     		String sql = "create table "+tablename+"("+column1+" int(10),"+column2+" varchar(30));";
     		st = (Statement) conn.createStatement(); 
     		st.executeUpdate(sql);
-    		//System.out.println("create " + count + "new table");
     		conn.close();
     		return name;
     	}catch (SQLException e) {    
