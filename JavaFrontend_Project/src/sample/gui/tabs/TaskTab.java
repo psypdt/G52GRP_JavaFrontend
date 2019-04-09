@@ -81,7 +81,7 @@ public class TaskTab extends Tab implements iTaskTab {
                     scraperView.getChildren().add(root);
                     break;
             }
-            goToBrowserMode();
+            goToScraperMode();
         } catch (IOException e) {
             e.printStackTrace();
         }
