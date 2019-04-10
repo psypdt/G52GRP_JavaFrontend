@@ -35,9 +35,6 @@ public class FormSender extends Tab implements FormSenderInterface
     private String url;
     private WebView webView; /*Where the website will be displayed*/
     private WebEngine webEngine;
-    public Parser parser = new Parser();
-    private ArrayList<String> tagList = new ArrayList<>();
-
     private Map<String, String> loginCookies;
     private ArrayList<String> formTags;
 
@@ -102,6 +99,7 @@ public class FormSender extends Tab implements FormSenderInterface
     /***
      * This method prints the HTML after a successful staticFormLogin to the console
      * @param webEngine The {@code WebView}'s {@code WebEngine} is passed to extract it's contents
+     * @deprecated
      */
     public void printHtmlToConsole(WebEngine webEngine)
     {
@@ -126,9 +124,14 @@ public class FormSender extends Tab implements FormSenderInterface
     }
 
 
+    /**
+     * Getter for the {@code loginCookies Map}
+     * @return {@code loginCookies}
+     */
     public Map<String, String> getLoginCookies() {
         return loginCookies;
     }
+
 
     /***
      * This method is what will automate the staticFormLogin process for the user
@@ -187,8 +190,6 @@ public class FormSender extends Tab implements FormSenderInterface
 
         System.out.println("Url after staticFormLogin was: " + loginActionResponse.url());
         this.url = loginActionResponse.url().toString();
-        tagList = parser.parseMultipleTags("./resource_parsed_files/loginFile.txt", url);
-        System.out.println("LIST IS: " + tagList.toString());
 
         loginCookies  = loginFormResponse.cookies(); //NEW LINE - Saves the cookies into a map.
         /*
@@ -214,28 +215,6 @@ public class FormSender extends Tab implements FormSenderInterface
         {
             throw new RuntimeException("Unable to find " + name);
         }
-    }
-
-
-    /***
-     * This method can be used to get the username input from fxml form
-     * @param uName The text from the FXML files username field
-     * @return Returns the username from the FXML file
-     */
-    public String fetchUsrName(String uName)
-    {
-        return uName;
-    }
-
-
-    /***
-     * This method ca be used to get the password input from the fxml form
-     * @param pwd The text form the FXML files password field
-     * @return Returns the password from the FXML file
-     */
-    public String fetchPassWord(String pwd)
-    {
-        return pwd;
     }
 
 
@@ -276,6 +255,7 @@ class dynamicFormLogin extends Task
         this.username = username;
         this.password = password;
     }
+
 
     @Override
     public Object call() {

@@ -44,33 +44,27 @@ public class ScraperScreenController
 
     @FXML public void login() {
         JSONParser parser = new JSONParser();
+        JSONArray output;
         switch (id) {
             /* Set a id for the URL, so when the URL needs to be used it can only input the id, set relevant form tags*/
             case "Moodle (courses)":
                 loginTags.add("#login");
                 loginTags.add("#username");
                 loginTags.add("#password");
-                try {
-                    //a.list-group-item
-                    //div.m-l-1
-                    JSONArray output = parser.login("https://moodle.nottingham.ac.uk/login/index.php", "div.m-l-1", username_field.getText(), password_field.getText(), loginTags);
-                    System.out.println(output.toString());
-                    displayElements(output);
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
+                //a.list-group-item
+                //div.m-l-1
+                output = parser.login("https://moodle.nottingham.ac.uk/login/index.php", "div.m-l-1", username_field.getText(), password_field.getText(), loginTags);
+                System.out.println(output.toString());
+                displayElements(output);
+
                 break;
             case "Blue Castle (Grades)":
                 loginTags.add("form");
                 loginTags.add("#UserName");
                 loginTags.add("#Password");
-                try {
-                    JSONArray output = parser.login("https://bluecastle-results.nottingham.ac.uk/Account/Login?ReturnUrl=%2f", "h4", username_field.getText(), password_field.getText(), loginTags);
-                    System.out.println(output.toString());
-                    displayElements(output);
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
+                output = parser.login("https://bluecastle-results.nottingham.ac.uk/Account/Login?ReturnUrl=%2f", "h4", username_field.getText(), password_field.getText(), loginTags);
+                System.out.println(output.toString());
+                displayElements(output);
                 break;
         }
 

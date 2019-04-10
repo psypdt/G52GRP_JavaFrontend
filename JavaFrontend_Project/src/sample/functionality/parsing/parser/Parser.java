@@ -20,34 +20,6 @@ public class Parser implements ParserInterface
 
 
     /***
-     * This function will the entire page, need a way to check if method fails
-     * @param url The page we want to parse
-     * @throws IOException Thrown due to Jsoup.connect() method
-     * @deprecated This method is not in use since there is currently no reason to over parseSpecificTag()
-     */
-    @Override
-    public void parseEntireHtml(String url) throws IOException
-    {
-        String content;
-
-        if(!url.equals(""))
-        {
-            Document doc = Jsoup.connect(url).get();
-
-            content = doc.outerHtml();
-            System.out.println(content);
-        }
-        else
-        {
-            Document doc = Jsoup.connect("https://moodle.nottingham.ac.uk").get();
-
-            content = doc.outerHtml();
-            System.out.println(content);
-        }
-    }
-
-
-    /***
      * This method should allow us to parse specific elements from a website
      * NOTE: It appears that we are getting the "INSPECT ELEMENT" output
      * @param tag The tag that we want to extract
@@ -132,29 +104,30 @@ public class Parser implements ParserInterface
      * @return Returns a JSONObject that stores the contents of the tags that reside in the "tagFile"
      * May need to check that only one file type (txt, html, etc.) is used
      * @throws IOException If the {@code readParsedFile()} method fails
+     * @deprecated This method is no longer used, it was intended to read tags from a file, but the approach has changed
      */
     public ArrayList<String> parseMultipleTags(String tagFile, String url) throws IOException
     {
-        ArrayList<String> jsonContent;
+        ArrayList<String> jsonContent = new ArrayList<>();
         ArrayList<String> tagList;
         ParserReader parserReader = new ParserReader();
 
         tagList = parserReader.readParsedFile(tagFile);
-        MultiTagScraperThread scraperThread = new MultiTagScraperThread(tagList, url);
-
-        Thread thread = new Thread(scraperThread);
-        thread.start();
-
-        try
-        {
-            thread.join();
-        }
-        catch (InterruptedException e)
-        {
-            e.printStackTrace();
-        }
-
-        jsonContent = scraperThread.getJsonContent();
+//        MultiTagScraperThread scraperThread = new MultiTagScraperThread(tagList, url);
+//
+//        Thread thread = new Thread(scraperThread);
+//        thread.start();
+//
+//        try
+//        {
+//            thread.join();
+//        }
+//        catch (InterruptedException e)
+//        {
+//            e.printStackTrace();
+//        }
+//
+//        jsonContent = scraperThread.getJsonContent();
 
         return jsonContent;
     }
@@ -189,105 +162,5 @@ public class Parser implements ParserInterface
         return fname;
     }
 
-
-    public String parsedHTML(String url2, String tags) throws IOException {
-        //String url2 = "https://moodle.nottingham.ac.uk/login/index.php";
-        FormSender login = new FormSender(url2, false, "", "", null);
-        url2 = login.getWebView().getEngine().getLocation();
-
-        System.out.println(url2);
-        Map<String, String> loginCookies = login.getLoginCookies();
-
-        String pageAsString = "";
-        try {
-            Document pageToScrape = Jsoup.connect(url2)
-                    .cookies(loginCookies)
-                    .get();
-
-            Elements pageScraped = pageToScrape.select(tags);
-            pageAsString = pageScraped.toString();
-
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
-
-        //System.out.println(pageAsString);
-        return pageAsString;
-
-    }
-
 }
 
-
-
-
-
-/*Class that runs as a thread to read contents of file and parse tags*/
-class MultiTagScraperThread implements Runnable
-{
-    private String siteUrl;
-    private ArrayList<String> fileTags;
-    private ArrayList<String> jsonContent = new ArrayList<>();
-
-
-    /**
-     * The constructor for the thread that will parse the HTML tags
-     * @param tags The list of tags we extracted form the TagFile
-     * @param url The website that will be scraped
-     */
-    public MultiTagScraperThread(ArrayList<String> tags, String url)
-    {
-        this.fileTags = tags;
-        this.siteUrl = url;
-    }
-
-
-    @Override
-    public void run()
-    {
-        //HTMLtoJSON htmLtoJSON = new HTMLtoJSON(siteUrl);
-
-        /*Move through array list with file tags & place them in the jsonContent array list*/
-        for(String tag : fileTags)
-        {
-            //jsonContent.add(htmLtoJSON.getJSON(tag));
-        }
-    }
-
-
-    /**
-     * Getter for the {@code jsonContent} object
-     * @return  ArrayList containing all parsed tags
-     */
-    public ArrayList<String> getJsonContent()
-    {
-        return jsonContent;
-    }
-
-
-    /**
-     * This method is used when we want to clear the {@code jsonContent} list so that we can reuse it later
-     */
-    public void resetJsonContent()
-    {
-        jsonContent.clear();
-    }
-
-
-    /**
-     * This method resets the url to a new link, or "" if no input is given
-     * @param newUrl The new site that we want to scrape
-     */
-    public void setSiteUrlUrl(String newUrl)
-    {
-        if(newUrl.isEmpty())
-        {
-            this.siteUrl = "";
-        }
-        else
-        {
-            this.siteUrl = newUrl;
-        }
-    }
-}
