@@ -14,63 +14,70 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import sample.functionality.parsing.parser.JSONParser;
-
-import java.io.IOException;
 import java.util.ArrayList;
+
 
 public class ScraperScreenController
 {
-    private String id;
-    private ArrayList<String> loginTags = new ArrayList<>();
-    @FXML private AnchorPane pane;
+    private String m_Id;
+    private ArrayList<String> m_LoginTags = new ArrayList<>();
+    @FXML private AnchorPane anchor_pane;
     @FXML private VBox vertical_grid;
     @FXML private TextField username_field;
     @FXML private PasswordField password_field;
     @FXML private Button login_button;
 
-    @FXML private void initialize() {
-        login_button.setOnAction((e) -> {
-            //System.out.println(username_field.getText());
-            //System.out.println(password_field.getText());
-            login();
-        });
+    /**
+     * This is the initializer for {@code ScraperscreenView.fxml}
+     */
+    @FXML private void initialize()
+    {
+        login_button.setOnAction((e) -> { login(); });
     }
 
     /**
-     * Setter for the {@code id} of the ScraperScreen
-     * @param id The id that describes what type of site this controller is handling
+     * Setter for the {@code m_Id} of the ScraperScreen
+     * @param id The m_Id that describes what type of site this controller is handling
      */
     public void setId(String id) {
-        this.id = id;
+        this.m_Id = id;
     }
+
 
     /**
      * This method is responsible for automating the login process after the user has provided their login details
      */
-    @FXML public void login() {
+    @FXML public void login()
+    {
         JSONParser parser = new JSONParser();
         JSONArray output;
-        switch (id) {
-            /* Set a id for the URL, so when the URL needs to be used it can only input the id, set relevant form tags*/
+
+        switch (m_Id)
+        {
+            /* Set a m_Id for the URL, so when the URL needs to be used it can only input the m_Id, set relevant form tags*/
             case "Moodle (courses)":
-                loginTags.add("#login");
-                loginTags.add("#username");
-                loginTags.add("#password");
-                //a.list-group-item
-                //div.m-l-1
-                output = parser.login("https://moodle.nottingham.ac.uk/login/index.php", "div.m-l-1", username_field.getText(), password_field.getText(), loginTags);
+            {
+                m_LoginTags.add("#login");
+                m_LoginTags.add("#username");
+                m_LoginTags.add("#password");
+
+                //Tags to be parsed: div.m-l-1, a.list-group-item
+                output = parser.login("https://moodle.nottingham.ac.uk/login/index.php", "div.m-l-1", username_field.getText(), password_field.getText(), m_LoginTags);
                 System.out.println(output.toString());
                 displayElements(output);
 
                 break;
+            }
             case "Blue Castle (Grades)":
-                loginTags.add("form");
-                loginTags.add("#UserName");
-                loginTags.add("#Password");
-                output = parser.login("https://bluecastle-results.nottingham.ac.uk/Account/Login?ReturnUrl=%2f", "h4", username_field.getText(), password_field.getText(), loginTags);
+            {
+                m_LoginTags.add("form");
+                m_LoginTags.add("#UserName");
+                m_LoginTags.add("#Password");
+                output = parser.login("https://bluecastle-results.nottingham.ac.uk/Account/Login?ReturnUrl=%2f", "h4", username_field.getText(), password_field.getText(), m_LoginTags);
                 System.out.println(output.toString());
                 displayElements(output);
                 break;
+            }
         }
 
     }
@@ -80,19 +87,20 @@ public class ScraperScreenController
      * Creates a JavaFX representation of a JSON array representing HTML elements.
      * @param elements JSON array of HTML elements to convert to JavaFX objects
      */
-    @FXML private void displayElements(JSONArray elements) {
-
+    @FXML private void displayElements(JSONArray elements)
+    {
         // set-up the primary container to hold the JavaFX objects
         vertical_grid = new VBox();
         vertical_grid.setLayoutX(100);
         vertical_grid.setLayoutY(100);
 
         // remove the login form and put the primary container into the view
-        pane.getChildren().clear();
-        pane.getChildren().add(vertical_grid);
+        anchor_pane.getChildren().clear();
+        anchor_pane.getChildren().add(vertical_grid);
 
         // iterate through the JSON array and display each element
-        for (int i = 0; i < elements.length(); i++) {
+        for (int i = 0; i < elements.length(); i++)
+        {
             try {
                 displayElement(elements.getJSONObject(i), vertical_grid);
             } catch (JSONException e) {
@@ -108,10 +116,11 @@ public class ScraperScreenController
      * @param element JSON representation of a HTML element
      * @param container JavaFX container element to display within
      */
-    @FXML private void displayElement(JSONObject element, Pane container) {
+    @FXML private void displayElement(JSONObject element, Pane container)
+    {
 
-        Node n = null;
-        String type;
+        Node node = null;
+        String type; //The type of element inside the JSONObject, child, button etc.
 
         // check the HTML tag name
         try {
@@ -121,8 +130,10 @@ public class ScraperScreenController
             type = "p";
         }
 
-        try {
-            switch (type.toLowerCase()) {
+        try
+        {
+            switch (type.toLowerCase())
+            {
                 case "button": {
                     // HTML button -> FXML button
 
@@ -131,7 +142,7 @@ public class ScraperScreenController
                     if (element.has("text")) buttonText = element.getString("text");
                     if (buttonText.equals("")) buttonText = "Click me!";  // default text if none found
 
-                    n = new Button(buttonText);
+                    node = new Button(buttonText);
                     break;
                 }
                 case "a": {
@@ -142,7 +153,7 @@ public class ScraperScreenController
                     if (element.has("text")) linkText = element.getString("text");
                     if (linkText.equals("")) linkText = "Click me!";  // default text if none found
 
-                    n = new Hyperlink(linkText);
+                    node = new Hyperlink(linkText);
                     break;
                 }
                 default: {
@@ -151,21 +162,25 @@ public class ScraperScreenController
                     if (element.has("text")) text = element.getString("text");
                     if (text.equals("")) text = "This is text";  // default text if none found
 
-                    n = new Text(text);
+                    node = new Text(text);
                     break;
                 }
             }
 
             // append the JavaFX object to the displayable container
-            container.getChildren().add(n);
+            container.getChildren().add(node);
 
             // recurse through any and all children of the element
-            if (element.has("children")) {
+            if (element.has("children"))
+            {
                 JSONArray children = element.getJSONArray("children");
 
                 // new container, one level deeper
                 Pane childContainer = new VBox();
-                for (int i = 0; i < children.length(); i++) {
+
+                // If the element has children, create a "sub container" and place the children inside it
+                for (int i = 0; i < children.length(); i++)
+                {
                     displayElement(children.getJSONObject(i), childContainer);
                 }
                 container.getChildren().add(childContainer);
