@@ -16,6 +16,7 @@ import sample.functionality.parsing.parser.JSONParser;
 import java.util.ArrayList;
 
 
+
 public class ScraperScreenController
 {
     private String m_Id;
@@ -27,7 +28,7 @@ public class ScraperScreenController
     @FXML private Button login_button;
 
     /**
-     * This is the initializer for {@code ScraperscreenView.fxml}
+     * Initializer for {@code ScraperscreenView.fxml}.
      */
     @FXML private void initialize()
     {
@@ -35,16 +36,15 @@ public class ScraperScreenController
     }
 
     /**
-     * Setter for the {@code m_Id} of the ScraperScreen
-     * @param id The m_Id that describes what type of site this controller is handling
+     * Setter for the {@code m_Id} of the ScraperScreen.
+     * @param id The m_Id that describes what type of site this controller is handling.
      */
-    public void setId(String id) {
-        this.m_Id = id;
-    }
+    public void setId(String id) { this.m_Id = id; }
 
 
     /**
-     * This method is responsible for automating the login process after the user has provided their login details
+     * @implNote There exists a method called {@code login()} inside {@link JSONParser}, do not confuse the two.
+     * This method is responsible for automating the login process after the user has provided login details
      */
     @FXML public void login()
     {
