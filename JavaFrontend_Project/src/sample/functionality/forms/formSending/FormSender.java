@@ -24,11 +24,11 @@ public class FormSender extends Tab implements FormSenderInterface
     private WebView m_WebView; /*Where the website will be displayed*/
     private WebEngine m_WebEngine;
     private Map<String, String> m_LoginCookies;
-    private ArrayList<String> m_FormTags;
+    private ArrayList<String> m_FormTags; /*Convention: [0] = form_name, [1] = username_tag, [2] = password_tag*/
 
     /***
      * Constructor for the FormSender Class, Creates a new WebView (and WebEngine)
-     * Automatically loads the {@code dest} m_Url
+     * Automatically loads the {@code dest} url
      * @param dest The URL where the staticFormLogin form is located
      */
     public FormSender(String dest, Boolean isStatic, String username, String password, ArrayList<String> loginTags)

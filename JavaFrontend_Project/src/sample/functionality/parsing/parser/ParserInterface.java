@@ -6,5 +6,5 @@ import java.util.ArrayList;
 
 public interface ParserInterface
 {
-    JSONArray login(String loginUrl, String tags, String username, String password, ArrayList<String> loginTags);
+    JSONArray login(String loginUrl, String tags, String username, String password, ArrayList<String> loginTags, boolean isStatic);
 }

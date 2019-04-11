@@ -29,17 +29,18 @@ public class JSONParser implements ParserInterface
      * This method is used to log the user into a website, and then parses a set of tags after the m_FormSender is complete
      * @param loginUrl Url to the website where the m_FormSender form is located
      * @param tags The tag that will be parsed after the m_FormSender is completed
-     * @param username The users username
-     * @param password The users password
+     * @param username The users username for the website
+     * @param password The users password for the website
      * @param loginTags The tags required to find the m_FormSender form
+     * @param isStatic Specify if the website dynamically generates its login form, or if it is static
      * @return {@code JSONArray pageAsString}, this is a JSONArray that contains the parsed information
      */
     @Override
-    public JSONArray login(String loginUrl, String tags, String username, String password, ArrayList<String> loginTags)
+    public JSONArray login(String loginUrl, String tags, String username, String password, ArrayList<String> loginTags, boolean isStatic)
     {
         this.m_Url = loginUrl;
         Map<String, String> loginCookies = null;
-        m_FormSender = new FormSender(m_Url, true, username, password, loginTags);
+        m_FormSender = new FormSender(m_Url, isStatic, username, password, loginTags); //Currently only static works
         //m_FormSender.staticFormLogin(username, password);
         while(loginCookies == null)
         {

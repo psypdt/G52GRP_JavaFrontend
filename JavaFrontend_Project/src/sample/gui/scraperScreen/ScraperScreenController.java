@@ -61,7 +61,12 @@ public class ScraperScreenController
                 m_LoginTags.add("#password");
 
                 //Tags to be parsed: div.m-l-1, a.list-group-item
-                output = parser.login("https://moodle.nottingham.ac.uk/login/index.php", "div.m-l-1", username_field.getText(), password_field.getText(), m_LoginTags);
+                output = parser.login("https://moodle.nottingham.ac.uk/login/index.php",
+                        "div.m-l-1",
+                        username_field.getText(),
+                        password_field.getText(),
+                        m_LoginTags, true);
+                //DEBUG:
                 System.out.println(output.toString());
                 displayElements(output);
 
@@ -72,7 +77,13 @@ public class ScraperScreenController
                 m_LoginTags.add("form");
                 m_LoginTags.add("#UserName");
                 m_LoginTags.add("#Password");
-                output = parser.login("https://bluecastle-results.nottingham.ac.uk/Account/Login?ReturnUrl=%2f", "h4", username_field.getText(), password_field.getText(), m_LoginTags);
+                output = parser.login("https://bluecastle-results.nottingham.ac.uk/Account/Login?ReturnUrl=%2f",
+                        "h4",
+                        username_field.getText(),
+                        password_field.getText(),
+                        m_LoginTags, true);
+
+                //DEBUG:
                 System.out.println(output.toString());
                 displayElements(output);
                 break;

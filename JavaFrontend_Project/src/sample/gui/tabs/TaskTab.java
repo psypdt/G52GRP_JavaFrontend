@@ -14,74 +14,80 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
-public class TaskTab extends Tab implements iTaskTab {
-
-    private StackPane background;
-    private Pane scraperView;
-    private TabPane browserView;
-    private Button browserButton;
-    private Button scraperButton;
-    private boolean isDynamic = false; /*Specify if the website dynamically generates its login form*/
-    private ArrayList<String> formTags; /*Convention: [0] = form_name, [1] = username_tag, [2] = password_tag*/
-    private FormSender formSender; /*Used to automate the login process*/
-    private String taskUrl; /*The URL that the tab is displaying*/
-
+public class TaskTab extends Tab implements iTaskTab
+{
+    private StackPane m_BackgroundStackPane;
+    private Pane m_ScraperViewPane;
+    private TabPane m_BrowserView;
+    private Button m_BrowserButton;
+    private Button m_ScraperButton;
 
     /**
      * Private constructor, gets called by the public constructors:
      * {@code TaskTab(String id)}, {@code TaskTab(String id, boolean bDynamic)}
-     * Note:
-     * {@code background}: Generate the background
-     * {@code ScraperView}: Generate the stackPane when is in {@code scraperView}
+     * {@code m_BackgroundStackPane}: Generate the m_BackgroundStackPane
+     * {@code ScraperView}: Generate the stackPane when is in {@code m_ScraperViewPane}
      * Added the button for browser view and Scraper view
      */
-    private TaskTab() {
+    private TaskTab()
+    {
         super();
 
-        background = new StackPane();
-        background.setAlignment(Pos.TOP_RIGHT);
+        m_BackgroundStackPane = new StackPane();
+        m_BackgroundStackPane.setAlignment(Pos.TOP_RIGHT);
 
-        scraperView = new StackPane();
+        m_ScraperViewPane = new StackPane();
 
-        browserView = new TabPane();
-        browserView.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+        m_BrowserView = new TabPane();
+        m_BrowserView.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
-        browserButton = new Button("Go to browser view");
-        browserButton.setOnAction(e -> goToBrowserMode());
+        m_BrowserButton = new Button("Go to browser view");
+        m_BrowserButton.setOnAction(e -> goToBrowserMode());
 
-        scraperButton = new Button("Go to scraper view");
-        scraperButton.setOnAction(e -> goToScraperMode());
+        m_ScraperButton = new Button("Go to scraper view");
+        m_ScraperButton.setOnAction(e -> goToScraperMode());
 
-        this.setContent(background);
+        this.setContent(m_BackgroundStackPane);
     }
 
-    /**
-     * Public Constructor for {@link TaskTab}
-     * @param id Add the id for the tab to load the correct web-page
-     */
-    public TaskTab(String id) {
-        this();
-        try {
-            setText(id);
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/gui/scraperScreen/ScraperscreenView.fxml"));
-                    Parent root = loader.load();
 
-                    ScraperScreenController c = loader.getController();
-                    c.setId(id);
-            switch (id) {
+    /**
+     * Public Constructor for {@link TaskTab}, this calls the private constructor for {@link TaskTab}
+     * @param id Add the id for the tab to load the correct web-page, identifier for the web-page type
+     */
+    public TaskTab(String id)
+    {
+        this(); //Call private constructor
+
+        try
+        {
+            setText(id);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sample/gui/scraperScreen/ScraperscreenView.fxml"));
+            Parent root = loader.load();
+
+            ScraperScreenController scraperScreenController = loader.getController();
+            scraperScreenController.setId(id);
+
+            switch (id)
+            {
                 /* Set a id for the URL, so when the URL needs to be used it can only input the id */
                 case "Moodle (courses)":
+                {
                     //System.out.println(getClass().getResource("/sample/gui/scraperScreen/ScraperscreenView.fxml"));
                     //Parent root = FXMLLoader.load(getClass().getResource("/sample/gui/scraperScreen/ScraperscreenView.fxml"));
-                    browserView.getTabs().add(new WebViewTab("https://moodle.nottingham.ac.uk"));
-                    scraperView.getChildren().add(root);
+                    m_BrowserView.getTabs().add(new WebViewTab("https://moodle.nottingham.ac.uk"));
+                    m_ScraperViewPane.getChildren().add(root);
                     break;
+                }
                 case "Blue Castle (Grades)":
-                    browserView.getTabs().add(new WebViewTab("https://bluecastle.nottingham.ac.uk"));
-                    scraperView.getChildren().add(root);
+                {
+                    m_BrowserView.getTabs().add(new WebViewTab("https://bluecastle.nottingham.ac.uk"));
+                    m_ScraperViewPane.getChildren().add(root);
                     break;
+                }
             }
-            goToScraperMode();
+            goToScraperMode(); //Display ScraperMode by default, remove to display the original website by default
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -93,10 +99,11 @@ public class TaskTab extends Tab implements iTaskTab {
      *  This is where the function to scrape the site from {@link FormSender} should be called
      */
     @Override
-    public void goToScraperMode() {
-        background.getChildren().clear();
-        background.getChildren().add(scraperView);
-        background.getChildren().add(browserButton);
+    public void goToScraperMode()
+    {
+        m_BackgroundStackPane.getChildren().clear();
+        m_BackgroundStackPane.getChildren().add(m_ScraperViewPane);
+        m_BackgroundStackPane.getChildren().add(m_BrowserButton);
     }
 
 
@@ -104,10 +111,11 @@ public class TaskTab extends Tab implements iTaskTab {
      *  Once the Browser mode button has been activated, it will go to a Browser mode and will not allow the developer to edit
      */
     @Override
-    public void goToBrowserMode() {
-        background.getChildren().clear();
-        background.getChildren().add(browserView);
-        background.getChildren().add(scraperButton);
+    public void goToBrowserMode()
+    {
+        m_BackgroundStackPane.getChildren().clear();
+        m_BackgroundStackPane.getChildren().add(m_BrowserView);
+        m_BackgroundStackPane.getChildren().add(m_ScraperButton);
     }
 
 }

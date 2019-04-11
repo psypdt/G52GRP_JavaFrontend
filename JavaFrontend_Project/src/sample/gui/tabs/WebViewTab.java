@@ -4,15 +4,15 @@ import javafx.concurrent.Worker;
 import javafx.scene.control.Tab;
 import javafx.scene.web.WebView;
 
-/*Note: There is currently no means of returning to the previous instant of a page (no back button)*/
 
+/*Note: There is currently no means of returning to the previous instant of a page (no back button)*/
 public class WebViewTab extends Tab implements iBrowserTab
 {
     private WebView webpage;
 
     /**
-     * To load the tab in web
-     * @param url
+     * Constructor for {@link WebViewTab}, will load the tab into the webview
+     * @param url The URL that {@link org.jsoup.Jsoup} will connect to
      */
     public WebViewTab(String url)
     {

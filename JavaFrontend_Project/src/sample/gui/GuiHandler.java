@@ -11,8 +11,8 @@ import sample.gui.tabs.TaskTab;
 import java.io.IOException;
 
 
-public class GuiHandler implements iGuiHandler {
-
+public class GuiHandler implements iGuiHandler
+{
     private TabPane tabPane;
 
     /**
@@ -21,8 +21,8 @@ public class GuiHandler implements iGuiHandler {
      * @param mainStage Graphical context display the home screen in.
      * @throws IOException if the FXML file fails to load.
      */
-    public GuiHandler(Stage mainStage) throws IOException {
-
+    public GuiHandler(Stage mainStage) throws IOException
+    {
         /*It will show the screen based on the fxml file */
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Application.fxml"));
         Parent root = loader.load();
@@ -43,7 +43,8 @@ public class GuiHandler implements iGuiHandler {
      * @param id Identifier for the tab to create.
      */
     @Override
-    public void openTab(String id) {
+    public void openTab(String id)
+    {
         iTaskTab task = new TaskTab(id);
         tabPane.getTabs().add((Tab)task);
     }
