@@ -160,35 +160,35 @@ public class ScraperScreenController
                     // Check for element text.
                     String linkText = "";
                     if (element.has("text")) linkText = element.getString("text");
-                    if (linkText.equals("")) linkText = "Click me!";  // default text if none found
+                    if (linkText.equals("")) linkText = "Click me!";  // Default text if none found.
 
                     node = new Hyperlink(linkText);
                     break;
                 }
                 default:
                 {
-                    // check for element text
+                    // Check for element text.
                     String text = "";
                     if (element.has("text")) text = element.getString("text");
-                    if (text.equals("")) text = "This is text";  // default text if none found
+                    if (text.equals("")) text = "This is text";  // Default text if none found.
 
                     node = new Text(text);
                     break;
                 }
             }
 
-            // append the JavaFX object to the displayable container
+            // Append the JavaFX object to the displayable container.
             container.getChildren().add(node);
 
-            // recurse through any and all children of the element
+            // Recurse through any and all children of the element.
             if (element.has("children"))
             {
                 JSONArray children = element.getJSONArray("children");
 
-                // new container, one level deeper
+                // New container, one level deeper.
                 Pane childContainer = new VBox();
 
-                // If the element has children, create a "sub container" and place the children inside it
+                // If the element has children, create a "sub container" and place the children inside it.
                 for (int i = 0; i < children.length(); i++)
                 {
                     displayElement(children.getJSONObject(i), childContainer);

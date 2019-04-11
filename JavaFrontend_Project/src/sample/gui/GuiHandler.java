@@ -23,24 +23,24 @@ public class GuiHandler implements iGuiHandler
      */
     public GuiHandler(Stage mainStage) throws IOException
     {
-        /*It will show the screen based on the fxml file */
+        // It will show the screen based on the fxml file.
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Application.fxml"));
         Parent root = loader.load();
 
         ApplicationController applicationController = loader.getController();
         m_TabPane = applicationController.getTabPane();
 
-        /* The window title will be set as Java Front-end */
+        // The window title will be set as Java Front-end.
         mainStage.setTitle("Java Front-end");
 
-        /*The window starts with a default size of 600 x 400 */
+        // The window starts with a default size of 600 x 400.
         mainStage.setScene(new Scene(root, 600, 400));
         mainStage.show();
     }
 
     /**
-     * Open a new tab and add it to the primary tab pane.
-     * @param id Identifier for the tab to create.
+     * This methods opens a new tab and adds it to the primary tab pane {@code m_TaskPane}.
+     * @param id Identifier for the tab that is being created create, hence tabs can have different behaviour.
      */
     @Override
     public void openTab(String id)
