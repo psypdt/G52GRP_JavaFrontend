@@ -26,10 +26,10 @@ public class Main extends Application
         // Save a reference to this instance of Main
         m_Self = this;
 
-        // Set a minimum window size of 300 x 200.
+        // Set a minimum window size of 400 x 300.
         // The default window size is set by the GUI Handler on startup.
-        primaryStage.setMinWidth(300);
-        primaryStage.setMinHeight(200);
+        primaryStage.setMinWidth(400);
+        primaryStage.setMinHeight(300);
 
         // Initialize a GUI Handler to do all the heavy lifting
         m_GuiHandler = new GuiHandler(primaryStage);
