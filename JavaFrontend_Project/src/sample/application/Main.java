@@ -23,7 +23,7 @@ public class Main extends Application
     @Override
     public void start(Stage primaryStage) throws Exception
     {
-        // Save a reference to this instance of Main
+        // Save a reference to this instance of Main.
         m_Self = this;
 
         // Set a minimum window size of 400 x 300.
@@ -31,7 +31,7 @@ public class Main extends Application
         primaryStage.setMinWidth(400);
         primaryStage.setMinHeight(300);
 
-        // Initialize a GUI Handler to do all the heavy lifting
+        // Initialize a GUI Handler to do all the heavy lifting.
         m_GuiHandler = new GuiHandler(primaryStage);
     }
 
@@ -51,7 +51,7 @@ public class Main extends Application
 
     /**
      * Fallback function to launch the application.
-     * @param args Arguments to launch the program with
+     * @param args Arguments to launch the program with.
      */
     public static void main(String[] args) { launch(args); }
 
