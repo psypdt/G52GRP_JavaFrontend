@@ -23,11 +23,10 @@ public class TaskTab extends Tab implements iTaskTab
     private Button m_ScraperButton;
 
     /**
-     * Private constructor, gets called by the public constructors:
-     * {@code TaskTab(String id)}, {@code TaskTab(String id, boolean bDynamic)}
-     * {@code m_BackgroundStackPane}: Generate the m_BackgroundStackPane
-     * {@code ScraperView}: Generate the stackPane when is in {@code m_ScraperViewPane}
-     * Added the button for browser view and Scraper view
+     * Private constructor, gets called by the public constructors {@code TaskTab(String id)}
+     * {@code m_BackgroundStackPane}: Generates the Background
+     * {@code ScraperView}: Generates the stackPane when its is in {@code m_ScraperViewPane}
+     * The Button for browser view and Scraper view can be found here
      */
     private TaskTab()
     {
