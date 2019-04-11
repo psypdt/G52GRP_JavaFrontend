@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 
-public class JSONParser
+public class JSONParser implements ParserInterface
 {
     private String m_Url;
     private Document m_Document; /*Stores the HTML that will be parsed temporarily*/
@@ -34,6 +34,7 @@ public class JSONParser
      * @param loginTags The tags required to find the m_FormSender form
      * @return {@code JSONArray pageAsString}, this is a JSONArray that contains the parsed information
      */
+    @Override
     public JSONArray login(String loginUrl, String tags, String username, String password, ArrayList<String> loginTags)
     {
         this.m_Url = loginUrl;

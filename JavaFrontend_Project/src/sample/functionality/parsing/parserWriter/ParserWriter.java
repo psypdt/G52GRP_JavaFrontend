@@ -6,6 +6,7 @@ import org.jsoup.select.Elements;
 import java.io.*;
 
 
+//NOTE: This class is currently not used, this class allows parsed data to be read into a file
 public class ParserWriter implements ParserWriterInterface
 {
     public ParserWriter(){}
@@ -41,29 +42,6 @@ public class ParserWriter implements ParserWriterInterface
         {
             bufferedWriter.write(tag+"\n");
         }
-        bufferedWriter.close();
-    }
-
-
-    /***
-     * CAUTION, THIS IS AN UNSAFE METHOD, ONLY INTENDED FOR TESTING PURPOSES
-     * @param parseDoc
-     * @throws IOException
-     * @deprecated
-     */
-    public void writeEntireHtmlToFile(Document parseDoc) throws IOException
-    {
-        String fileName = parseDoc.title().replace(":", "-")+".html";
-        String fullPath = "./resource_parsed_files/"+fileName;
-
-        if(new File(fullPath+"1").exists())
-        {
-            throw new IOException("File \"" + fileName + "\" at location \"" +fullPath + "\" already exists");
-        }
-
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fullPath, false));
-        bufferedWriter.write(String.valueOf(parseDoc));
-
         bufferedWriter.close();
     }
 }

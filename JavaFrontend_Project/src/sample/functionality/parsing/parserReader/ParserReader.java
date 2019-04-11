@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+
+//NOTE: This class is not in use, this class allows Tags to be read from a file
 public class ParserReader implements ParserReaderInterface
 {
     public ParserReader(){}

@@ -1,10 +1,10 @@
 package sample.functionality.parsing.parser;
 
-import org.json.JSONObject;
-import java.io.IOException;
+import org.json.JSONArray;
+import java.util.ArrayList;
+
 
 public interface ParserInterface
 {
-    JSONObject parseSpecificTag(String tag, String url);
-    String standardiseFileName(String fname) throws IOException;
+    JSONArray login(String loginUrl, String tags, String username, String password, ArrayList<String> loginTags);
 }
