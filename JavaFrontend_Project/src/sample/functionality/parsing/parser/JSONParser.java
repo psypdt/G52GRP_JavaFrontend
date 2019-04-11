@@ -20,6 +20,7 @@ public class JSONParser implements ParserInterface
 
     /**
      * @implNote Currently the constructor does nothing since there is no need for it do execute anything.
+     * @implSpec Should it be necessary that this class takes input on construction, create an overloaded constructor.
      * Constructor for {@link JSONParser}.
      */
     public JSONParser()
@@ -28,21 +29,23 @@ public class JSONParser implements ParserInterface
 
     /**
      * This method is used to log the user into a website, and then parses a set of specified tags.
-     * after the {@code m_FormSender} has completed the login process.
+     * after the {@link #m_FormSender} has completed the login process.
+     * @implNote This method creates a {@link FormSender} object and assigns it to {@link #m_FormSender}.
+     * @implNote This method uses {@link #getJSONArray(String)}.
      * @param loginUrl Url to the website where the m_FormSender form is located.
      * @param tags The tag that will be parsed after the m_FormSender is completed.
      * @param username The users username for the website.
      * @param password The users password for the website.
      * @param loginTags The tags required to find the m_FormSender form.
      * @param isStatic Specify if the website dynamically generates its login form, or if it is static.
-     * @return {@code JSONArray pageAsString}, this is a JSONArray that contains the parsed information.
+     * @return {@code pageAsString}, this is a {@link JSONArray} that contains the parsed information.
      */
     @Override
     public JSONArray login(String loginUrl, String tags, String username, String password, ArrayList<String> loginTags, boolean isStatic)
     {
         this.m_Url = loginUrl;
         Map<String, String> loginCookies = null;
-        m_FormSender = new FormSender(m_Url, isStatic, username, password, loginTags); //Currently only static works
+        m_FormSender = new FormSender(m_Url, isStatic, username, password, loginTags); // Currently only static works.
         //m_FormSender.staticFormLogin(username, password);
 
         while(loginCookies == null)
@@ -75,7 +78,7 @@ public class JSONParser implements ParserInterface
 
 
     /**
-     * Getter for the web-site "{@code m_Url}" HTML.
+     * Getter for the web-site "{@link #m_Url}" HTML.
      * @return Returns the HTML that was fetched by the background thread.
      */
     public Document getDocument() {
@@ -84,9 +87,10 @@ public class JSONParser implements ParserInterface
 
 
     /**
-     * This is used in the {@code JSONParser.m_FormSender(...)} method. Method constructs & populates a JSONArray.
+     * @implNote This is used in {@link JSONParser#login(String, String, String, String, ArrayList, boolean)}.
+     * @implNote This method constructs & populates a new {@link JSONArray} with parsed tags.
      * @param cssQuery This is the tag that will be used to parse the m_Document (contains HTML of website).
-     * @return {@code JSONArray} that contains the parsed tags.
+     * @return {@link JSONArray} that contains the contents of the parsed tag(s).
      */
     private JSONArray getJSONArray(String cssQuery)
     {

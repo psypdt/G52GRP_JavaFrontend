@@ -26,9 +26,12 @@ public class FormSender extends Tab implements FormSenderInterface
     private Map<String, String> m_LoginCookies; //Contains login cookies to keep session alive & allow link navigation.
     private ArrayList<String> m_FormTags; //Convention: [0] = form_name, [1] = username_tag, [2] = password_tag.
 
+
     /***
      * Constructor for the FormSender Class, Creates a new {@code WebView} and {@code WebEngine}.
      * Automatically loads the {@code dest} url via the {@code WebEngine}.
+     * @implNote Constructor calls {{@link #staticFormLogin(String, String)}} and/or
+     * {@link dynamicFormLogin#dynamicFormLogin(WebEngine, String, String)}.
      * @param dest The URL where the staticFormLogin form is located.
      * @param isStatic Is the login form of the page created dynamically, or does it exist in the source (static).
      * @param username The users username for the website.
@@ -82,19 +85,19 @@ public class FormSender extends Tab implements FormSenderInterface
 
 
     /**
-     * Getter for the {@code m_LoginCookies} {@code Map<>}.
-     * @return {@code m_LoginCookies}, which is a {@code Map<>} containing the login cookies when the form is sent.
+     * Getter for the {@link #m_LoginCookies} {@code Map<>}.
+     * @return {@link #m_LoginCookies}, which is a {@code Map<>} containing the login cookies when the form is sent.
      */
     public Map<String, String> getLoginCookies() { return m_LoginCookies; }
 
 
     /***
-     * NOTE: The developer may want to find a way to read in the parameter names as well for {@code checkElement()}.
      * This method is what will automate the {@code staticFormLogin} process for the user.
+     * @implNote This method calls {@link #checkElement(String, Element)} and sets {@link #m_Url}
      * @param userName The users userName from the fxml form.
      * @param password The users password from the fxml form.
-     * @throws IOException the {@code parseMultipleTags()} function can throw an {@code IOException}
-     * and {@code loginFormResponse.parse().select(SomeVar).first()}.
+     * @throws IOException {@link Jsoup#connect(String)} can throw an {@code IOException}, as can the
+     * {@link Connection.Response#parse()}.
      */
     @Override
     public void staticFormLogin(String userName, String password) throws IOException
@@ -149,10 +152,10 @@ public class FormSender extends Tab implements FormSenderInterface
 
 
     /***
-     * This method checks if the {@code Element} that we parse for is actually available in the source of the page.
+     * This method checks if the {@link Element} that we parse for is actually available in the source of the page.
      * @param tagName The name of the tag that we want to check, Ex. {@code "Login Form"}.
-     * @param tagElement The actual {@code Jsoup.Element} that we want to pass and check if it exists.
-     * @throws RuntimeException Throws a {@code RuntimeException} if the {@code tagElement} is not found.
+     * @param tagElement The {@link Element} that we want to pass and check if it exists.
+     * @throws RuntimeException If the {@code tagElement} is not found.
      */
     @Override
     public void checkElement(String tagName, Element tagElement) throws RuntimeException
@@ -165,8 +168,8 @@ public class FormSender extends Tab implements FormSenderInterface
 
 
     /***
-     * Getter for {@code m_WebView}.
-     * @return Returns the {@code WebView} of the {@link FormSender} object.
+     * Getter for {@link #m_WebView}.
+     * @return Returns the {@link #m_WebView} of the {@link FormSender} object.
      */
     @Override
     public WebView getWebView() { return this.m_WebView; }
@@ -177,6 +180,7 @@ public class FormSender extends Tab implements FormSenderInterface
 
 
 /**
+ * @implNote Currently this class uses incremental-backoff.
  * This class is used to automate the login process for site that dynamically load their login form like MyNottingham.
  */
 class dynamicFormLogin extends Task
@@ -184,15 +188,14 @@ class dynamicFormLogin extends Task
     private WebEngine engine;
     private String username;
     private String password;
-
-    private final long TIMEOUT = 10 * 1000;  // 10 seconds
+    private final long TIMEOUT = 10 * 1000;  // 10 second timeout.
 
     /**
-     * NOTE: We should look into how we can cleanse this information once we are done using it
-     * This is the constructor for the {@code AutomateMyNottinghamLogin} class
-     * @param engine The {@code WebEngine} that is being used to display the sites
-     * @param username The Username for the website
-     * @param password The Password for the website
+     * NOTE: We should look into how we can cleanse this information once we are done using it.
+     * This is the constructor for the {@code AutomateMyNottinghamLogin} class.
+     * @param engine The {@link WebEngine} that is being used to display the sites.
+     * @param username The Username for the website.
+     * @param password The Password for the website.
      */
     dynamicFormLogin(WebEngine engine, String username, String password)
     {
@@ -264,7 +267,9 @@ class dynamicFormLogin extends Task
             ((HTMLInputElement)inputs.item(2)).setValue(username);
             ((HTMLInputElement)inputs.item(3)).setValue(password);
             loginForm.submit();
-        } else {
+        }
+        else
+        {
             //DEBUG: Inform developer that page timed out.
             System.out.println("Page timed out");
         }

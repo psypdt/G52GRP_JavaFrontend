@@ -36,14 +36,14 @@ public class Main extends Application
     }
 
     /**
-     * Get a reference to the current instance of the GUI handler.
+     * Get a reference to the current instance of the GUI handler {@code m_GuiHandler}.
      * @return An instance of GUI handler.
      */
     public static iGuiHandler getGuiHandler() { return m_Self.m_GuiHandler; }
 
 
     /**
-     * Access the task page of the application.
+     * Access the task page of the application {@code m_TaskPage}.
      * @return A reference to the task page.
      */
     public static TabPane getTasksPage() { return m_TasksPage; }
