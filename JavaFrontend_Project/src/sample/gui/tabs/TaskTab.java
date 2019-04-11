@@ -14,6 +14,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
+/**
+ * @implSpec This implementation extends {@link Tab}, it is expected that this is true for any future modifications to
+ * this class.
+ */
 public class TaskTab extends Tab implements iTaskTab
 {
     private StackPane m_BackgroundStackPane;
@@ -23,10 +27,12 @@ public class TaskTab extends Tab implements iTaskTab
     private Button m_ScraperButton;
 
     /**
-     * Private constructor, gets called by the public constructors {@code TaskTab(String id)}
-     * {@code m_BackgroundStackPane}: Generates the Background
-     * {@code ScraperView}: Generates the stackPane when its is in {@code m_ScraperViewPane}
-     * The Button for browser view and Scraper view can be found here
+     * @implSpec The {@link Button} to change view defaults to the {@code TOP_RIGHT}.
+     * @implNote The Button for browser view and Scraper view {@link #m_BrowserButton}, {@link #m_ScraperButton}
+     * respectively can be found here.
+     * @implSpec This is a private constructor, it gets called by the public constructors {@link #TaskTab(String)}.
+     * {@link #m_BackgroundStackPane}: Generates the {@link StackPane}, which is the background.
+     * {@link #m_ScraperViewPane}: Generates the {@link Pane}, which is the current view.
      */
     private TaskTab()
     {
@@ -51,9 +57,11 @@ public class TaskTab extends Tab implements iTaskTab
 
 
     /**
-     * @implNote This constructor calls the private constructor {@code TaskTab()}
-     * Public Constructor for {@link TaskTab}, this calls the private constructor for {@link TaskTab}
-     * @param id Add the id for the tab to load the correct web-page, identifier for the web-page type
+     * Public Constructor for {@link TaskTab}.
+     * @implSpec This constructor calls the private constructor {@link TaskTab#TaskTab()}.
+     * @implNote If new {@link Button}s are to be added to the {@link sample.gui.ApplicationController}, then the relevant
+     * behaviour should be specified here, along with a new {@code switch(id)} case for that button.
+     * @param id Add the id for the tab to load the correct web-page, identifier for the web-page type.
      */
     public TaskTab(String id)
     {
@@ -95,8 +103,9 @@ public class TaskTab extends Tab implements iTaskTab
 
 
     /**
-     *  Once the Scraper mode button has been activated, it will go to a Scraper mode and allow the developer to edit
-     *  This is where the function to scrape the site from {@link FormSender} should be called
+     * @implSpec Once the Scraper mode button is activated, it will go to a Scraper mode, dev can edit the scraper mode
+     * appearance.
+     * @implSpec This method clears all children from the {@link #m_BackgroundStackPane}.
      */
     @Override
     public void goToScraperMode()
@@ -108,7 +117,9 @@ public class TaskTab extends Tab implements iTaskTab
 
 
     /**
-     *  Once the Browser mode button has been activated, it will go to a Browser mode and will not allow the developer to edit
+     * @implSpec Once the Browser mode button is activated, it will go to a Browser mode, the dev can't edit the browser
+     * mode appearance.
+     * @implSpec This method clears all children from the {@link #m_BackgroundStackPane}.
      */
     @Override
     public void goToBrowserMode()

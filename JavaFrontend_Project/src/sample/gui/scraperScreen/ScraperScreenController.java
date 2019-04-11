@@ -29,7 +29,8 @@ public class ScraperScreenController
 
     /**
      * Initializer for {@code ScraperscreenView.fxml}.
-     * This method initialises {@code m_LoginTags} and then calls {@code login()} from {@link JSONParser}.
+     * @implSpec This method initialises {@link #m_LoginTags} and then calls
+     * {@link JSONParser#login(String, String, String, String, ArrayList, boolean)} from {@link JSONParser}.
      */
     @FXML private void initialize()
     {
@@ -82,15 +83,15 @@ public class ScraperScreenController
     }
 
     /**
-     * Setter for the {@code m_Id} of the ScraperScreen.
-     * @param id The m_Id that describes what type of site this controller is handling.
+     * Setter for the {@link #m_Id} of the {@link ScraperScreenController}.
+     * @param id The {@link #m_Id} that describes what type of site this controller is handling.
      */
     public void setId(String id) { this.m_Id = id; }
 
 
     /**
-     * Creates a JavaFX representation of a JSON array representing HTML elements.
-     * @param elements JSON array of HTML elements to convert to JavaFX objects.
+     * Creates a JavaFX representation of a {@link JSONArray} representing HTML elements.
+     * @param elements {@link JSONArray} of HTML elements to convert to JavaFX objects.
      */
     @FXML private void displayElements(JSONArray elements)
     {

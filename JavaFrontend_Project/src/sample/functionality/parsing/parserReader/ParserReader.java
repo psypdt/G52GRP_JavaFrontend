@@ -12,11 +12,13 @@ public class ParserReader implements ParserReaderInterface
 {
     /**
      * Constructor for {@link ParserReader}.
+     * @implNote  This constructor will only create the object, no function will be called by default.
+     * @implSpec Should it be necessary to read some file by default, then this constructor may be changed.
      */
     public ParserReader(){}
 
     /***
-     * This function will read the file containing the parsed site data.
+     * @implSpec This function will read the file and do no parsing.
      * @implSpec Developer may wish to return something other than a {@code ArrayList<String>}, do this via a new method.
      * @param filePath Location of file that contains parsed data.
      * @throws IOException {@code BufferReader()} can throw {@code IOException}, thrown if file not found.

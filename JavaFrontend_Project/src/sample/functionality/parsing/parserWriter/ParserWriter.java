@@ -6,7 +6,10 @@ import org.jsoup.select.Elements;
 import java.io.*;
 
 
-//NOTE: This class is currently not used, this class allows parsed data to be read into a file.
+/**
+ * @apiNote This class is no longer used since tags are not stored in files, and neither is the parsed result, since it
+ * considered too slow and not safe, since files can get corrupted.
+ */
 public class ParserWriter implements ParserWriterInterface
 {
     /**
@@ -16,7 +19,8 @@ public class ParserWriter implements ParserWriterInterface
 
     /***
      * This function will write the parsed content into a new file.
-     * @implNote This method has the capability to save an image to the local file system, but it is not used currently.
+     * <p>
+     * @implSpec This method can save an image to the local file system, but this functionality is not used.
      * @param tagContent List of tags that we want to save.
      * @param parseDoc The {@code Jsoup} document that was used to do the parsing.
      * @throws IOException {@code FileWriter()} throws IOException when writing fails.
@@ -28,7 +32,7 @@ public class ParserWriter implements ParserWriterInterface
         String fileName = parseDoc.title().replace(":", "-")+".html";
         String fullPath = "./resource_parsed_files/"+fileName;
 
-        //Create a new statement that will allow us to save images if the specific condition is met.
+        // Create a new statement that will allow us to save images if the specific condition is met.
 //        URL url = new URL("https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png");
 //        BufferedImage img = ImageIO.read(url);
 //        File file = new File("./resource_parsed_files/thing.png");
@@ -40,7 +44,7 @@ public class ParserWriter implements ParserWriterInterface
         }
 
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fullPath, false));
-//        bufferedWriter.write(String.valueOf(parseDoc));
+        //bufferedWriter.write(String.valueOf(parseDoc));
 
         for (Element tag : tagContent)
         {
