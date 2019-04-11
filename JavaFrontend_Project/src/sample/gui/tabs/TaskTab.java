@@ -105,7 +105,8 @@ public class TaskTab extends Tab implements iTaskTab
     /**
      * @implSpec Once the Scraper mode button is activated, it will go to a Scraper mode, dev can edit the scraper mode
      * appearance.
-     * @implSpec This method clears all children from the {@link #m_BackgroundStackPane}.
+     * @implSpec This method clears all children from the {@link #m_BackgroundStackPane},
+     * adds the {@link #m_ScraperViewPane}, adds {@link #m_BrowserButton}.
      */
     @Override
     public void goToScraperMode()
@@ -119,7 +120,8 @@ public class TaskTab extends Tab implements iTaskTab
     /**
      * @implSpec Once the Browser mode button is activated, it will go to a Browser mode, the dev can't edit the browser
      * mode appearance.
-     * @implSpec This method clears all children from the {@link #m_BackgroundStackPane}.
+     * @implSpec This method clears all children from the {@link #m_BackgroundStackPane},
+     * adds the {@link #m_BrowserView}, adds {@link #m_ScraperButton}.
      */
     @Override
     public void goToBrowserMode()

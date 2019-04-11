@@ -5,15 +5,16 @@ import javafx.scene.control.Tab;
 import javafx.scene.web.WebView;
 
 /**
- * @implNote There is currently no means of returning to the previous instant of a page (no back button)
+ * @implNote There is currently no means of returning to the previous instant of a page (no back button).
  */
 public class WebViewTab extends Tab implements iBrowserTab
 {
     private WebView m_WebPage;
 
     /**
-     * Constructor for {@link WebViewTab}, will load the tab into the webview
-     * @param url The URL that {@link org.jsoup.Jsoup} will connect to
+     * @implSpec The {@link javafx.scene.web.WebEngine} is used in this class, note that it's a async method.
+     * Constructor for {@link WebViewTab}, will load the tab into the {@link WebView}.
+     * @param url The URL that the {@link javafx.scene.web.WebEngine} will connect to.
      */
     public WebViewTab(String url)
     {
@@ -37,8 +38,9 @@ public class WebViewTab extends Tab implements iBrowserTab
         });
     }
 
+
     /**
-     * @implNote This method has not been implemented, it is up to the developer whether the user can disable functionality
+     * @implNote By default there is no implemented, it's up to the developer to implement behaviour.
      */
     @Override
     public void disableFunctionality() {}

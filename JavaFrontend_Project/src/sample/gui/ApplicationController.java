@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TabPane;
 import sample.application.Main;
+import sample.gui.scraperScreen.ScraperScreenController;
 
 
 /**
@@ -28,8 +29,8 @@ public class ApplicationController
      * This method hooks up functionality to the buttons on the home screen.
      * @implSpec To add behaviour to a new button, specify the button and follow the examples provided, the result should
      * resemble the following {@code my_new_button.setOnAction(e -> Main.getGuiHandler().openTab("My New Special (Id)"));}
-     * @implSpec If a new button behaviour is added, then a new {@code case} should be added in the {@code initialize()}
-     * method in {@link sample.gui.scraperScreen.ScraperScreenController} for the button.
+     * @implSpec If a new button behaviour is added, then a new {@code case} should be added
+     * in the {@link ScraperScreenController}s {@code initialize()} method;
      */
     @FXML private void initialize()
     {
@@ -39,7 +40,7 @@ public class ApplicationController
 
 
     /**
-     * Get a reference to the {@code tab_pane} to allow for the opening and closing of tabs.
+     * Get a reference to the {@link #tab_pane} to allow for the opening and closing of tabs.
      * @return The primary tab pane on the screen.
      */
     @FXML public TabPane getTabPane() { return tab_pane; }
