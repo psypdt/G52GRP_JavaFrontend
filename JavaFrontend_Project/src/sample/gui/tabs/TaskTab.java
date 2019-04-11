@@ -52,6 +52,7 @@ public class TaskTab extends Tab implements iTaskTab
 
 
     /**
+     * @implNote This constructor calls the private constructor {@code TaskTab()}
      * Public Constructor for {@link TaskTab}, this calls the private constructor for {@link TaskTab}
      * @param id Add the id for the tab to load the correct web-page, identifier for the web-page type
      */

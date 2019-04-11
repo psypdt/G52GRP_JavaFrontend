@@ -61,6 +61,7 @@ public class JSONParser implements ParserInterface
             m_Document = Jsoup.connect(m_Url)
                     .cookies(loginCookies)
                     .get();
+
             pageAsString = this.getJSONArray(tags);
         } catch (Exception e) {
             e.printStackTrace();
@@ -68,6 +69,7 @@ public class JSONParser implements ParserInterface
 
         return pageAsString;
     }
+
 
     /**
      * Getter for the web-site "{@code m_Url}" HTML
@@ -101,9 +103,8 @@ public class JSONParser implements ParserInterface
 
 
     /**
-     * NOTE: If nesting is too deep (more than 20 levels) or if object starts at the incorrect place, accessing element out of range
-     * This is a recursive method. The method populates the JSON fields, meaning it fills in the values the parsed
-     * tags
+     * @implNote If nesting is too deep (more than 20 levels) or if object starts at the incorrect place, accessing element out of range
+     * This is a recursive method. The method populates the JSON fields, meaning it fills in the values the parsed tags
      * This method is used by {@code getJSONArray(String cssQuery)}
      * @param element The element that will be explored (check if {@code element} has children that should be parsed)
      */

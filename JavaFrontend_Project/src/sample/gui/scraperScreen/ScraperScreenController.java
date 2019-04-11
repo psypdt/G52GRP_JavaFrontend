@@ -66,8 +66,8 @@ public class ScraperScreenController
                         username_field.getText(),
                         password_field.getText(),
                         m_LoginTags, true);
-                //DEBUG:
-                System.out.println(output.toString());
+                //DEBUG: Ensure correct tag was parsed
+                //System.out.println(output.toString());
                 displayElements(output);
 
                 break;
@@ -83,8 +83,8 @@ public class ScraperScreenController
                         password_field.getText(),
                         m_LoginTags, true);
 
-                //DEBUG:
-                System.out.println(output.toString());
+                //DEBUG: Ensure correct tag was parsed
+                //System.out.println(output.toString());
                 displayElements(output);
                 break;
             }

@@ -20,16 +20,20 @@ import java.util.Map;
 
 public class FormSender extends Tab implements FormSenderInterface
 {
-    private String m_Url;
+    private String m_Url; /*The url where the form is located*/
     private WebView m_WebView; /*Where the website will be displayed*/
     private WebEngine m_WebEngine;
-    private Map<String, String> m_LoginCookies;
+    private Map<String, String> m_LoginCookies; /*Contains login cookies to keep session alive & allow link navigation*/
     private ArrayList<String> m_FormTags; /*Convention: [0] = form_name, [1] = username_tag, [2] = password_tag*/
 
     /***
      * Constructor for the FormSender Class, Creates a new WebView (and WebEngine)
      * Automatically loads the {@code dest} url
      * @param dest The URL where the staticFormLogin form is located
+     * @param isStatic Is the login form of the page created dynamically, or does it exist in the source (static)
+     * @param username The users username for the website
+     * @param password The users password for the website
+     * @param loginTags The tags detailing the specific form elements (form name, username field, etc.)
      */
     public FormSender(String dest, Boolean isStatic, String username, String password, ArrayList<String> loginTags)
     {
@@ -52,22 +56,15 @@ public class FormSender extends Tab implements FormSenderInterface
                 //DEBUGGING : print the current URL
                 //System.out.printf("current URL = %s\n", m_WebEngine.getLocation());
 
-                if (!isStatic) //Eg mynottingham
+                if (!isStatic) //Eg MyNottingham
                 {
                     System.out.println("NOT STATIC");
                     dynamicFormLogin autoLogin = new dynamicFormLogin(m_WebEngine, username, password);
                     new Thread(autoLogin).start();
                 }
-//                else
-//                {
-////                    try {
-////                        staticFormLogin(username, password);
-////                    } catch (IOException e) {
-////                        e.printStackTrace();
-////                    }
-//                }
             }
         });
+
         /*Handle the login for static pages*/
         if(isStatic)
         {
