@@ -13,76 +13,62 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.html.HTMLCollection;
 import org.w3c.dom.html.HTMLFormElement;
 import org.w3c.dom.html.HTMLInputElement;
-import sample.functionality.parsing.parser.Parser;
-
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Map;
 
 
-/**
- * NOTE: There is an issue with our threads, they are not synced, so we need to resolve this (has to do with race conditions)
- * in {@link Parser()} are not synced
- */
 public class FormSender extends Tab implements FormSenderInterface
 {
-    private String url;
-    private WebView webView; /*Where the website will be displayed*/
-    private WebEngine webEngine;
-    private Map<String, String> loginCookies;
-    private ArrayList<String> formTags;
+    private String m_Url;
+    private WebView m_WebView; /*Where the website will be displayed*/
+    private WebEngine m_WebEngine;
+    private Map<String, String> m_LoginCookies;
+    private ArrayList<String> m_FormTags;
 
     /***
      * Constructor for the FormSender Class, Creates a new WebView (and WebEngine)
-     * Automatically loads the {@code dest} url
+     * Automatically loads the {@code dest} m_Url
      * @param dest The URL where the staticFormLogin form is located
      */
     public FormSender(String dest, Boolean isStatic, String username, String password, ArrayList<String> loginTags)
     {
         super();
-        url = dest;
+        m_Url = dest;
 
-        webView = new WebView();
-        formTags = loginTags;
+        m_WebView = new WebView();
+        m_FormTags = loginTags;
 
-        webEngine = webView.getEngine();
-        webEngine.setJavaScriptEnabled(true);
+        m_WebEngine = m_WebView.getEngine();
+        m_WebEngine.setJavaScriptEnabled(true);
 
-        webEngine.getLoadWorker().stateProperty().addListener((obs, oldValue, newValue) ->
+        m_WebEngine.getLoadWorker().stateProperty().addListener((obs, oldValue, newValue) ->
         {
-            System.out.printf("oldVal = %s, newVal = %s\n", oldValue, newValue);
-            // DEBUGGING : check current load status
-            //System.out.printf("oldVal = %s, newVal = %s\n", oldVal.toString(), newVal.toString());
+            //System.out.printf("oldVal = %s, newVal = %s\n", oldValue, newValue);
 
             // when page has finished loading
             if (newValue == Worker.State.SUCCEEDED)
             {
                 //DEBUGGING : print the current URL
-                System.out.printf("current URL = %s\n", webEngine.getLocation());
+                //System.out.printf("current URL = %s\n", m_WebEngine.getLocation());
 
                 if (!isStatic) //Eg mynottingham
                 {
                     System.out.println("NOT STATIC");
-                    dynamicFormLogin autoLogin = new dynamicFormLogin(webEngine, username, password);
+                    dynamicFormLogin autoLogin = new dynamicFormLogin(m_WebEngine, username, password);
                     new Thread(autoLogin).start();
                 }
-                else
-                {
-//                    try {
-//                        staticFormLogin(username, password);
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-                }
+//                else
+//                {
+////                    try {
+////                        staticFormLogin(username, password);
+////                    } catch (IOException e) {
+////                        e.printStackTrace();
+////                    }
+//                }
             }
         });
-
+        /*Handle the login for static pages*/
         if(isStatic)
         {
             try {
@@ -91,45 +77,17 @@ public class FormSender extends Tab implements FormSenderInterface
                 e.printStackTrace();
             }
         }
-        webView.getEngine().load(url); /*After the printHtmlToConsole() runs the first time, this can be executed*/
-
-    }
-
-
-    /***
-     * This method prints the HTML after a successful staticFormLogin to the console
-     * @param webEngine The {@code WebView}'s {@code WebEngine} is passed to extract it's contents
-     * @deprecated
-     */
-    public void printHtmlToConsole(WebEngine webEngine)
-    {
-        org.w3c.dom.Document doc = webEngine.getDocument();
-
-
-        /*This prints everything to the command line*/
-        try {
-            Transformer transformer = TransformerFactory.newInstance().newTransformer();
-            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
-            transformer.setOutputProperty(OutputKeys.METHOD, "html");
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-
-            transformer.transform(new DOMSource(doc),
-                    new StreamResult(new OutputStreamWriter(System.out, "UTF-8")));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        m_WebView.getEngine().load(m_Url); /*After the printHtmlToConsole() runs the first time, this can be executed*/
 
     }
 
 
     /**
-     * Getter for the {@code loginCookies Map}
-     * @return {@code loginCookies}
+     * Getter for the {@code m_LoginCookies Map}
+     * @return {@code m_LoginCookies}
      */
     public Map<String, String> getLoginCookies() {
-        return loginCookies;
+        return m_LoginCookies;
     }
 
 
@@ -146,9 +104,9 @@ public class FormSender extends Tab implements FormSenderInterface
     {
         /*Constants used in this example*/
         final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.109 Safari/537.36";
-        final String LOGIN_FORM_URL = url;
+        final String LOGIN_FORM_URL = m_Url;
         final String USERNAME = userName;
-        final String PASSWORD = password; /*Need a way to save the password safely, maybe en/decryption?*/
+        final String PASSWORD = password;
 
         /*Go to staticFormLogin page*/
         Connection.Response loginFormResponse = Jsoup.connect(LOGIN_FORM_URL)
@@ -162,21 +120,21 @@ public class FormSender extends Tab implements FormSenderInterface
         /*For BlueCastle, this tag is "form"*/
         /*For MyNottingham, #login or form#login*/
         /*For Moodle, #login*/
-        FormElement loginForm = (FormElement)loginFormResponse.parse().select(formTags.get(0)).first();
+        FormElement loginForm = (FormElement)loginFormResponse.parse().select(m_FormTags.get(0)).first();
         checkElement("Login Form", loginForm);
 
         /*Complete the staticFormLogin form, user name & password*/
         /*For BlueCastle this is called #UserName*/
         /*For MyNottingham, #userid*/
         /*For Moodle #username*/
-        Element loginField = loginForm.select(formTags.get(1)).first();
+        Element loginField = loginForm.select(m_FormTags.get(1)).first();
         checkElement("Login Field", loginField);
         loginField.val(USERNAME);
 
         /*For BlueCastle this field is "#Password"*/
         /*For MyNottingham, #pwd*/
         /*For Moodle, #password*/
-        Element passwordField = loginForm.select(formTags.get(2)).first();
+        Element passwordField = loginForm.select(m_FormTags.get(2)).first();
         checkElement("Password Field", passwordField);
         passwordField.val(PASSWORD);
 
@@ -189,31 +147,24 @@ public class FormSender extends Tab implements FormSenderInterface
 
 
         System.out.println("Url after staticFormLogin was: " + loginActionResponse.url());
-        this.url = loginActionResponse.url().toString();
+        this.m_Url = loginActionResponse.url().toString();
 
-        loginCookies  = loginFormResponse.cookies(); //NEW LINE - Saves the cookies into a map.
-        /*
-        Connection.Response check = Jsoup.connect(url)
-                .method(Connection.Method.GET)
-                .userAgent(USER_AGENT)
-                .execute();
-           */
-        //webView.getEngine().load(url);
+        m_LoginCookies = loginFormResponse.cookies(); //NEW LINE - Saves the cookies into a map.
     }
 
 
     /***
      * This method checks if the element we want to use is actually available in the source of the page
-     * @param name The name of the tag that we want to check, Ex. {@code "Login Form"}
-     * @param elem The actual {@code Jsoup.Element} that we want to pass and check if it exists
+     * @param tagName The name of the tag that we want to check, Ex. {@code "Login Form"}
+     * @param tagElement The actual {@code Jsoup.Element} that we want to pass and check if it exists
      * @throws RuntimeException Throws a {@code RuntimeException} if the element is not found
      */
     @Override
-    public void checkElement(String name, Element elem) throws RuntimeException
+    public void checkElement(String tagName, Element tagElement) throws RuntimeException
     {
-        if (elem == null)
+        if (tagElement == null)
         {
-            throw new RuntimeException("Unable to find " + name);
+            throw new RuntimeException("Unable to find " + tagName);
         }
     }
 
@@ -225,7 +176,7 @@ public class FormSender extends Tab implements FormSenderInterface
     @Override
     public WebView getWebView()
     {
-        return this.webView;
+        return this.m_WebView;
     }
 
 }
@@ -245,10 +196,11 @@ class dynamicFormLogin extends Task
     private final long TIMEOUT = 10 * 1000;  // 10 seconds
 
     /**
+     * NOTE: We should look into how we can cleanse this information once we are done using it
      * This is the constructor for the {@code AutomateMyNottinghamLogin} class
      * @param engine The {@code WebEngine} that is being used to display the sites
-     * @param username The Username, should be changed asap (shouldn't be plain text)
-     * @param password The Password, should be changed asap (shouldn't be plain text)
+     * @param username The Username
+     * @param password The Password
      */
     dynamicFormLogin(WebEngine engine, String username, String password) {
         this.engine = engine;

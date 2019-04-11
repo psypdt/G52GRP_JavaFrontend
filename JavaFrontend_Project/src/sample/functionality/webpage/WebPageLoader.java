@@ -7,7 +7,8 @@ import java.net.URL;
 
 
 /**
- * Load information from webpage
+ * CAN THIS CLASS BE REMOVED?
+ * Load information from web-page
  */
 public class WebPageLoader extends Application implements WebPageLoaderInterface
 {

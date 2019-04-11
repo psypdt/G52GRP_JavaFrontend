@@ -8,12 +8,9 @@ import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
 import sample.gui.tabs.iTaskTab;
 import sample.gui.tabs.TaskTab;
-
 import java.io.IOException;
 
-/**
- *
- */
+
 public class GuiHandler implements iGuiHandler {
 
     private TabPane tabPane;

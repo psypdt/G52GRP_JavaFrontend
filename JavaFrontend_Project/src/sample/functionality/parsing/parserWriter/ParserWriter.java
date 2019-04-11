@@ -3,12 +3,7 @@ package sample.functionality.parsing.parserWriter;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.URL;
 
 
 public class ParserWriter implements ParserWriterInterface

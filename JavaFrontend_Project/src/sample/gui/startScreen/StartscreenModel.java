@@ -4,6 +4,9 @@ import sample.gui.tabs.BrowserTab;
 import sample.gui.pageShortcut.PageShortcuts;
 import java.util.ArrayList;
 
+/**
+ * CAN THIS CLASS BE REMOVED? DOESN'T SEEM TO BE USED ANYWHERE
+ */
 
 /*This may need to be a singleton pattern & may need to be threadsafe*/
 public class StartscreenModel implements sample.gui.startScreen.Startscreen

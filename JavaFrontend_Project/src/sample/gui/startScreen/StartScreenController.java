@@ -5,6 +5,10 @@ import javafx.scene.control.Button;
 import sample.gui.tabs.WebViewTab;
 import sample.application.Main;
 
+
+/**
+ * CAN THIS CLASS BE REMOVED?
+ */
 public class StartScreenController
 {
     @FXML private Button open_google;

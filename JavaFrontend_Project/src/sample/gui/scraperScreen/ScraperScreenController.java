@@ -20,12 +20,10 @@ import java.util.ArrayList;
 
 public class ScraperScreenController
 {
-    @FXML private AnchorPane pane;
-    @FXML private VBox vertical_grid;
-
     private String id;
     private ArrayList<String> loginTags = new ArrayList<>();
-
+    @FXML private AnchorPane pane;
+    @FXML private VBox vertical_grid;
     @FXML private TextField username_field;
     @FXML private PasswordField password_field;
     @FXML private Button login_button;
@@ -38,10 +36,17 @@ public class ScraperScreenController
         });
     }
 
+    /**
+     * Setter for the {@code id} of the ScraperScreen
+     * @param id The id that describes what type of site this controller is handling
+     */
     public void setId(String id) {
         this.id = id;
     }
 
+    /**
+     * This method is responsible for automating the login process after the user has provided their login details
+     */
     @FXML public void login() {
         JSONParser parser = new JSONParser();
         JSONArray output;
@@ -70,6 +75,7 @@ public class ScraperScreenController
 
     }
 
+
     /**
      * Creates a JavaFX representation of a JSON array representing HTML elements.
      * @param elements JSON array of HTML elements to convert to JavaFX objects
@@ -95,6 +101,7 @@ public class ScraperScreenController
             }
         }
     }
+
 
     /**
      * Create an equivalent JavaFX object for a HTML element and displays it within a given JavaFX container element.

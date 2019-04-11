@@ -10,9 +10,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import sample.functionality.forms.formSending.FormSender;
 import sample.gui.scraperScreen.ScraperScreenController;
-
 import java.io.IOException;
 import java.util.ArrayList;
+
 
 public class TaskTab extends Tab implements iTaskTab {
 

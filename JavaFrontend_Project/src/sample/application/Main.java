@@ -12,11 +12,9 @@ import sample.gui.iGuiHandler;
  */
 public class Main extends Application
 {
-    private static TabPane tasksPage;
-
-    private static Main self;
-
-    private GuiHandler guiHandler;
+    private static TabPane m_TasksPage;
+    private static Main m_Self;
+    private GuiHandler m_GuiHandler;
 
     /**
      * @param primaryStage Container for displaying the GUI.
@@ -26,7 +24,7 @@ public class Main extends Application
     public void start(Stage primaryStage) throws Exception
     {
         // Save a reference to this instance of Main
-        self = this;
+        m_Self = this;
 
         // Set a minimum window size of 300 x 200.
         // The default window size is set by the GUI Handler on startup.
@@ -34,21 +32,21 @@ public class Main extends Application
         primaryStage.setMinHeight(200);
 
         // Initialize a GUI Handler to do all the heavy lifting
-        guiHandler = new GuiHandler(primaryStage);
+        m_GuiHandler = new GuiHandler(primaryStage);
     }
 
     /**
      * Get a reference to the current instance of the GUI handler.
      * @return An instance of GUI handler.
      */
-    public static iGuiHandler getGuiHandler() { return self.guiHandler; }
+    public static iGuiHandler getGuiHandler() { return m_Self.m_GuiHandler; }
 
 
     /**
      * Access the task page of the application.
      * @return A reference to the task page.
      */
-    public static TabPane getTasksPage() { return tasksPage; }
+    public static TabPane getTasksPage() { return m_TasksPage; }
 
 
     /**
