@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -21,7 +20,7 @@ public class ScraperScreenController
 {
     private String m_Id;
     private ArrayList<String> m_LoginTags = new ArrayList<>();
-    @FXML private AnchorPane anchor_pane;
+    @FXML private Pane background_pane;
     @FXML private VBox vertical_grid;
     @FXML private TextField username_field;
     @FXML private PasswordField password_field;
@@ -95,8 +94,8 @@ public class ScraperScreenController
         vertical_grid.setLayoutY(100);
 
         // remove the login form and put the primary container into the view
-        anchor_pane.getChildren().clear();
-        anchor_pane.getChildren().add(vertical_grid);
+        background_pane.getChildren().clear();
+        background_pane.getChildren().add(vertical_grid);
 
         // iterate through the JSON array and display each element
         for (int i = 0; i < elements.length(); i++)
