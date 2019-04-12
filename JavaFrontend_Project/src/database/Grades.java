@@ -75,29 +75,29 @@ public class Grades extends DatabaseManipulator
 	 * @param newModuleName Name of the new Module. Constraint: Can't be an empty string.
 	 * @param moduleID Module's ID. Constraint: Can't be an empty string.
 	 */
-	 public void update(String newModuleName, String moduleID)
-	 {
-		 m_Connection = initialiseConnection();
+	public void update(String newModuleName, String moduleID)
+	{
+	 	m_Connection = initialiseConnection();
 	 	String sqlQuery = m_FallbackQuery;
 
 	 	// Verify that the given arguments are acceptable.
-	 	if(!newModuleName.isEmpty() && !moduleID.isEmpty())
+		if(!newModuleName.isEmpty() && !moduleID.isEmpty())
 		{
 			// SQL statement that updates data in the database.
 			sqlQuery = "update  grades set Modulename ='" + newModuleName +
 					"' where ModuleID = '" +moduleID+"'";
 		}
 
-		 try
-		 {
+	 	try
+		{
 			m_Statement = m_Connection.createStatement(); // Create Statement object to execute static SQL statements.
 			m_Statement.executeUpdate(sqlQuery);// SQL statement that performs the update operation and returns the number of updates.
 			m_Connection.close();   // Close the database connection.
-		 }
-		 catch (SQLException e)
-		 {
-		 	System.out.println("Grade update failed: " + e.getMessage());
-		 }
+		}
+	 	catch (SQLException e)
+		{
+			System.out.println("Grade update failed: " + e.getMessage());
+		}
 	 }
 
 
