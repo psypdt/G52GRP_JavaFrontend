@@ -62,7 +62,9 @@ public class Module extends DatabaseManipulator
 
 
     /**
-     * @implSpec
+     * @implSpec This method will only except non-empty strings, if this is violated a useless query {@link #m_FallbackQuery}
+     * is sent to the database.
+     * @implSpec There is currently no way of informing the developer if a query was deemed "non-compliant"/ empty.
      * @param newModuleName The new name for the module with ID {@code moduleID}. Constraint: Can't be empty {@link String}.
      * @param moduleID ID of the module that's getting renamed. Constraint: Can't be empty {@link String}.
      */
@@ -81,7 +83,7 @@ public class Module extends DatabaseManipulator
         {
             m_Statement = m_Connection.createStatement(); // Create a Statement object that can execute the update queryAllModules.
             m_Statement.executeUpdate(sqlQuery); // SQL statement that performs the update operation.
-            m_Connection.close();   // Close the database connection as detailed in the super class.
+            m_Connection.close(); // Close the database connection as detailed in the super class.
         }
         catch (SQLException e)
         {
@@ -91,39 +93,39 @@ public class Module extends DatabaseManipulator
 
 
 
-    /* Query the database to output the required records*/
-
     /**
-     *
-     * @return
+     * @implSpec This method returns all rows from the Module table in the database.
+     * @implSpec By default this method executes the following query: {@code "select * from module"}.
+     * @return {@link String} containing the query result, returns {@code null} if an issue occurs.
      */
    public String queryAllModules()
    {
+       m_Connection = initialiseConnection(); // Initialize connection to database as instructed by the super class.
        String searchresult = null;
-       m_Connection = initialiseConnection(); //Again, get the connection first, that is, connect to the database
 
        try
        {
-           String sql1 = "select * from module"; // SQL statements that queries data
-           m_Statement = m_Connection.createStatement(); // Create a Statement object for executing static SQL statements, m_Statement being a local variable
-           ResultSet rs1 = m_Statement.executeQuery(sql1); // Execute the SQL query statement
+           String sqlQuery = "select * from module"; // SQL statement that queries data
+           m_Statement = m_Connection.createStatement(); // Create a Statement object to execute the sql query.
+           ResultSet resultSet = m_Statement.executeQuery(sqlQuery); // Execute SQL query statement and save the returned data.
 
-           //DEBUG:
-           System.out.println("search result：");
+           //DEBUG: Used to validate that the correct search result has been returned.
+           //System.out.println("search result：");
 
-           // Iterate through the table while there is data that follows.
-           while (rs1.next())
+           // Iterate through the resulting set while there is data that follows the current position.
+           while (resultSet.next())
            {
                 // Get the value based on the field name.
-            	String MI1 = rs1.getString("ModuleID");  
-                String Mn1 = rs1.getString("Modulename");
+            	String MI1 = resultSet.getString("ModuleID");
+                String Mn1 = resultSet.getString("Modulename");
 
                 //Output the values of the fields and record that are being looked up.
                 searchresult = MI1 + " " + Mn1;
-                System.out.println(searchresult);                   
-           }
 
-           m_Connection.close();   //Close the database connection
+                //DEBUG: Used to see what pair has been selected.
+                //System.out.println(searchresult);
+           }
+           m_Connection.close(); // Close the database connection since the super class demands this.
 
            return searchresult;
        }
