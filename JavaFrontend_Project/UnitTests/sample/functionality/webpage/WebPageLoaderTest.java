@@ -40,7 +40,7 @@ public class WebPageLoaderTest
 
 
     /**
-     * This method will test a connection to the website is made
+     * This method will test_create_new_table a connection to the website is made
      */
     @Test
     void test_site_connection()

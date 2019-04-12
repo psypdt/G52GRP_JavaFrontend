@@ -7,74 +7,70 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
-public class Grades
+public class Grades extends DatabaseManipulator
 {
 	static Connection m_Connection;
     static Statement m_Statement;
 
 	/**
-	 * @return The {@code Connection} object
+	 * Constructor for {@link Grades} class.
+	 * @implSpec By default, the constructor calls the {@link #initialiseConnection()} method from {@link DatabaseManipulator}.
 	 */
-	public static Connection getConnection()
+	public Grades()
 	{
-		Connection con = null;  // Create a Connection object to connect to the database.
-
-		try
-		{
-			Class.forName("com.mysql.cj.jdbc.Driver");// load Mysql driver.
-			con = DriverManager.getConnection(
-						"jdbc:mysql://localhost:3306/database", "root", "sh279000");// create database connection.
-		}
-		catch (Exception e) {
-			System.out.println("connect to the database fail" + e.getMessage());
-		}
-
-		return con; // Returns the established database connection.
+		super();
+		m_Connection = initialiseConnection();
 	}
 
 
 	/**
 	 * @implNote This is an example of how a function that inserts student information should look like
-	 * @param studentname Student's name
-	 * @param studentID student's ID.
-	 * @param moduleID this module ID
-	 * @param modulename this module name
-	 * @param grade student's grade for this module
-	 * @param credit this module's credit
+	 * @param studentName The student's name.
+	 * @param studentID The student's ID.
+	 * @param moduleID The module ID.
+	 * @param moduleName The module name.
+	 * @param grade The student's grade for this module.
+	 * @param credit The credits that the module is worth.
 	 */
-	public void insert(int studentID,String studentname, String moduleID, String modulename, int grade, int credit)
+	public void insert(int studentID,String studentName, String moduleID, String moduleName, int grade, int credit)
 	{
-		m_Connection = getConnection(); // The first step is to get a connection, that is, to the database
 		try
 		{
 			String sql1 = "INSERT INTO grades(StudentID,Studentname,ModuleID,Modulename,Grade,Credit)"
-					+ " VALUES ('"+studentID+"','"+studentname+"','"+moduleID+"','"+modulename+"','"+grade+"','"+credit+"')";
+					+ " VALUES ('"+studentID+"'," +
+					"'"+studentName+"'," +
+					"'"+moduleID+"'," +
+					"'"+moduleName+"'," +
+					"'"+grade+"'," +
+					"'"+credit+"')";
 
-			m_Statement = (Statement) m_Connection.createStatement();    // Create a Statement object for executing static SQL statements
-			m_Statement.executeUpdate(sql1);  // SQL statement that performs the insert operation and returns the number of inserted data
-			m_Connection.close();   //Close the database connection
+			m_Statement = m_Connection.createStatement(); // Create a Statement object for executing static SQL statements.
+			m_Statement.executeUpdate(sql1); // SQL statement that performs the insert operation and returns the number of inserted data.
+			m_Connection.close(); //Close the database connection.
 		}
-		catch (SQLException e) {
-			System.out.println("insert fail" + e.getMessage());
+		catch (SQLException e)
+		{
+			System.out.println("Grade insertion failed " + e.getMessage());
 		}
 	}
 
 
 	/**
 	 * 
-	 * @param newmodulename new module's name
+	 * @param newModuleName new module's name
 	 * @param moduleID module's ID
 	 */
-	 public void update(String newmodulename, String moduleID)
+	 public void update(String newModuleName, String moduleID)
 	 {
-	 	m_Connection = getConnection(); //Again, get the connection first, that is, connect to the database
-
 		 try
 		 {
-			String sql = "update  grades set Modulename ='"+newmodulename+"' where ModuleID = '"+moduleID+"'";// SQL statement that updates data
-			m_Statement = (Statement) m_Connection.createStatement();    //Create a Statement object for executing static SQL statements, m_Statement being a local variable
-			m_Statement.executeUpdate(sql);//SQL statement that performs the update operation and returns the number of updates
-			m_Connection.close();   //Close the database connection
+			String sql = "update  grades set Modulename ='"+
+					newModuleName+
+					"' where ModuleID = '"
+					+moduleID+"'"; // SQL statement that updates data
+			m_Statement = m_Connection.createStatement(); // Create Statement object to execute static SQL statements.
+			m_Statement.executeUpdate(sql);// SQL statement that performs the update operation and returns the number of updates
+			m_Connection.close();   // Close the database connection.
 		 }
 		 catch (SQLException e)
 		 {
@@ -85,18 +81,18 @@ public class Grades
 	 public String query()
 	 {
 		String searchresult = null;
-		m_Connection = getConnection(); // Again, get the connection first, that is, connect to the database
 
 		 try
 		 {
-			String sql1 = "select * from grades";// SQL statements that query data
-			m_Statement = (Statement) m_Connection.createStatement();    //Create a Statement object for executing static SQL statements, m_Statement being a local variable
-			ResultSet rs1 = m_Statement.executeQuery(sql1);  //Execute the SQL query statement and return the result set of the query data
-			System.out.println("search result：");
+			 String  sql1 = "select * from grades"; // SQL statements that query data
+			 m_Statement = m_Connection.createStatement(); // Create Statement object to execute static SQL.
+			 ResultSet rs1 = m_Statement.executeQuery(sql1); // Execute the SQL query statement, return the query result.
 
-			while (rs1.next())
-			{
-				String SI = rs1.getString("StudentID");
+			 System.out.println("search result：");
+
+			 while (rs1.next())
+			 {
+			 	String SI = rs1.getString("StudentID");
 				String Sn = rs1.getString("Studentname");
 				String MI2 = rs1.getString("ModuleID");
 				String Mn2 = rs1.getString("Modulename");
@@ -104,17 +100,16 @@ public class Grades
 				String Credit = rs1.getString("Credit");
 				searchresult = SI+" "+Sn + " " + MI2+ " "+ Mn2 + " "+ Grade +" "+Credit;
 				System.out.println(searchresult);
-			}
+			 }
 
-			m_Connection.close();   //Close the database connection
-			return searchresult;
-
-		}
+			 m_Connection.close();   //Close the database connection
+			 return searchresult;
+		 }
 		 catch (SQLException e)
 		 {
 			System.out.println("search information fail");
 		 }
-		return null;
+		 return null;
 	 }
 
    /**
@@ -123,7 +118,6 @@ public class Grades
 	*/
 	public void delete(String moduleID)
 	{
-		m_Connection = getConnection(); //Again, get the connection first, that is, connect to the database
 		try {
 			String sql = "delete from grades  where ModuleID = '"+moduleID+"'";// SQL statement to delete data
 			m_Statement = (Statement) m_Connection.createStatement();    //Create a Statement object for executing static SQL statements, m_Statement being a local variable
