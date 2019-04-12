@@ -46,7 +46,7 @@ public class DatabaseManipulator implements DatabaseInterface
         catch (Exception e)
         {
             // DEBUG: Notify the developer that the database connection has failed.
-            System.out.println("Connect to the database failed " + e.getMessage());
+            System.out.println("Connect to the database failed: " + e.getMessage());
         }
         return connection; // Returns the established database connection.
     }
@@ -80,7 +80,7 @@ public class DatabaseManipulator implements DatabaseInterface
         catch (Exception e)
         {
             // DEBUG: Notify the developer that the database connection has failed.
-            System.out.println("Connect to the database failed " + e.getMessage());
+            System.out.println("Connect to the database has failed: " + e.getMessage());
         }
         return connection; // Returns the established database connection.
     }

@@ -1,34 +1,15 @@
 package database;
-import database.Grades;
+
 import static org.junit.Assert.*;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-
 import org.junit.Test;
 
-public class GradesTest {
-	static Connection conn;  
-	
-	public static Connection getConnection() {    
-        Connection con = null;  //Create a Connection object to connect to the database 
-        try {    
-            Class.forName("com.mysql.cj.jdbc.Driver");// load Mysql driver   
-                
-            con = DriverManager.getConnection(    
-                    "jdbc:mysql://localhost:3306/database", "root", "sh279000");// create database connection  
-                
-        } catch (Exception e) {    
-            System.out.println("connect to the database fail" + e.getMessage());    
-        }    
-        return con; //Returns the established database connection
-    } 
 
+
+public class GradesTest
+{
 	@Test
-	public void testinsert() {
+	public void test_grade_insertion()
+	{
 		Grades grades = new Grades();
 		grades.insert(4315722,"Y","G52DSY","Distributed system",99,10);
 		String testresult = grades.query();
@@ -50,15 +31,16 @@ public class GradesTest {
 			 System.out.println("TEST:"+SI+" "+Sn + " " + MI2+ " "+ Mn2 + " "+ Grade +" "+Credit);
 			e.printStackTrace();
 		}*/
-		assertEquals("4315722 Y G52DSY Distributed system 99 10",testresult);
+		assertEquals("4315722 Y G52DSY Distributed system 99 10", testresult);
 		/*assertEquals("Y", Sn);
 		assertEquals("G52DSY",MI2);
 		assertEquals("Distributed system",Mn2);
 		assertEquals("99",Grade);
 		assertEquals("10",Credit);*/
 	}
+
 	@Test
-	public void testupdate() {
+	public void test_update() {
 		Grades grade = new Grades();
 		grade.update("Introduction to Distributed system", "G52DSY");
 		String testresult = grade.query();
@@ -67,13 +49,14 @@ public class GradesTest {
 		
 		
 	}
+
 	@Test
-	public void testxdelete() {
+	public void test_delete_dsy()
+	{
 		Grades grade = new Grades();
 		grade.delete("G52DSY");
 		String testresult = grade.query();
-		assertEquals(null,testresult);
-		
+		assertEquals(null, testresult);
 	}		
 	
 		

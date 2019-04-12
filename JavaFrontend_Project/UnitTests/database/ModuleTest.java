@@ -1,11 +1,11 @@
 package database;
-import database.Module;
-import static org.junit.Assert.*;
 
+
+import static org.junit.Assert.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
-
 import org.junit.Test;
+
 
 public class ModuleTest {
 static Connection conn;  

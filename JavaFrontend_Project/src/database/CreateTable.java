@@ -27,6 +27,7 @@ public class CreateTable extends DatabaseManipulator
 
 
     /**
+     * @implNote If more methods are required regarding table creation, follow the structure of this method.
      * @implSpec This method requires that 2 columns are created with the table.
      * @implSpec This method will return {@code null} if the table name already exists.
      * @implSpec The columns that are created default to the types {@code int(10)} and {@code varchar(30)} respectively.
