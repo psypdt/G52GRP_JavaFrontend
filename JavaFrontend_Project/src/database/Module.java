@@ -77,9 +77,9 @@ public class Module
          String searchresult = null;   
         conn = getConnection(); //Again, get the connection first, that is, connect to the database    
         try {    
-            String sql1 = "select * from module";// SQL statements that query data   
+            String sql1 = "select * from module";// SQL statements that queryGrades data
             st = (Statement) conn.createStatement();    //Create a Statement object for executing static SQL statements, m_Statement being a local variable
-            ResultSet rs1 = st.executeQuery(sql1);  //Execute the SQL query statement and return the result set of the query data  
+            ResultSet rs1 = st.executeQuery(sql1);  //Execute the SQL queryGrades statement and return the result set of the queryGrades data
             System.out.println("search result：");    
            while (rs1.next()) { // Determine if there is another piece of data                   
                 // Gets the value based on the field name  
@@ -104,13 +104,13 @@ public class Module
     public void delete(String moduleID) {        
         conn = getConnection(); //Again, get the connection first, that is, connect to the database  
         try {    
-            String sql = "delete from module  where ModuleID = '"+moduleID+"'";// SQL statement to delete data    
+            String sql = "delete from module  where ModuleID = '"+moduleID+"'";// SQL statement to deleteGradesForModule data
             st = (Statement) conn.createStatement();    //Create a Statement object for executing static SQL statements, m_Statement being a local variable
-            st.executeUpdate(sql);// Execute the SQL delete statement to return the number of deleted data                 
-            //System.out.println("delete from the module " + count + " data\n");    //Outputs the result of the delete operation                  
+            st.executeUpdate(sql);// Execute the SQL deleteGradesForModule statement to return the number of deleted data
+            //System.out.println("deleteGradesForModule from the module " + count + " data\n");    //Outputs the result of the deleteGradesForModule operation
             conn.close();   //Close the database connection                   
         } catch (SQLException e) {    
-            System.out.println("delete fail");    
+            System.out.println("deleteGradesForModule fail");
         }      
     }    
 }

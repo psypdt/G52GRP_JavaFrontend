@@ -12,7 +12,7 @@ public class GradesTest
 	{
 		Grades grades = new Grades();
 		grades.insert(4315722,"Y","G52DSY","Distributed system",99,10);
-		String testresult = grades.query();
+		String testresult = grades.queryGrades();
 		
 		/*String Sn = null, MI2 = null, Mn2 = null, Grade = null, Credit = null;
 		int SI = 0;
@@ -43,7 +43,7 @@ public class GradesTest
 	public void test_update() {
 		Grades grade = new Grades();
 		grade.update("Introduction to Distributed system", "G52DSY");
-		String testresult = grade.query();
+		String testresult = grade.queryGrades();
 		assertEquals("4315722 Y G52DSY Introduction to Distributed system 99 10",testresult);
 		
 		
@@ -54,8 +54,8 @@ public class GradesTest
 	public void test_delete_dsy()
 	{
 		Grades grade = new Grades();
-		grade.delete("G52DSY");
-		String testresult = grade.query();
+		grade.deleteGradesForModule("G52DSY");
+		String testresult = grade.queryGrades();
 		assertEquals(null, testresult);
 	}		
 	

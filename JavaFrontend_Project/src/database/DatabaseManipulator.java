@@ -2,14 +2,16 @@ package database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.Statement;
 
 
 /**
+ * @implSpec Every method which connects to a database MUST call {@link Connection#close()} before returning.
+ * @implSpec Every method which connects to a database MUST call {@link #initialiseConnection()}, this is required since
+ * every method calls {@link Connection#close()} before it returns, hence the connection must be reinitialized.
  * @implSpec The current implementation of all these methods requires that a database already exists
  * on a server such that it can be accessed and manipulated.
- * @apiNote This class was created since all database classes are of type {@link DatabaseManipulator}, since the intention
- * is to manipulate the database in some form, hence having this type of inheritance makes sense, since all database
+ * @apiNote This class was created since all database classes are a {@link DatabaseManipulator}, since their intention
+ * is to manipulate the database in some form, hence having this type of inheritance makes sense as all database
  * classes must use the {{@link #initialiseConnection()}} method.
  */
 public class DatabaseManipulator implements DatabaseInterface
@@ -18,7 +20,7 @@ public class DatabaseManipulator implements DatabaseInterface
      * Constructor for {@link DatabaseManipulator} class.
      * @implSpec The constructor will not connect to a database by default.
      */
-    public DatabaseManipulator() {}
+    public DatabaseManipulator(){}
 
 
     /**
@@ -65,7 +67,7 @@ public class DatabaseManipulator implements DatabaseInterface
     public Connection setNewConnection(String database, String username, String password)
     {
         Connection connection = null;  // Create a Connection object to connect to the database.
-        String databaseUrl = "jdbc:mysql://localhost:3306/" + database;
+        String databaseUrl = "jdbc:mysql://localhost:3306/" + database; // Construct URL that points to database.
 
         try
         {

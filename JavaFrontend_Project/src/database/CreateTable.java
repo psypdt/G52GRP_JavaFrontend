@@ -5,10 +5,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
+/**
+ * @implNote Any method that connects to a database MUST call {@link #initialiseConnection()} as its first operation.
+ * @implNote Any method that connects to a database MUST call {@link Connection#close()} before returning.
+ */
 public class CreateTable extends DatabaseManipulator
 {
 	static Connection m_Connection; // The connection to the database.
-    static Statement m_Statement; // The SQL query to be executed.
+    static Statement m_Statement; // The SQL queryGrades to be executed.
     private String m_SqlQuery = "create table "+
             "newTable"+ // Name given to the new table is "newTable"
             "(column1" + " int(10),"+ // Column 1 of the new table is "column1".
@@ -17,13 +21,9 @@ public class CreateTable extends DatabaseManipulator
 
     /**
      * Constructor for {@link CreateTable} class.
-     * @implSpec The constructor will initialise {@link #m_Connection} by default using {@link #initialiseConnection()}.
+     * @implSpec The constructor will not initialise {@link #m_Connection} by default.
      */
-    public CreateTable()
-    {
-        super();
-        m_Connection = initialiseConnection();
-    }
+    public CreateTable() { super(); }
 
 
     /**
@@ -38,6 +38,7 @@ public class CreateTable extends DatabaseManipulator
      */
     public String createTable(String tableName, String column1, String column2)
     {
+        m_Connection = initialiseConnection();
     	try
         {
             String sqlQuery = m_SqlQuery;
@@ -66,8 +67,8 @@ public class CreateTable extends DatabaseManipulator
 
 
     /**
-     * Setter for {@link #m_SqlQuery}, allows developer to set a default query.
-     * @param newSqlQuery the new query that will be assigned to {@link #m_SqlQuery}.
+     * Setter for {@link #m_SqlQuery}, allows developer to set a default queryGrades.
+     * @param newSqlQuery the new queryGrades that will be assigned to {@link #m_SqlQuery}.
      */
     public void setSqlQuery(String newSqlQuery)
     {
