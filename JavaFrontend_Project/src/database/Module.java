@@ -15,6 +15,7 @@ public class Module extends DatabaseManipulator
 {
     static Connection m_Connection; // The connection to the database.
     static Statement m_Statement; // The SQL statement object that will execute on the database.
+    private final String m_FallbackQuery = ""; // This is a safeguard, doesn't change database, replaces odd queries.
 
 
     /**
@@ -31,21 +32,26 @@ public class Module extends DatabaseManipulator
 
     /**
      * @implSpec This method inserts a new Module into the database.
-     * @param moduleID The ID of the new module.
-     * @param moduleName The name of the new module.
+     * @param moduleID The ID of the new module. Constraint: Can't be an empty {@link String}.
+     * @param moduleName The name of the new module. Constraint: Can't be an empty {@link String}.
      */
     public void insert(String moduleID, String moduleName)
     {
         m_Connection = initialiseConnection(); // Initialize connection to the database as specified by the super class.
+        String sqlQuery = m_FallbackQuery; // If the constraints of the function arguments are disregarded, use this.
+
+        // Ensure that constraints are not violated.
+        if(!moduleID.isEmpty() && !moduleName.isEmpty())
+        {
+            sqlQuery = "INSERT INTO module(ModuleID, Modulename)"
+                    + " VALUES ('"+moduleID+"','"+moduleName+"')";  // SQL statement to inserts data into Module table.
+        }
 
         try
         {
-            String sql1 = "INSERT INTO module(ModuleID, Modulename)"    
-                    + " VALUES ('"+moduleID+"','"+moduleName+"')";  // SQL statement to insert data
-
-            m_Statement = m_Connection.createStatement();    // Create a Statement object for executing static SQL statements
-            m_Statement.executeUpdate(sql1);  // SQL statement that performs the insert operation and returns the number of inserted data
-            m_Connection.close();   //Close the database connection
+            m_Statement = m_Connection.createStatement(); // Create a Statement object to execute a static SQL query.
+            m_Statement.executeUpdate(sqlQuery); // SQL statement that performs the insert operation.
+            m_Connection.close(); // Close the database connection as instructed by the super class.
 
         }
         catch (SQLException e)
@@ -56,7 +62,7 @@ public class Module extends DatabaseManipulator
         
     /* Updates the required records and returns the number of updated records*/
     /**
-     * 
+     * @implSpec 
      * @param newModuleName new module name
      * @param moduleID module's ID
      */
