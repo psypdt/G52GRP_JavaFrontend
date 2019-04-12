@@ -28,14 +28,15 @@ public class CreateTable extends DatabaseManipulator
 
 
     /**
-     * @implNote If more methods are required regarding table creation, follow the structure of this method.
+     * @implSpec This method will not create duplicate tables, each table name must be unique.
      * @implSpec This method requires that 2 columns are created with the table.
      * @implSpec This method will return {@code null} if the table name already exists.
      * @implSpec The columns that are created default to the types {@code int(10)} and {@code varchar(30)} respectively.
+     * @implNote If more methods are required regarding table creation, follow the structure of this method.
      * @param tableName The name of the table created that will be created.
      * @param column1 Name of the first column.
      * @param column2 Name of the second column.
-     * @return The {@code tableName} if the table creation succeeds, else {@code null} is returned.
+     * @return The {@code tableName} if the table creation succeeds, return {@code null} if table already exists.
      */
     public String createTable(String tableName, String column1, String column2)
     {

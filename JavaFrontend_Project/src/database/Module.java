@@ -49,7 +49,7 @@ public class Module extends DatabaseManipulator
 
         try
         {
-            m_Statement = m_Connection.createStatement(); // Create a Statement object to execute a static SQL queryAllModules.
+            m_Statement = m_Connection.createStatement(); // Create a Statement object to execute a static SQL query.
             m_Statement.executeUpdate(sqlQuery); // SQL statement that performs the insert operation.
             m_Connection.close(); // Close the database connection as instructed by the super class.
         }
@@ -73,7 +73,7 @@ public class Module extends DatabaseManipulator
         m_Connection = initialiseConnection(); // Initialize connection to database as described by super class.
         String sqlQuery = m_FallbackQuery;
 
-        // Check that argument constraints haven't been violated, construct the update queryAllModules string.
+        // Check that argument constraints haven't been violated, construct the update query string.
         if(!newModuleName.isEmpty() && !moduleID.isEmpty())
         {
             sqlQuery =  "update module set Modulename ='"+newModuleName+"' where ModuleID = '"+moduleID+"'";
@@ -81,7 +81,7 @@ public class Module extends DatabaseManipulator
 
         try
         {
-            m_Statement = m_Connection.createStatement(); // Create a Statement object that can execute the update queryAllModules.
+            m_Statement = m_Connection.createStatement(); // Create a Statement object that can execute the update query.
             m_Statement.executeUpdate(sqlQuery); // SQL statement that performs the update operation.
             m_Connection.close(); // Close the database connection as detailed in the super class.
         }
@@ -98,7 +98,7 @@ public class Module extends DatabaseManipulator
      * @implSpec By default this method executes the following query: {@code "select * from module"}.
      * @return {@link String} containing the query result, returns {@code null} if an issue occurs.
      */
-   public String queryAllModules()
+   public String query()
    {
        m_Connection = initialiseConnection(); // Initialize connection to database as instructed by the super class.
        String searchresult = null;
@@ -148,15 +148,15 @@ public class Module extends DatabaseManipulator
         m_Connection = initialiseConnection(); //Again, get the connection first, that is, connect to the database
         try
         {
-            String sql = "delete from module  where ModuleID = '"+moduleID+"'";// SQL statement to deleteGradesForModule data
+            String sql = "delete from module  where ModuleID = '"+moduleID+"'";// SQL statement to delete data
 
             m_Statement = m_Connection.createStatement();    //Create a Statement object for executing static SQL statements, m_Statement being a local variable
-            m_Statement.executeUpdate(sql);// Execute the SQL deleteGradesForModule statement to return the number of deleted data
+            m_Statement.executeUpdate(sql);// Execute the SQL delete statement to return the number of deleted data
             m_Connection.close();   //Close the database connection
         }
         catch (SQLException e)
         {
-            System.out.println("deleteGradesForModule fail");
+            System.out.println("delete fail");
         }      
     }    
 }

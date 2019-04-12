@@ -12,4 +12,5 @@ public interface DatabaseInterface
 {
     Connection initialiseConnection();
     Connection setNewConnection(String database, String username, String password);
+    String query();
 }

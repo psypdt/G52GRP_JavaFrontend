@@ -63,9 +63,9 @@ public String query() {
     String searchresult =null;
     conn = getConnection(); //Again, get the connection first, that is, connect to the database    
     try {    
-        String sql1 = "select * from user";// SQL statements that queryGrades data
+        String sql1 = "select * from user";// SQL statements that query data
         st = (Statement) conn.createStatement();    //Create a Statement object for executing static SQL statements, m_Statement being a local variable
-        ResultSet rs1 = st.executeQuery(sql1);  //Execute the SQL queryGrades statement and return the result set of the queryGrades data
+        ResultSet rs1 = st.executeQuery(sql1);  //Execute the SQL query statement and return the result set of the query data
         System.out.println("search result：");    
         while (rs1.next()) {
         	String Ln = rs1.getString("Lastname");  
@@ -88,12 +88,12 @@ public String query() {
 public void delete(int userID) {    
     conn = getConnection(); //Again, get the connection first, that is, connect to the database  
     try {    
-        String sql = "delete from user  where UserID = '"+userID+"'";// SQL statement to deleteGradesForModule data
+        String sql = "delete from user  where UserID = '"+userID+"'";// SQL statement to delete data
         st = (Statement) conn.createStatement();    //Create a Statement object for executing static SQL statements, m_Statement being a local variable
-        st.executeUpdate(sql);// Execute the SQL deleteGradesForModule statement to return the number of deleted data
+        st.executeUpdate(sql);// Execute the SQL delete statement to return the number of deleted data
         conn.close();   //Close the database connection       
     	} catch (SQLException e) {    
-        System.out.println("deleteGradesForModule fail");
+        System.out.println("delete fail");
     		}    
 		}
 }

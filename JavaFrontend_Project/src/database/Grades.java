@@ -108,7 +108,7 @@ public class Grades extends DatabaseManipulator
 	 * @return The {@link String} conversion of the {@link ResultSet} which contains all elements in the "grades" table.
 	 * Returns {@code null} if there is nothing to select.
 	 */
-	public String queryGrades()
+	public String query()
 	 {
 		 m_Connection = initialiseConnection(); // Initialize connection to database as instructed by the super class.
 		String searchResult = null;
@@ -122,7 +122,7 @@ public class Grades extends DatabaseManipulator
 			 //DEBUG: Used to validate that the search returned the correct elements;
 			 //System.out.println("search result：");
 
-			 // Iterate through the database table and collect all rows.
+			 // Iterate through the resulting set and concatenate the resulting data found in the set.
 			 while (resultSet.next())
 			 {
 			 	String SI = resultSet.getString("StudentID");
@@ -155,7 +155,7 @@ public class Grades extends DatabaseManipulator
 	* @param moduleID The ID for the module which will have all the student's grades removed.
 	*                    Constraint: Can't be an empty {@link String}.
 	*/
-	public void deleteGradesForModule(String moduleID)
+	public void delete(String moduleID)
 	{
 		m_Connection = initialiseConnection(); // Initialize database connection like the super class details.
 		String sqlQuery = m_FallbackQuery;

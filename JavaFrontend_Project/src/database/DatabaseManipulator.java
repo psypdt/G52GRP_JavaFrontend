@@ -88,4 +88,14 @@ public class DatabaseManipulator implements DatabaseInterface
         }
         return connection; // Returns the established database connection.
     }
+
+
+    /**
+     * @implSpec {@link DatabaseManipulator} doesn't implement a standard way of deleting a table.
+     * @implSpec It is expected that default behaviour is implemented in subclasses of {@link DatabaseManipulator} via
+     * overloaded methods. Examples are {@link Grades#query()}, {@link Module#query()}, etc.
+     * @return {@code null} because this is the default implementation.
+     */
+    @Override
+    public String query() { return null; }
 }
