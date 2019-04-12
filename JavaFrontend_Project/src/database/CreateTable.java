@@ -21,7 +21,8 @@ public class CreateTable extends DatabaseManipulator
 
     /**
      * Constructor for {@link CreateTable} class.
-     * @implSpec The constructor will not initialise {@link #m_Connection} by default.
+     * @implSpec The constructor will not initialise {@link #m_Connection} by default, it only calls the constructor of
+     * the super class {@link DatabaseManipulator}.
      */
     public CreateTable() { super(); }
 
@@ -38,12 +39,13 @@ public class CreateTable extends DatabaseManipulator
      */
     public String createTable(String tableName, String column1, String column2)
     {
-        m_Connection = initialiseConnection();
+        m_Connection = initialiseConnection(); // Initialize connection as specified by super class.
+
     	try
         {
             String sqlQuery = m_SqlQuery;
 
-            // Check that all arguments are non empty strings
+            // Check that all arguments are non-empty strings.
             if(!tableName.isEmpty() && !column1.isEmpty() && !column2.isEmpty())
             {
                 sqlQuery = "create table "+
@@ -54,7 +56,7 @@ public class CreateTable extends DatabaseManipulator
 
     		m_Statement = m_Connection.createStatement();
     		m_Statement.executeUpdate(sqlQuery);
-    		m_Connection.close();
+    		m_Connection.close(); // Close the connection as instructed by the super class.
 
     		return tableName;
     	}

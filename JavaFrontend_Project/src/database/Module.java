@@ -13,25 +13,35 @@ import java.sql.Statement;
  */
 public class Module extends DatabaseManipulator
 {
-    // Create static global variables   
-    static Connection m_Connection;
-    static Statement m_Statement;
+    static Connection m_Connection; // The connection to the database.
+    static Statement m_Statement; // The SQL statement object that will execute on the database.
+
+
+    /**
+     * Constructor for the {@link Module} class.
+     * @implSpec By default this constructor will only call the super class {@link DatabaseManipulator}, it will not
+     * initialise the {@link #m_Connection}.
+     */
+    public Module()
+    {
+        super();
+    }
 
 
 
     /**
-     * @implSpec Inserts a data record and outputs the number of inserted data records.
-     * @param moduleID moduleID
-     * @param modulename module's name
+     * @implSpec This method inserts a new Module into the database.
+     * @param moduleID The ID of the new module.
+     * @param moduleName The name of the new module.
      */
-    public void insert(String moduleID, String modulename)
+    public void insert(String moduleID, String moduleName)
     {
-        m_Connection = initialiseConnection(); // The first step is to get a connection, that is, to the database
+        m_Connection = initialiseConnection(); // Initialize connection to the database as specified by the super class.
 
         try
         {
             String sql1 = "INSERT INTO module(ModuleID, Modulename)"    
-                    + " VALUES ('"+moduleID+"','"+modulename+"')";  // SQL statement to insert data
+                    + " VALUES ('"+moduleID+"','"+moduleName+"')";  // SQL statement to insert data
 
             m_Statement = m_Connection.createStatement();    // Create a Statement object for executing static SQL statements
             m_Statement.executeUpdate(sql1);  // SQL statement that performs the insert operation and returns the number of inserted data
@@ -40,7 +50,7 @@ public class Module extends DatabaseManipulator
         }
         catch (SQLException e)
         {
-            System.out.println("Insertion of Module: " + modulename + " with ID: "  + moduleID + " has failed: " + e.getMessage());
+            System.out.println("Insertion of Module: " + moduleName + " with ID: "  + moduleID + " has failed: " + e.getMessage());
         }    
     }    
         

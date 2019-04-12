@@ -8,11 +8,11 @@ import java.sql.Statement;
 
 
 /**
+ * @implSpec The {@link #m_FallbackQuery} is intended to be a safety measure, should a queryGrades seem incomplete, this statement
+ * will be executed with the intention that nothing will be done to the database, hence why it is an empty string.
  * @implNote Any method that connects to a database MUST call {@link #initialiseConnection()} as its first operation.
  * @implNote Any method that connects to a database MUST call {@link Connection#close()} before returning.
  * @implNote This is a specific case and is intended to illustrate how a class that manipulates grades is to be implemented.
- * @implSpec The {@link #m_FallbackQuery} is intended to be a safety measure, should a queryGrades seem incomplete, this statement
- * will be executed with the intention that nothing will be done to the database, hence why it is an empty string.
  */
 public class Grades extends DatabaseManipulator
 {
@@ -28,9 +28,9 @@ public class Grades extends DatabaseManipulator
 
 
 	/**
-	 * @implNote This is an example of how a function that inserts student information should look like.
 	 * @implSpec By default this method will execute {@link #m_FallbackQuery} if the supplied arguments don't conform
 	 * to the constraints in respect to the function argument (see {@code @param} field for parameter constrains).
+	 * @implNote This is an example of how a function that inserts student information should look like.
 	 * @param studentID The student's ID. Constraint: Must be greater than 0 ({@code studentID > 0}).
 	 * @param studentName The student's name. Constraint: Can't be an empty string.
 	 * @param moduleID The module ID. Constraint: Can't be an empty string.
@@ -40,7 +40,7 @@ public class Grades extends DatabaseManipulator
 	 */
 	public void insert(int studentID,String studentName, String moduleID, String moduleName, int grade, int credit)
 	{
-		m_Connection = initialiseConnection();
+		m_Connection = initialiseConnection(); // Initialize connection as specified by  the super class.
 		String sqlQuery = m_FallbackQuery; // Safeguard should any arguments be incomplete.
 
 		try
@@ -60,7 +60,7 @@ public class Grades extends DatabaseManipulator
 
 			m_Statement = m_Connection.createStatement(); // Create a Statement object for executing static SQL statements.
 			m_Statement.executeUpdate(sqlQuery); // SQL statement that performs the insert operation and returns the number of inserted data.
-			m_Connection.close(); //Close the database connection.
+			m_Connection.close(); // Close the database connection, as instructed by the super class.
 		}
 		catch (SQLException e)
 		{
@@ -77,7 +77,7 @@ public class Grades extends DatabaseManipulator
 	 */
 	public void update(String newModuleName, String moduleID)
 	{
-	 	m_Connection = initialiseConnection();
+	 	m_Connection = initialiseConnection(); // Initialize connection as instructed by the super class.
 	 	String sqlQuery = m_FallbackQuery;
 
 	 	// Verify that the given arguments are acceptable.
@@ -92,7 +92,7 @@ public class Grades extends DatabaseManipulator
 		{
 			m_Statement = m_Connection.createStatement(); // Create Statement object to execute static SQL statements.
 			m_Statement.executeUpdate(sqlQuery);// SQL statement that performs the update operation and returns the number of updates.
-			m_Connection.close();   // Close the database connection.
+			m_Connection.close();   // Close the database connection as the super class expects.
 		}
 	 	catch (SQLException e)
 		{
@@ -110,7 +110,7 @@ public class Grades extends DatabaseManipulator
 	 */
 	public String queryGrades()
 	 {
-		 m_Connection = initialiseConnection();
+		 m_Connection = initialiseConnection(); // Initialize connection to database as instructed by the super class.
 		String searchResult = null;
 
 		 try
@@ -135,10 +135,10 @@ public class Grades extends DatabaseManipulator
 				searchResult = SI+" "+Sn + " " + MI2+ " "+ Mn2 + " "+ Grade +" "+Credit;
 
 				//DEBUG: Used to verify that the selected row is correct.
-				//System.out.println(searchresult);
+				//System.out.println(searchResult);
 			 }
 
-			 m_Connection.close(); // Close the database connection.
+			 m_Connection.close(); // Close the database connection as expected by the super class..
 
 			 return searchResult;
 		 }
@@ -157,6 +157,7 @@ public class Grades extends DatabaseManipulator
 	*/
 	public void deleteGradesForModule(String moduleID)
 	{
+		m_Connection = initialiseConnection(); // Initialize database connection like the super class details.
 		String sqlQuery = m_FallbackQuery;
 
 		if(!moduleID.isEmpty())
@@ -168,7 +169,7 @@ public class Grades extends DatabaseManipulator
 		{
 			m_Statement = m_Connection.createStatement(); // Create Statement object to execute a static SQL statement.
 			m_Statement.executeUpdate(sqlQuery); // Execute the SQL delete statement to return the number of deleted data.
-			m_Connection.close(); // Close the database connection
+			m_Connection.close(); // Close the database connection as described in the super class.
 		}
 		catch (SQLException e)
 		{

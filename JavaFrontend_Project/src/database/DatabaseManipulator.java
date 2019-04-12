@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 
 
 /**
+ * @implSpec If subclasses are to have new default behaviour on creation, implement it in {@link #DatabaseManipulator()}.
  * @implSpec Every method which connects to a database MUST call {@link Connection#close()} before returning.
  * @implSpec Every method which connects to a database MUST call {@link #initialiseConnection()}, this is required since
  * every method calls {@link Connection#close()} before it returns, hence the connection must be reinitialized.
@@ -17,8 +18,9 @@ import java.sql.DriverManager;
 public class DatabaseManipulator implements DatabaseInterface
 {
     /**
-     * Constructor for {@link DatabaseManipulator} class.
-     * @implSpec The constructor will not connect to a database by default.
+     * Constructor for the {@link DatabaseManipulator} class.
+     * @implSpec The constructor will not connect to a database by default, it will not initialize anything by default,
+     * it is there so that the third party extending this software may modify the default behaviour of the subclasses.
      */
     public DatabaseManipulator(){}
 
