@@ -9,7 +9,7 @@ import sample.gui.scraperScreen.ScraperScreenController;
 
 /**
  * @implNote This class is responsible for setting up the functionality of the buttons on the home screen.
- * @implSpec {@code FXML} Buttons which aren't utilised currently should realised by the party extending this software.
+ * @implSpec {@link FXML} {@link Button} which aren't utilised currently should realised by the party extending this software.
  */
 public class ApplicationController
 {
