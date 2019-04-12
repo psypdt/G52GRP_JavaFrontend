@@ -31,7 +31,7 @@ public class Module extends DatabaseManipulator
 
 
     /**
-     * @implSpec This method inserts a new Module into the database.
+     * @implSpec This method inserts a new module into the Modules table in the database.
      * @param moduleID The ID of the new module. Constraint: Can't be an empty {@link String}.
      * @param moduleName The name of the new module. Constraint: Can't be an empty {@link String}.
      */
@@ -49,52 +49,64 @@ public class Module extends DatabaseManipulator
 
         try
         {
-            m_Statement = m_Connection.createStatement(); // Create a Statement object to execute a static SQL query.
+            m_Statement = m_Connection.createStatement(); // Create a Statement object to execute a static SQL queryAllModules.
             m_Statement.executeUpdate(sqlQuery); // SQL statement that performs the insert operation.
             m_Connection.close(); // Close the database connection as instructed by the super class.
-
         }
         catch (SQLException e)
         {
-            System.out.println("Insertion of Module: " + moduleName + " with ID: "  + moduleID + " has failed: " + e.getMessage());
+            System.out.println("Insertion of: " + moduleName + " with ID: "  + moduleID + " has failed: " + e.getMessage());
         }    
     }    
         
-    /* Updates the required records and returns the number of updated records*/
+
+
     /**
-     * @implSpec 
-     * @param newModuleName new module name
-     * @param moduleID module's ID
+     * @implSpec
+     * @param newModuleName The new name for the module with ID {@code moduleID}. Constraint: Can't be empty {@link String}.
+     * @param moduleID ID of the module that's getting renamed. Constraint: Can't be empty {@link String}.
      */
     public void update(String newModuleName , String moduleID)
     {
-        m_Connection = initialiseConnection(); //Again, get the connection first, that is, connect to the database
+        m_Connection = initialiseConnection(); // Initialize connection to database as described by super class.
+        String sqlQuery = m_FallbackQuery;
+
+        // Check that argument constraints haven't been violated, construct the update queryAllModules string.
+        if(!newModuleName.isEmpty() && !moduleID.isEmpty())
+        {
+            sqlQuery =  "update module set Modulename ='"+newModuleName+"' where ModuleID = '"+moduleID+"'";
+        }
 
         try
         {
-            String sql = "update module set Modulename ='"+newModuleName+"' where ModuleID = '"+moduleID+"'";// SQL statement that updates data
-
-            m_Statement = m_Connection.createStatement(); //Create a Statement object for executing static SQL statements, m_Statement being a local variable
-            m_Statement.executeUpdate(sql);//SQL statement that performs the update operation and returns the number of updates
-            m_Connection.close();   //Close the database connection
+            m_Statement = m_Connection.createStatement(); // Create a Statement object that can execute the update queryAllModules.
+            m_Statement.executeUpdate(sqlQuery); // SQL statement that performs the update operation.
+            m_Connection.close();   // Close the database connection as detailed in the super class.
         }
         catch (SQLException e)
         {
             System.out.println("Updating the name of Module with ID: " + moduleID + " to: " + newModuleName + " has failed: " + e.getMessage());
         }    
     }    
-    	
-    /* Query the database to output the required records*/    
-   public String query()
+
+
+
+    /* Query the database to output the required records*/
+
+    /**
+     *
+     * @return
+     */
+   public String queryAllModules()
    {
        String searchresult = null;
        m_Connection = initialiseConnection(); //Again, get the connection first, that is, connect to the database
 
        try
        {
-           String sql1 = "select * from module"; // SQL statements that queryGrades data
+           String sql1 = "select * from module"; // SQL statements that queries data
            m_Statement = m_Connection.createStatement(); // Create a Statement object for executing static SQL statements, m_Statement being a local variable
-           ResultSet rs1 = m_Statement.executeQuery(sql1); // Execute the SQL queryGrades statement and return the result set of the queryGrades data
+           ResultSet rs1 = m_Statement.executeQuery(sql1); // Execute the SQL query statement
 
            //DEBUG:
            System.out.println("search result：");

@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 
 /**
- * @implSpec The {@link #m_FallbackQuery} is intended to be a safety measure, should a queryGrades seem incomplete, this statement
+ * @implSpec The {@link #m_FallbackQuery} is intended to be a safety measure, should a query seem incomplete, this statement
  * will be executed with the intention that nothing will be done to the database, hence why it is an empty string.
  * @implNote Any method that connects to a database MUST call {@link #initialiseConnection()} as its first operation.
  * @implNote Any method that connects to a database MUST call {@link Connection#close()} before returning.
@@ -115,9 +115,9 @@ public class Grades extends DatabaseManipulator
 
 		 try
 		 {
-			 String  sqlQuery = "select * from grades"; // SQL statements that queryGrades data
+			 String  sqlQuery = "select * from grades"; // SQL statements that queries data
 			 m_Statement = m_Connection.createStatement(); // Create Statement object to execute static SQL.
-			 ResultSet resultSet = m_Statement.executeQuery(sqlQuery); // Execute the SQL queryGrades & return result.
+			 ResultSet resultSet = m_Statement.executeQuery(sqlQuery); // Execute the SQL queries & return result.
 
 			 //DEBUG: Used to validate that the search returned the correct elements;
 			 //System.out.println("search result：");
