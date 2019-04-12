@@ -1,47 +1,51 @@
 package database;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-public class CreateTable {
-	static Connection conn;    
-    static Statement st;
+
+
+public class CreateTable extends DatabaseManipulator
+{
+	static Connection m_Connection;
+    static Statement m_Statement;
+
     /**
-     * @param con connection class
-     * @return con 
+     * Constructor for {@link CreateTable}.
+     * @implSpec The constructor will initialise {@link #m_Connection} by default.
      */
-    public static Connection getConnection() {    
-        Connection con = null;  //Create a Connection object to connect to the database 
-        try {    
-            Class.forName("com.mysql.cj.jdbc.Driver");// load Mysql driver  
-            con = DriverManager.getConnection(    
-                    "jdbc:mysql://localhost:3306/database", "root", "sh279000");// create database connection  
-        } catch (Exception e) {    
-            System.out.println("connect to the database fail" + e.getMessage());    
-        }    
-        return con; //Returns the established database connection
-    }  
+    public CreateTable()
+    {
+        super();
+        m_Connection = initialiseConnection();
+    }
+
+
     /**
-     * 
-     * @param tablename the name for the table created
-     * @param column1 first column name
-     * @param column2 second column name
+     * @implSpec This method requires that 2 columns are created with the table.
+     * @param tableName The name of the table created that will be created.
+     * @param column1 Name of the first column
+     * @param column2 Name of the second column
+     * @return The name of the {@code tableName} if the table creation succeeds
      */
-    public String createtable(String tablename, String column1, String column2) {
-    	conn = getConnection();
-    	String name = tablename;
-    	try {
-    		String sql = "create table "+tablename+"("+column1+" int(10),"+column2+" varchar(30));";
-    		st = (Statement) conn.createStatement(); 
-    		st.executeUpdate(sql);
-    		conn.close();
-    		return name;
-    	}catch (SQLException e) {    
-            System.out.println("create fail" + e.getMessage());   
+    public String createTable(String tableName, String column1, String column2)
+    {
+    	m_Connection = setNewConnection();
+
+    	try
+        {
+            System.out.println("Constructing SQL query");
+    		String sql = "create table "+tableName+"("+column1+" int(10),"+column2+" varchar(30));";
+    		m_Statement = (Statement) m_Connection.createStatement();
+    		System.out.println("About to execute SQL");
+    		m_Statement.executeUpdate(sql);
+    		m_Connection.close();
+    		return tableName;
+    	}
+    	catch (SQLException e) {
+            System.out.println("create fail" + e.getMessage());
             return null;
-        }    
-}
+        }
+    }
 
 }

@@ -16,7 +16,7 @@ static Connection conn;
             Class.forName("com.mysql.cj.jdbc.Driver");// load Mysql driver   
                 
             con = DriverManager.getConnection(    
-                    "jdbc:mysql://localhost:3306/database", "root", "sh279000");// create database connection  
+                    "jdbc:mysql://localhost:3306/database", "root", "sh279000");// create database connection
                 
         } catch (Exception e) {    
             System.out.println("connect to the database fail" + e.getMessage());    

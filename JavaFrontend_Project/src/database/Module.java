@@ -1,25 +1,31 @@
-
 package database;
-import java.sql.Connection;    
+
+
+import java.sql.Connection;
 import java.sql.DriverManager;    
 import java.sql.ResultSet;    
 import java.sql.SQLException;    
-import java.sql.Statement;    
-public class Module {    
+import java.sql.Statement;
+
+
+public class Module
+{
     // Create static global variables   
     static Connection conn;   
     static Statement st;
    
-    /* Function to get a database connection*/
+
     /**
-     * @param con connection class
-     * @return con connection
+     * @implSpec Function to get a database connection.
+     * @return con {@link Connection} object created through the database connection.
      */
-    public static Connection getConnection() {    
+    public static Connection getConnection()
+    {
         Connection con = null;  //Create a Connection object to connect to the database 
-        try {    
-            Class.forName("com.mysql.cj.jdbc.Driver");// load Mysql driver   
-                
+
+        try
+        {
+            Class.forName("com.mysql.cj.jdbc.Driver");// load Mysql driver.
             con = DriverManager.getConnection(    
                     "jdbc:mysql://localhost:3306/database", "root", "sh279000");// create database connection  
                 
@@ -27,10 +33,11 @@ public class Module {
             System.out.println("connect to the database fail" + e.getMessage());    
         }    
         return con; //Returns the established database connection
-    }  
-    /* inserts a data record and outputs the number of inserted data records*/ 
+    }
+
+
     /**
-     * 
+     * @implSpec Inserts a data record and outputs the number of inserted data records.
      * @param moduleID moduleID
      * @param modulename module's name
      */
@@ -57,7 +64,7 @@ public class Module {
         conn = getConnection(); //Again, get the connection first, that is, connect to the database    
         try {    
             String sql = "update module set Modulename ='"+newmodulename+"' where ModuleID = '"+moduleID+"'";// SQL statement that updates data                   
-            st = (Statement) conn.createStatement();    //Create a Statement object for executing static SQL statements, st being a local variable                  
+            st = (Statement) conn.createStatement();    //Create a Statement object for executing static SQL statements, m_Statement being a local variable
             st.executeUpdate(sql);//SQL statement that performs the update operation and returns the number of updates                                  
             conn.close();   //Close the database connection                  
         } catch (SQLException e) {    
@@ -71,7 +78,7 @@ public class Module {
         conn = getConnection(); //Again, get the connection first, that is, connect to the database    
         try {    
             String sql1 = "select * from module";// SQL statements that query data   
-            st = (Statement) conn.createStatement();    //Create a Statement object for executing static SQL statements, st being a local variable                  
+            st = (Statement) conn.createStatement();    //Create a Statement object for executing static SQL statements, m_Statement being a local variable
             ResultSet rs1 = st.executeQuery(sql1);  //Execute the SQL query statement and return the result set of the query data  
             System.out.println("search result：");    
            while (rs1.next()) { // Determine if there is another piece of data                   
@@ -98,7 +105,7 @@ public class Module {
         conn = getConnection(); //Again, get the connection first, that is, connect to the database  
         try {    
             String sql = "delete from module  where ModuleID = '"+moduleID+"'";// SQL statement to delete data    
-            st = (Statement) conn.createStatement();    //Create a Statement object for executing static SQL statements, st being a local variable                 
+            st = (Statement) conn.createStatement();    //Create a Statement object for executing static SQL statements, m_Statement being a local variable
             st.executeUpdate(sql);// Execute the SQL delete statement to return the number of deleted data                 
             //System.out.println("delete from the module " + count + " data\n");    //Outputs the result of the delete operation                  
             conn.close();   //Close the database connection                   

@@ -16,13 +16,14 @@ static Connection conn;
             Class.forName("com.mysql.cj.jdbc.Driver");// load Mysql driver   
                 
             con = DriverManager.getConnection(    
-                    "jdbc:mysql://localhost:3306/database", "root", "sh279000");// create database connection  
+                    "jdbc:mysql://localhost:8080/test", "root", "");// create database connection
                 
         } catch (Exception e) {    
             System.out.println("connect to the database fail" + e.getMessage());    
         }    
         return con; //Returns the established database connection
     }
+
 	@Test
 	public void testinsert() {
 		User user = new User();
@@ -30,6 +31,7 @@ static Connection conn;
 		String testresult = user.query();
 		assertEquals("Y Wang 4315722",testresult);
 	}
+
 	@Test
 	public void testupdate() {
 		User user = new User();
@@ -37,6 +39,7 @@ static Connection conn;
 		String testresult = user.query();
 		assertEquals("Y Wang 14375122",testresult);
 	}
+
 	@Test
 	public void testxdelete() {
 		User user = new User();
