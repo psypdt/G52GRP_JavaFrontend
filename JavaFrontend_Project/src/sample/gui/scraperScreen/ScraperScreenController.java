@@ -21,16 +21,17 @@ public class ScraperScreenController
 {
     private String m_Id;
     private ArrayList<String> m_LoginTags = new ArrayList<>();
-    @FXML private Pane background_pane;
     @FXML private VBox vertical_grid;
+    @FXML private Pane background_pane;
     @FXML private TextField username_field;
     @FXML private PasswordField password_field;
     @FXML private Button login_button;
 
+
     /**
      * Initializer for {@code ScraperscreenView.fxml}.
      * @implSpec This method initialises {@link #m_LoginTags} and then calls
-     * {@link JSONParser#login(String, String, String, String, ArrayList, boolean)} from {@link JSONParser}.
+     *          {@link JSONParser#login(String, String, String, String, ArrayList, boolean)} from {@link JSONParser}.
      */
     @FXML private void initialize()
     {
@@ -41,14 +42,14 @@ public class ScraperScreenController
 
             switch (m_Id)
             {
-                //Set a m_Id for the URL, so when the URL needs to be used it can only input the m_Id, set form tags.
+                // Set a m_Id for the URL, so when the URL needs to be used it can only input the m_Id, set form tags.
                 case "Moodle (courses)":
                 {
                     m_LoginTags.add("#login");
                     m_LoginTags.add("#username");
                     m_LoginTags.add("#password");
 
-                    //Tags to be parsed: div.m-l-1, a.list-group-item
+                    // Tags to be parsed: div.m-l-1, a.list-group-item
                     output = parser.login("https://moodle.nottingham.ac.uk/login/index.php",
                             "div.m-l-1",
                             username_field.getText(),

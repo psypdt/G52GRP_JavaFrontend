@@ -19,7 +19,7 @@ public class GuiHandler implements iGuiHandler
      * Constructor for the {@link GuiHandler}.
      * @implSpec Initializes the application with a pre-specified FXML file and displays it on the screen.
      * @param mainStage Graphical context display the home screen in.
-     * @throws IOException if the FXML file fails to load.
+     * @throws IOException if the {@link FXMLLoader} fails to load the {@link javafx.fxml.FXML} file.
      */
     public GuiHandler(Stage mainStage) throws IOException
     {
@@ -39,7 +39,7 @@ public class GuiHandler implements iGuiHandler
     }
 
     /**
-     * This methods opens a new tab and adds it to the primary tab pane {@link #m_TabPane}.
+     * @implSpec This methods opens a new tab and adds it to the primary tab pane {@link #m_TabPane}.
      * @param id Identifier for the tab that is being created, hence tabs can have different behaviour.
      */
     @Override
