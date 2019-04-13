@@ -28,6 +28,7 @@ public class Grades extends DatabaseManipulator
 
 
 	/**
+	 * @implSpec This method can insert duplicate entries, no default check to prevent this in the current implementation.
 	 * @implSpec By default this method will execute {@link #m_FallbackQuery} if the supplied arguments don't conform
 	 * to the constraints in respect to the function argument (see {@code @param} field for parameter constrains).
 	 * @implNote This is an example of how a function that inserts student information should look like.

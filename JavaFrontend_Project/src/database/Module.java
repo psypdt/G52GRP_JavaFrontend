@@ -141,18 +141,19 @@ public class Module extends DatabaseManipulator
 
    /**
     * 
-    * @param moduleID module's ID
+    * @param moduleID The moduleID of the module that will be deleted.
     */
     public void delete(String moduleID)
     {
         m_Connection = initialiseConnection(); //Again, get the connection first, that is, connect to the database
+
         try
         {
-            String sql = "delete from module  where ModuleID = '"+moduleID+"'";// SQL statement to delete data
+            String sqlQuery = "delete from module  where ModuleID = '"+moduleID+"'";// SQL statement to delete data
 
-            m_Statement = m_Connection.createStatement();    //Create a Statement object for executing static SQL statements, m_Statement being a local variable
-            m_Statement.executeUpdate(sql);// Execute the SQL delete statement to return the number of deleted data
-            m_Connection.close();   //Close the database connection
+            m_Statement = m_Connection.createStatement(); // Create a Statement object to send the delete query.
+            m_Statement.executeUpdate(sqlQuery); // Execute the SQL delete operation.
+            m_Connection.close(); //Close the database connection as  specified in the super class.
         }
         catch (SQLException e)
         {
