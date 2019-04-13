@@ -7,15 +7,15 @@
 * Brendan Lum - psybylu@nottingham.ac.uk 
 * Chris Tang - psyclt@nottingham.ac.uk 
 * Yisong Wang - psyyw7@nottingham.ac.uk 
-* Rafal Szponarski – psyrs12@nottingham.ac.uk 
+* Rafael Szponarski – psyrs12@nottingham.ac.uk 
 
 
 
 # Java Version & Libraries:
 * [Java 8]() - Java version used.
 * [JUnit4]() - Unit testing dependancy.
-* [JDBC]() - Database library.
-* [JSoup]() - Parsing library.
+* [JDBC-mysql-connector-java-8.0.15](https://dev.mysql.com/downloads/connector/j/) - Database library (Platform independent version).
+* [JSoup-1.11.3](https://jsoup.org/download) - Parsing library.
 * [Java-Json]() - `JSON` data structure library.
 
 
