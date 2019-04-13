@@ -6,6 +6,7 @@ import java.sql.Statement;
 
 
 /**
+ * @implSpec By default the query sent to create a new table is as follows: {@code "create table newTable (column1 int(10), column2  varchar(30))"}
  * @implNote Any method that connects to a database MUST call {@link #initialiseConnection()} as its first operation.
  * @implNote Any method that connects to a database MUST call {@link Connection#close()} before returning.
  */
@@ -22,7 +23,7 @@ public class CreateTable extends DatabaseManipulator
     /**
      * Constructor for {@link CreateTable} class.
      * @implSpec The constructor will not initialise {@link #m_Connection} by default, it only calls the constructor of
-     * the super class {@link DatabaseManipulator}.
+     *           the super class {@link DatabaseManipulator}.
      */
     public CreateTable() { super(); }
 

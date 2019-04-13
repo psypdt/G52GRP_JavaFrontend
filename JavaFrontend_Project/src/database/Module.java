@@ -21,7 +21,7 @@ public class Module extends DatabaseManipulator
     /**
      * Constructor for the {@link Module} class.
      * @implSpec By default this constructor will only call the super class {@link DatabaseManipulator}, it will not
-     * initialise the {@link #m_Connection}.
+     *          initialise the {@link #m_Connection}.
      */
     public Module()
     {
@@ -62,8 +62,7 @@ public class Module extends DatabaseManipulator
 
 
     /**
-     * @implSpec This method will only except non-empty strings, if this is violated a useless query {@link #m_FallbackQuery}
-     * is sent to the database.
+     * @implSpec This method will only except non-empty strings, on violated of this {@link #m_FallbackQuery} is sent.
      * @implSpec There is currently no way of informing the developer if a query was deemed "non-compliant"/ empty.
      * @param newModuleName The new name for the module with ID {@code moduleID}. Constraint: Can't be empty {@link String}.
      * @param moduleID ID of the module that's getting renamed. Constraint: Can't be empty {@link String}.

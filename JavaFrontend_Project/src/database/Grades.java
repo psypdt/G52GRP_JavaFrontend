@@ -9,7 +9,7 @@ import java.sql.Statement;
 
 /**
  * @implSpec The {@link #m_FallbackQuery} is intended to be a safety measure, should a query seem incomplete, this statement
- * will be executed with the intention that nothing will be done to the database, hence why it is an empty string.
+ * 			will be executed with the intention that nothing will be done to the database, hence why it is an empty string.
  * @implNote Any method that connects to a database MUST call {@link #initialiseConnection()} as its first operation.
  * @implNote Any method that connects to a database MUST call {@link Connection#close()} before returning.
  * @implNote This is a specific case and is intended to illustrate how a class that manipulates grades is to be implemented.
@@ -30,7 +30,7 @@ public class Grades extends DatabaseManipulator
 	/**
 	 * @implSpec This method can insert duplicate entries, no default check to prevent this in the current implementation.
 	 * @implSpec By default this method will execute {@link #m_FallbackQuery} if the supplied arguments don't conform
-	 * to the constraints in respect to the function argument (see {@code @param} field for parameter constrains).
+	 * 			to the constraints in respect to the function argument (see {@code @param} field for parameter constrains).
 	 * @implNote This is an example of how a function that inserts student information should look like.
 	 * @param studentID The student's ID. Constraint: Must be greater than 0 ({@code studentID > 0}).
 	 * @param studentName The student's name. Constraint: Can't be an empty string.
@@ -72,7 +72,7 @@ public class Grades extends DatabaseManipulator
 
 	/**
 	 * @implSpec By default this method will execute {@link #m_FallbackQuery} if the supplied arguments don't conform
-	 * to the constraints listed with the respective argument.
+	 * 			to the constraints listed with the respective argument.
 	 * @param newModuleName Name of the new Module. Constraint: Can't be an empty string.
 	 * @param moduleID Module's ID. Constraint: Can't be an empty string.
 	 */
@@ -107,7 +107,7 @@ public class Grades extends DatabaseManipulator
 	 * @implSpec This method will return a {@link String} containing every element in the "grades" table.
 	 * @implSpec By default this method executes the following SQL query: {@code "select * from grades"}.
 	 * @return The {@link String} conversion of the {@link ResultSet} which contains all elements in the "grades" table.
-	 * Returns {@code null} if there is nothing to select.
+	 * 			Returns {@code null} if there is nothing to select.
 	 */
 	public String query()
 	 {
