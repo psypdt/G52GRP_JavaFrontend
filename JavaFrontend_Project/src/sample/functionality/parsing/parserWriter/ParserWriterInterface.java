@@ -7,7 +7,7 @@ import java.io.IOException;
 
 /**
  * @apiNote The {@link #writeParsedToFile(Elements, Document)} method is no longer in use since parsed elements are no
- * longer written into files.
+ *          longer written into files.
  */
 public interface ParserWriterInterface
 {

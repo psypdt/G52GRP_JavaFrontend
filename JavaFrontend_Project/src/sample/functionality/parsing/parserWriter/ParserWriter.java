@@ -8,7 +8,7 @@ import java.io.*;
 
 /**
  * @apiNote This class is no longer used since tags are not stored in files, and neither is the parsed result, since it
- * considered too slow and not safe, since files can get corrupted.
+ *          considered too slow and not safe, since files can get corrupted.
  */
 public class ParserWriter implements ParserWriterInterface
 {
@@ -22,13 +22,13 @@ public class ParserWriter implements ParserWriterInterface
      * <p>
      * @implSpec This method can save an image to the local file system, but this functionality is not used.
      * @param tagContent List of tags that we want to save.
-     * @param parseDoc The {@code Jsoup} document that was used to do the parsing.
+     * @param parseDoc The {@link org.jsoup.Jsoup} {@link Document} that was used to do the parsing.
      * @throws IOException {@code FileWriter()} throws IOException when writing fails.
      */
     @Override
     public void writeParsedToFile(Elements tagContent, Document parseDoc) throws IOException
     {
-        //Developer may want to change this via a library that handles spaces and other types of punctuation.
+        // Developer may want to change this via a library that handles spaces and other types of punctuation.
         String fileName = parseDoc.title().replace(":", "-")+".html";
         String fullPath = "./resource_parsed_files/"+fileName;
 
@@ -44,6 +44,8 @@ public class ParserWriter implements ParserWriterInterface
         }
 
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fullPath, false));
+
+        //DEBUG: Write parsed string into a file.
         //bufferedWriter.write(String.valueOf(parseDoc));
 
         for (Element tag : tagContent)

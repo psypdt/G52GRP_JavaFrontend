@@ -206,10 +206,10 @@ class DynamicFormLogin extends Task
 
 
     /**
-     * @implNote This method uses Incremental-backoff, using another method is up to the party extending this software.
-     * @implNote The method will timeout after 10 seconds have elapsed and having failed to fetch the form.
+     * @implSpec This method will attempt to fetch the dynamically created form, populate it and send it back with the user details.
+     * @implSpec This method uses Incremental-backoff, using another method is up to the party extending this software.
+     * @implSpec The method will timeout after 10 seconds have elapsed and having failed to fetch the form.
      * @implNote At the moment the application user will not know if the login-process timed out.
-     * This method will attempt to fetch the dynamically created form, populate it and send it back with the user details.
      * @return This method will return {@code null} since no return value is necessary.
      */
     @Override
@@ -236,7 +236,7 @@ class DynamicFormLogin extends Task
          *   loginForm.submit();
          */
 
-        do // keep polling for the form, or time-out.
+        do // Keep polling for the form, or time-out.
         {
             //DEBUG: Verify that the process has started.
             //System.out.println("Finding the form...");
@@ -252,16 +252,16 @@ class DynamicFormLogin extends Task
 
             //millisToWait *= 2;  // exponential back-off.
 
-            millisToWait += 100;  // incremental back-off.
+            millisToWait += 100;  // Incremental back-off.
             timeElapsed = System.currentTimeMillis() - startTime;
 
-        } while (loginForm == null && timeElapsed < TIMEOUT);  // time-out after 10 seconds.
+        } while (loginForm == null && timeElapsed < TIMEOUT);  // Time-out after 10 seconds.
 
-        // if the page didn't time-out, continue with the auto-login process.
+        // If the page didn't time-out, continue with the auto-login process.
         if (loginForm != null)
         {
             //DEBUG: Confirm that the login-form has been successfully fetched.
-            System.out.println("Found it!");
+            //System.out.println("Found it!");
 
             HTMLCollection inputs = loginForm.getElements();
             ((HTMLInputElement)inputs.item(2)).setValue(username);

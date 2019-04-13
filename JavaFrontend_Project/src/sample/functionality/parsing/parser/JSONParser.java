@@ -15,21 +15,21 @@ import java.util.Map;
 public class JSONParser implements ParserInterface
 {
     private String m_Url;
-    private Document m_Document; //Stores the HTML that will be parsed temporarily.
-    private FormSender m_FormSender; //FormSender allows user login to occur right before parsing, without state change.
+    private Document m_Document; // Stores the HTML that will be parsed temporarily.
+    private FormSender m_FormSender; // FormSender allows user login to occur right before parsing, without state change.
 
     /**
-     * @implNote Currently the constructor does nothing since there is no need for it do execute anything.
-     * @implSpec Should it be necessary that this class takes input on construction, create an overloaded constructor.
      * Constructor for {@link JSONParser}.
+     * @implSpec Should it be necessary that this class takes input on construction, create an overloaded constructor.
+     * @implNote Currently the constructor does nothing since there is no need for it do execute anything.
      */
     public JSONParser()
     {
     }
 
     /**
-     * This method is used to log the user into a website, and then parses a set of specified tags.
-     * after the {@link #m_FormSender} has completed the login process.
+     * This method is used to log the user into a website and parse the site for the specified {@code tags}.
+     * @implSpec By default this method will parse for the {@code tags} immediately after the login has completed.
      * @implNote This method creates a {@link FormSender} object and assigns it to {@link #m_FormSender}.
      * @implNote This method uses {@link #getJSONArray(String)}.
      * @param loginUrl Url to the website where the m_FormSender form is located.
@@ -62,9 +62,9 @@ public class JSONParser implements ParserInterface
 
         JSONArray pageAsString = new JSONArray();
 
-        try //Try connecting to the current website to get its contents.
+        try // Try connecting to the current website to get its contents.
         {
-            //Save the website contents into m_Document.
+            // Save the website contents into m_Document.
             m_Document = Jsoup.connect(m_Url)
                     .cookies(loginCookies)
                     .get();
@@ -112,9 +112,9 @@ public class JSONParser implements ParserInterface
 
     /**
      * @implNote If tag nesting is too deep (more than 20 levels, restriction place by {@link Jsoup})
-     * or if object starts at the incorrect place (accessing element out of range) then a crash can occur.
-     *@implNote This is a recursive method. The method populates the JSON fields, ie. fills in values of parsed tags.
-     * This method is used by {@code getJSONArray(String cssQuery)}.
+     *          or if object starts at the incorrect place (accessing element out of range) then a crash can occur.
+     * @implNote This is a recursive method. The method populates the JSON fields, ie. fills in values of parsed tags.
+     *          This method is used by {@code getJSONArray(String cssQuery)}.
      * @param element The element that will be explored (check if {@code element} has children that should be parsed).
      * @return {@code JSONObject} representing the {@code element} and all its children.
      */
@@ -122,7 +122,7 @@ public class JSONParser implements ParserInterface
     {
         JSONObject jsonParsedTag = new JSONObject();
 
-        //This constructs the JSONObject.
+        // This constructs the JSONObject.
         try
         {
             jsonParsedTag.put("type", element.tagName());
@@ -131,6 +131,7 @@ public class JSONParser implements ParserInterface
             {
                 //DEBUG: Print the tag name and tag contents.
                 System.out.println("Element: " + element.tagName() + ", Text: " + element.ownText());
+
                 jsonParsedTag.put("text", element.ownText());
             }
 
@@ -139,14 +140,14 @@ public class JSONParser implements ParserInterface
                 jsonParsedTag.put("href", element.attributes().get("href"));
             }
 
-            if (element.children().size() > 0) //Check if tag has children.
+            if (element.children().size() > 0) // Check if tag has children.
             {
                 //DEBUG: Used to show that a child has been correctly added to the JSONObject.
                 System.out.println(element.children().toString());
 
                 JSONArray childrenArray = new JSONArray();
 
-                //For every child (should it exist) do a recursive function call.
+                // For every child (should it exist) do a recursive function call.
                 for (Element child : element.children())
                 {
                     childrenArray.put(parseElement(child));

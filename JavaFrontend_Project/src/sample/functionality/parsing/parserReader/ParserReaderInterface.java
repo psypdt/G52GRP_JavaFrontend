@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 /**
  * @apiNote The {{@link #readParsedFile(String)}} function is no longer in use since an alternative way of passing tags
- * has been favoured over this specific method.
+ *          has been favoured over this specific method.
  */
 public interface ParserReaderInterface
 {

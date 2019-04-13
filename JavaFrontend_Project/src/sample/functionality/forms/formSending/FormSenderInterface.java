@@ -6,7 +6,7 @@ import java.io.IOException;
 
 
 /**
- * @implNote It is acceptable to just have a method for static forms, dynamic forms are not a required.
+ * @implNote It is acceptable to just have a method for static forms, dynamic forms are not a required feature.
  */
 public interface FormSenderInterface
 {
