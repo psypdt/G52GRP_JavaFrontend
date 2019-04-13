@@ -18,7 +18,7 @@ public class Main extends Application
 
     /**
      * @param primaryStage Container for displaying the GUI.
-     * @throws Exception if the GUI Handler fails to initialize.
+     * @throws Exception If {@link GuiHandler} fails to initialize {@link #m_GuiHandler}.
      */
     @Override
     public void start(Stage primaryStage) throws Exception
@@ -37,13 +37,13 @@ public class Main extends Application
 
     /**
      * Get a reference to the current instance of the GUI handler {@code m_GuiHandler}.
-     * @return An instance of GUI handler.
+     * @return An instance of {@link #m_GuiHandler}.
      */
     public static iGuiHandler getGuiHandler() { return m_Self.m_GuiHandler; }
 
 
     /**
-     * Access the task page of the application {@code m_TaskPage}.
+     * Access the task page of the application {@link #m_TasksPage}.
      * @return A reference to the task page.
      */
     public static TabPane getTasksPage() { return m_TasksPage; }

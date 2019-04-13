@@ -20,18 +20,18 @@ import java.util.Map;
 
 public class FormSender extends Tab implements FormSenderInterface
 {
-    private String m_Url; //The url where the form is located.
-    private WebView m_WebView; //Where the website will be displayed.
-    private WebEngine m_WebEngine; //The WebEngine responsible for loading URLs, be it FXML or other.
-    private Map<String, String> m_LoginCookies; //Contains login cookies to keep session alive & allow link navigation.
-    private ArrayList<String> m_FormTags; //Convention: [0] = form_name, [1] = username_tag, [2] = password_tag.
+    private String m_Url; // The url where the form is located.
+    private WebView m_WebView; // Where the website will be displayed.
+    private WebEngine m_WebEngine; // The WebEngine responsible for loading URLs, be it FXML or other.
+    private Map<String, String> m_LoginCookies; // Contains login cookies to keep session alive & allow link navigation.
+    private ArrayList<String> m_FormTags; // Convention: [0] = form_name, [1] = username_tag, [2] = password_tag.
 
 
     /***
-     * Constructor for the FormSender Class, Creates a new {@code WebView} and {@code WebEngine}.
-     * Automatically loads the {@code dest} url via the {@code WebEngine}.
+     * @implSpec Constructor for the FormSender Class, Creates a new {@code WebView} and {@code WebEngine}.
+     * @implSpec Automatically loads the {@code dest} url via the {@code WebEngine}.
      * @implNote Constructor calls {{@link #staticFormLogin(String, String)}} and/or
-     * {@link dynamicFormLogin#dynamicFormLogin(WebEngine, String, String)}.
+     *          {@link DynamicFormLogin#DynamicFormLogin(WebEngine, String, String)}.
      * @param dest The URL where the staticFormLogin form is located.
      * @param isStatic Is the login form of the page created dynamically, or does it exist in the source (static).
      * @param username The users username for the website.
@@ -54,24 +54,24 @@ public class FormSender extends Tab implements FormSenderInterface
             //DEBUG: Print the state of the WebEngine.
             //System.out.printf("oldVal = %s, newVal = %s\n", oldValue, newValue);
 
-            // when page has finished loading.
+            // When page has finished loading.
             if (newValue == Worker.State.SUCCEEDED)
             {
                 //DEBUGGING : print the current URL.
                 //System.out.printf("current URL = %s\n", m_WebEngine.getLocation());
 
-                if (!isStatic) //Any website that has a dynamically loaded form, Ex. MyNottingham.
+                if (!isStatic) // Any website that has a dynamically loaded form, Ex. MyNottingham.
                 {
                     //DEBUG: Confirm that this condition was met.
                     //System.out.println("NOT STATIC");
 
-                    dynamicFormLogin autoLogin = new dynamicFormLogin(m_WebEngine, username, password);
-                    new Thread(autoLogin).start(); // Create new thread to complete auto login
+                    DynamicFormLogin autoLogin = new DynamicFormLogin(m_WebEngine, username, password);
+                    new Thread(autoLogin).start(); // Create new thread to complete auto login.
                 }
             }
         });
 
-        //Handle the login for static pages.
+        // Handle the login for static pages.
         if(isStatic)
         {
             try {
@@ -80,13 +80,13 @@ public class FormSender extends Tab implements FormSenderInterface
                 e.printStackTrace();
             }
         }
-        m_WebView.getEngine().load(m_Url); //After the printHtmlToConsole() runs the first time, this can be executed.
+        m_WebView.getEngine().load(m_Url); // After the printHtmlToConsole() runs the first time, this can be executed.
     }
 
 
     /**
-     * Getter for the {@link #m_LoginCookies} {@code Map<>}.
-     * @return {@link #m_LoginCookies}, which is a {@code Map<>} containing the login cookies when the form is sent.
+     * Getter for the {@link #m_LoginCookies} {@link Map}.
+     * @return {@link #m_LoginCookies}, which is a {@link Map} containing the login cookies when the form is sent.
      */
     public Map<String, String> getLoginCookies() { return m_LoginCookies; }
 
@@ -97,16 +97,16 @@ public class FormSender extends Tab implements FormSenderInterface
      * @param userName The users userName from the fxml form.
      * @param password The users password from the fxml form.
      * @throws IOException {@link Jsoup#connect(String)} can throw an {@code IOException}, as can the
-     * {@link Connection.Response#parse()}.
+     *        {@link Connection.Response#parse()}.
      */
     @Override
     public void staticFormLogin(String userName, String password) throws IOException
     {
-        //Constants used in this example.
+        // Constants used in this example.
         final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.109 Safari/537.36";
         final String LOGIN_FORM_URL = m_Url;
 
-        //Go to staticFormLogin page.
+        // Go to staticFormLogin page.
         Connection.Response loginFormResponse = Jsoup.connect(LOGIN_FORM_URL)
                 .timeout(8000)
                 .method(Connection.Method.GET)
@@ -114,40 +114,40 @@ public class FormSender extends Tab implements FormSenderInterface
                 .execute();
 
 
-        //Find the staticFormLogin form via its tag, can be found by inspecting relevant HTML.
-        //For BlueCastle, this tag is "form".
-        //For MyNottingham, #login or form#login.
-        //For Moodle, #login.
+        // Find the staticFormLogin form via its tag, can be found by inspecting relevant HTML.
+        // For BlueCastle, this tag is "form".
+        // For MyNottingham, #login or form#login.
+        // For Moodle, #login.
         FormElement loginForm = (FormElement)loginFormResponse.parse().select(m_FormTags.get(0)).first();
         checkElement("Login Form", loginForm);
 
-        //Complete the staticFormLogin form, username & password.
-        //For BlueCastle this is called #UserName.
-        //For MyNottingham, #userid.
-        //For Moodle #username.
+        // Complete the staticFormLogin form, username & password.
+        // For BlueCastle this is called #UserName.
+        // For MyNottingham, #userid.
+        // For Moodle #username.
         Element loginField = loginForm.select(m_FormTags.get(1)).first();
         checkElement("Login Field", loginField);
         loginField.val(userName);
 
-        //For BlueCastle this field is "#Password".
-        //For MyNottingham, #pwd.
-        //For Moodle, #password.
+        // For BlueCastle this field is "#Password".
+        // For MyNottingham, #pwd.
+        // For Moodle, #password.
         Element passwordField = loginForm.select(m_FormTags.get(2)).first();
         checkElement("Password Field", passwordField);
         passwordField.val(password);
 
 
-        //Send staticFormLogin form to the website the user wishes to access.
+        // Send staticFormLogin form to the website the user wishes to access.
         Connection.Response loginActionResponse = loginForm.submit()
                 .cookies(loginFormResponse.cookies())
                 .userAgent(USER_AGENT)
                 .execute();
 
-
+        //DEBUG: Used to check what url was received as a response.
         System.out.println("Url after staticFormLogin was: " + loginActionResponse.url());
         this.m_Url = loginActionResponse.url().toString();
 
-        m_LoginCookies = loginFormResponse.cookies(); //NEW LINE - Saves the cookies into a map.
+        m_LoginCookies = loginFormResponse.cookies(); // NEW LINE - Saves the cookies into a map.
     }
 
 
@@ -180,10 +180,10 @@ public class FormSender extends Tab implements FormSenderInterface
 
 
 /**
- * @implNote Currently this class uses incremental-backoff.
- * This class is used to automate the login process for site that dynamically load their login form like MyNottingham.
+ * @implSpec Currently this class uses incremental-backoff.
+ * @implNote This class automates the login process for sites that dynamically load the login form like MyNottingham.
  */
-class dynamicFormLogin extends Task
+class DynamicFormLogin extends Task
 {
     private WebEngine engine;
     private String username;
@@ -191,13 +191,13 @@ class dynamicFormLogin extends Task
     private final long TIMEOUT = 10 * 1000;  // 10 second timeout.
 
     /**
-     * NOTE: We should look into how we can cleanse this information once we are done using it.
-     * This is the constructor for the {@code AutomateMyNottinghamLogin} class.
+     * This is the constructor for the {@link DynamicFormLogin} class.
+     * @implSpec The user data may not be cleansed quickly enough.
      * @param engine The {@link WebEngine} that is being used to display the sites.
      * @param username The Username for the website.
      * @param password The Password for the website.
      */
-    dynamicFormLogin(WebEngine engine, String username, String password)
+    DynamicFormLogin(WebEngine engine, String username, String password)
     {
         this.engine = engine;
         this.username = username; //This may not be a good idea, shouldn't store this information.
