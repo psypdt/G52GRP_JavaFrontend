@@ -140,24 +140,27 @@ public class Module extends DatabaseManipulator
 
 
    /**
-    * 
-    * @param moduleID The moduleID of the module that will be deleted.
+    * @param moduleID The moduleID of the module that will be deleted. Constraint: Can't be an empty {@link String}.
     */
     public void delete(String moduleID)
     {
-        m_Connection = initialiseConnection(); //Again, get the connection first, that is, connect to the database
+        m_Connection = initialiseConnection(); // Initialize connection to database as instructed by the super class.
+        String sqlQuery = m_FallbackQuery;
+
+        if(!moduleID.isEmpty())
+        {
+            sqlQuery = "delete from module  where ModuleID = '"+moduleID+"'"; // SQL statement to delete data
+        }
 
         try
         {
-            String sqlQuery = "delete from module  where ModuleID = '"+moduleID+"'";// SQL statement to delete data
-
             m_Statement = m_Connection.createStatement(); // Create a Statement object to send the delete query.
             m_Statement.executeUpdate(sqlQuery); // Execute the SQL delete operation.
-            m_Connection.close(); //Close the database connection as  specified in the super class.
+            m_Connection.close(); // Close the database connection as specified in the super class.
         }
         catch (SQLException e)
         {
-            System.out.println("delete fail");
+            System.out.println("Failed to delete Module with ID: " + moduleID + " " + e.getMessage());
         }      
     }    
 }

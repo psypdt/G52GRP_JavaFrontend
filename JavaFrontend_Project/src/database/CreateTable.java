@@ -13,7 +13,7 @@ public class CreateTable extends DatabaseManipulator
 {
 	static Connection m_Connection; // The connection to the database.
     static Statement m_Statement; // The SQL query to be executed.
-    private String m_SqlQuery = "create table "+
+    private String m_SqlDefaultQuery = "create table "+
             "newTable"+ // Name given to the new table is "newTable"
             "(column1" + " int(10),"+ // Column 1 of the new table is "column1".
             "column2" + " varchar(30));"; // Column 2 of the new table is "column2".
@@ -44,7 +44,7 @@ public class CreateTable extends DatabaseManipulator
 
     	try
         {
-            String sqlQuery = m_SqlQuery;
+            String sqlQuery = m_SqlDefaultQuery;
 
             // Check that all arguments are non-empty strings.
             if(!tableName.isEmpty() && !column1.isEmpty() && !column2.isEmpty())
@@ -70,11 +70,11 @@ public class CreateTable extends DatabaseManipulator
 
 
     /**
-     * Setter for {@link #m_SqlQuery}, allows developer to set a default query.
-     * @param newSqlQuery the new query that will be assigned to {@link #m_SqlQuery}.
+     * Setter for {@link #m_SqlDefaultQuery}, allows developer to set a default query.
+     * @param newSqlQuery the new query that will be assigned to {@link #m_SqlDefaultQuery}.
      */
-    public void setSqlQuery(String newSqlQuery)
+    public void setSqlDefaultQuery(String newSqlQuery)
     {
-        this.m_SqlQuery = newSqlQuery;
+        this.m_SqlDefaultQuery = newSqlQuery;
     }
 }

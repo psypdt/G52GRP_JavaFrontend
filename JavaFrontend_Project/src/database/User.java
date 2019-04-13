@@ -1,7 +1,6 @@
 package database;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -16,7 +15,7 @@ public class User extends DatabaseManipulator
 {
 	static Connection m_Connection; // Connection to the database.
     static Statement m_Statement; // Statement that will be executed.
-    private final String m_Fallback = ""; // Safety measure, sent if query doesn't adhere to standard.
+    private final String m_FallbackQuery = ""; // Safety measure, sent if query doesn't adhere to standard.
 
 
 
@@ -38,7 +37,7 @@ public class User extends DatabaseManipulator
     public void insert(String lastName, String firstName, int userID)
     {
         m_Connection = initialiseConnection(); // Initialize connection to database as specified by super class.
-        String sqlQuery = m_Fallback;
+        String sqlQuery = m_FallbackQuery;
 
 
         if(!lastName.isEmpty() && !firstName.isEmpty() && userID >0)
@@ -61,14 +60,14 @@ public class User extends DatabaseManipulator
 
 
     /**
-     * @implSpec The {@link #m_Fallback} query will be executed of parameter constrains are violated.
+     * @implSpec The {@link #m_FallbackQuery} query will be executed of parameter constrains are violated.
      * @param firstName The new firstName given to the student. Constraint: Can't be an empty {@link String}.
      * @param userID The ID of the student who's name will be changed. Constraint: Must be greater than 0 {@code userID > 0}.
      */
     public void update(String firstName , int userID)
     {
         m_Connection = initialiseConnection(); //Create connection to database.
-        String sqlQuery = m_Fallback;
+        String sqlQuery = m_FallbackQuery;
 
         if(!firstName.isEmpty() && userID > 0)
         {
@@ -130,13 +129,13 @@ public class User extends DatabaseManipulator
 
 
     /**
-     * @implSpec The {@link #m_Fallback} query will be executed of parameter constrains are violated.
+     * @implSpec The {@link #m_FallbackQuery} query will be executed of parameter constrains are violated.
      * @param userID ID of the user that will be deleted. Constraint: Must be greater than 0, {@code userID > 0}.
      */
     public void delete(int userID)
     {
         m_Connection = initialiseConnection(); // Initialize connection to database as specified by super class.
-        String sqlQuery = m_Fallback;
+        String sqlQuery = m_FallbackQuery;
 
         if(userID > 0)
         {
