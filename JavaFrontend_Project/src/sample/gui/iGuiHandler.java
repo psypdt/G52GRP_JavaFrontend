@@ -1,7 +1,7 @@
 package sample.gui;
 
-public interface iGuiHandler {
 
+public interface iGuiHandler
+{
     void openTab(String id);
-
 }
