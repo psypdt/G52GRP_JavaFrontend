@@ -89,7 +89,6 @@ public class User extends DatabaseManipulator
 
 
     /**
-     *
      * @return {@link String} containing all the users in the {@code user} table in the database.
      */
     public String query()
@@ -131,18 +130,28 @@ public class User extends DatabaseManipulator
 
 
     /**
-     *
-     * @param userID user's ID
+     * @implSpec The {@link #m_Fallback} query will be executed of parameter constrains are violated.
+     * @param userID ID of the user that will be deleted. Constraint: Must be greater than 0, {@code userID > 0}.
      */
-    public void delete(int userID) {
-        m_Connection = initialiseConnection(); //Again, get the connection first, that is, connect to the database
-        try {
-            String sql = "delete from user  where UserID = '"+userID+"'";// SQL statement to delete data
-            m_Statement = m_Connection.createStatement();    //Create a Statement object for executing static SQL statements, m_Statement being a local variable
-            m_Statement.executeUpdate(sql);// Execute the SQL delete statement to return the number of deleted data
-            m_Connection.close();   //Close the database connection
-            } catch (SQLException e) {
-            System.out.println("delete fail");
-                }
-            }
+    public void delete(int userID)
+    {
+        m_Connection = initialiseConnection(); // Initialize connection to database as specified by super class.
+        String sqlQuery = m_Fallback;
+
+        if(userID > 0)
+        {
+            sqlQuery = "delete from user  where UserID = '"+userID+"'"; // SQL statement to delete the user.
+        }
+
+        try
+        {
+            m_Statement = m_Connection.createStatement(); //Create a Statement that will execute the delete query.
+            m_Statement.executeUpdate(sqlQuery);// SQL statement that performs the delete operation.
+            m_Connection.close(); // Close the database connection as specified by the super class.
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Deleting user with ID: " + userID + " failed. " + e.getMessage());
+        }
+    }
 }
