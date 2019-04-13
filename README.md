@@ -1,5 +1,5 @@
-# G52GRP_JavaFrontend
-Group 21 version/source Control
+# G52GRP_JavaFrontend (Group 21 Source Control)
+
  
 # Authors/ Group Members:
 * Philipp Tiso (Group Leader) - psypdt@nottingham.ac.uk
@@ -9,16 +9,15 @@ Group 21 version/source Control
 * Yisong Wang - psyyw7@nottingham.ac.uk 
 * Rafal Szponarski – psyrs12@nottingham.ac.uk 
 
-# Libraries used:
-* [JDBC]()
-* [JSoup]()
-* [Java-Json]()
 
 
+# Java Version & Libraries:
+* [Java 8]() - Java version used.
+* [JUnit4]() - Unit testing dependancy.
+* [JDBC]() - Database library.
+* [JSoup]() - Parsing library.
+* [Java-Json]() - `JSON` data structure library.
 
-
-# Java Version:
-* [Java 8]()
 
 
 
@@ -26,10 +25,10 @@ Group 21 version/source Control
 
 **Core Branches**
 
-* [Deployment Branch] ()
-* [GUI Core Branch]()
-* [Functionality Core Branch]() This is where we developed the `Parsing` & `Automated Login` capabilities.
-* [Database Core Branch]()
+* [Deployment Branch](https://github.com/psypdt/G52GRP_JavaFrontend/tree/Development) Contains most recent stable release of the software.
+* [GUI Core Branch](https://github.com/psypdt/G52GRP_JavaFrontend/tree/GUI)
+* [Functionality Core Branch](https://github.com/psypdt/G52GRP_JavaFrontend/tree/Data_Processing) This is where we developed the `Parsing` & `Automated Login` capabilities.
+* [Database Core Branch](https://github.com/psypdt/G52GRP_JavaFrontend/tree/Database)
 
 
 **Trello Boards**
