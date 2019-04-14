@@ -16,8 +16,8 @@ import java.sql.Statement;
  */
 public class Grades extends DatabaseManipulator
 {
-	static Connection m_Connection; // The connection to the database that stores grades.
-    static Statement m_Statement; // The SQL statement that will be executed.
+	private static Connection m_Connection; // The connection to the database that stores grades.
+    private static Statement m_Statement; // The SQL statement that will be executed.
 	private final String m_FallbackQuery = ""; // By default nothing will be done to the database.
 
 	/**
@@ -25,6 +25,39 @@ public class Grades extends DatabaseManipulator
 	 * @implSpec By default, the constructor does not initialize {@link #m_Connection}.
 	 */
 	public Grades() { super(); }
+
+
+
+
+	/**
+	 * @implSpec This method will fail if the table already exists.
+	 * @implSpec By default the following columns will be created:
+	 * 			{@code StudentID}. Type is {@code int(10)}.
+	 * 			{@code StudentName}. Type is {@code varchar(100)}.
+	 * 			{@code ModuleID}. Type is {@code varchar(15)}.
+	 * 			{@code ModuleName}. Type is {@code varchar(100)}.
+	 * 			{@code Grade}. Type is {@code int(3)}.
+	 * 			{@code Credit}. Type is {@code int(2)}.
+	 * @throws SQLException If table creation doesn't succeed.
+	 */
+	public void createTable() throws SQLException
+	{
+		m_Connection = initialiseConnection(); // Initialize connection as specified by  the super class.
+
+		String sqlQuery = "create table grades "+
+				"(StudentID " + "int(10),"+
+				"StudentName " + "varchar(100)," +
+				"ModuleID " + "varchar(15)," +
+				"ModuleName " + "varchar(100)," +
+				"Grade " + "int(3)," +
+				"Credit " + "int(2));";
+
+		m_Statement = m_Connection.createStatement();
+		m_Statement.executeUpdate(sqlQuery);
+		m_Connection.close(); // Close the connection as instructed by the super class.
+	}
+
+
 
 
 	/**
@@ -50,7 +83,7 @@ public class Grades extends DatabaseManipulator
 			if(studentID > 0 && !studentName.isEmpty() && !moduleID.isEmpty() && !moduleName.isEmpty() &&
 					grade >= 0 && credit >= 0)
 			{
-				sqlQuery = "INSERT INTO grades(StudentID,Studentname,ModuleID,Modulename,Grade,Credit)"
+				sqlQuery = "INSERT INTO grades(StudentID,StudentName,ModuleID,ModuleName,Grade,Credit)"
 						+ " VALUES ('"+studentID+"'," +
 						"'"+studentName+"'," +
 						"'"+moduleID+"'," +
@@ -85,8 +118,8 @@ public class Grades extends DatabaseManipulator
 		if(!newModuleName.isEmpty() && !moduleID.isEmpty())
 		{
 			// SQL statement that updates data in the database.
-			sqlQuery = "update  grades set Modulename ='" + newModuleName +
-					"' where ModuleID = '" +moduleID+"'";
+			sqlQuery = "update  grades set ModuleName ='" + newModuleName +
+					"' where ModuleID = '" +moduleID + "'";
 		}
 
 	 	try
@@ -127,9 +160,9 @@ public class Grades extends DatabaseManipulator
 			 while (resultSet.next())
 			 {
 			 	String SI = resultSet.getString("StudentID");
-				String Sn = resultSet.getString("Studentname");
+				String Sn = resultSet.getString("StudentName");
 				String MI2 = resultSet.getString("ModuleID");
-				String Mn2 = resultSet.getString("Modulename");
+				String Mn2 = resultSet.getString("ModuleName");
 				String Grade = resultSet.getString("Grade");
 				String Credit = resultSet.getString("Credit");
 
@@ -149,6 +182,7 @@ public class Grades extends DatabaseManipulator
 		 }
 		 return null;
 	 }
+
 
 
    /**

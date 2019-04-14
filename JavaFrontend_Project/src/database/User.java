@@ -13,8 +13,8 @@ import java.sql.Statement;
  */
 public class User extends DatabaseManipulator
 {
-	static Connection m_Connection; // Connection to the database.
-    static Statement m_Statement; // Statement that will be executed.
+	private static Connection m_Connection; // Connection to the database.
+    private static Statement m_Statement; // Statement that will be executed.
     private final String m_FallbackQuery = ""; // Safety measure, sent if query doesn't adhere to standard.
 
 
@@ -24,6 +24,30 @@ public class User extends DatabaseManipulator
      * @implSpec By default the constructor does not initialize {@link #m_Connection}, all it does is call {@code super()}.
      */
     public User() { super(); }
+
+
+
+    /**
+     * @implSpec This method will fail if the table already exists.
+     * @implSpec By default this method will create the following columns:
+     *          {@code LastName}. Type is {@code varchar(100)}.
+     *          {@code FirstName}. Type is {@code varchar(100)}.
+     *          {@code UserID}. Type is {@code int(10)}.
+     * @throws SQLException If table creation fails.
+     */
+    public void createTable() throws SQLException
+    {
+        m_Connection = initialiseConnection(); // Initialize connection like super class demands.
+
+        String sqlQuery = "create table user " +
+                "(LastName varchar(100)," +
+                "FirstName varchar(100)," +
+                "UserID int(10))";
+
+        m_Statement = m_Connection.createStatement();
+        m_Statement.execute(sqlQuery);
+        m_Connection.close(); // Close connection like super class expects.
+    }
 
 
 
@@ -42,7 +66,7 @@ public class User extends DatabaseManipulator
 
         if(!lastName.isEmpty() && !firstName.isEmpty() && userID >0)
         {
-             sqlQuery = "INSERT INTO user(Lastname, Firstname, UserID)"
+             sqlQuery = "INSERT INTO user(LastName, FirstName, UserID)"
                     + " VALUES ('"+lastName+"','"+firstName+"','"+userID+"')";  // SQL statement to insert data
         }
 
@@ -71,7 +95,7 @@ public class User extends DatabaseManipulator
 
         if(!firstName.isEmpty() && userID > 0)
         {
-            sqlQuery = "update user set UserID = '"+userID+"' where Firstname ='"+firstName+"'";// SQL updates statement.
+            sqlQuery = "update user set UserID = '"+userID+"' where FirstName ='"+firstName+"'";// SQL updates statement.
         }
 
         try
@@ -107,8 +131,8 @@ public class User extends DatabaseManipulator
 
             while (resultSet.next())
             {
-                String Ln = resultSet.getString("Lastname");
-                String Fn = resultSet.getString("Firstname");
+                String Ln = resultSet.getString("LastName");
+                String Fn = resultSet.getString("FirstName");
                 String UID = resultSet.getString("UserID");
                 searchResult = Fn+" "+Ln + " " + UID;
 

@@ -13,8 +13,8 @@ import java.sql.Statement;
  */
 public class Module extends DatabaseManipulator
 {
-    static Connection m_Connection; // The connection to the database.
-    static Statement m_Statement; // The SQL statement object that will execute on the database.
+    private static Connection m_Connection; // The connection to the database.
+    private static Statement m_Statement; // The SQL statement object that will execute on the database.
     private final String m_FallbackQuery = ""; // This is a safeguard, doesn't change database, replaces odd queries.
 
 
@@ -29,22 +29,44 @@ public class Module extends DatabaseManipulator
     }
 
 
+    /**
+     * @implSpec This method will fail if the table already exists.
+     * @implSpec This method will create the following table columns:
+     *          {@code ModuleID}. Type is {@code varchar(15)}.
+     *          {@code ModuleName}. Type is {@code varchar(100)}.
+     * @throws SQLException If the table creation fails.
+     */
+    public void createTabel() throws SQLException
+    {
+        m_Connection = initialiseConnection(); // Initialize connection to database as described in super class.
+
+        String sqlQuery = "create table module " +
+                "(ModuleID " + "varchar(15)," +
+                "ModuleName " +  "varchar(100))";
+
+        m_Statement = m_Connection.createStatement();
+        m_Statement.execute(sqlQuery);
+        m_Connection.close(); // Close connection as described in super class.
+    }
+
+
+
 
     /**
      * @implSpec This method inserts a new module into the Modules table in the database.
-     * @param moduleID The ID of the new module. Constraint: Can't be an empty {@link String}.
-     * @param moduleName The name of the new module. Constraint: Can't be an empty {@link String}.
+     * @param newModuleID The ID of the new module. Constraint: Can't be an empty {@link String}.
+     * @param newModuleName The name of the new module. Constraint: Can't be an empty {@link String}.
      */
-    public void insert(String moduleID, String moduleName)
+    public void insert(String newModuleID, String newModuleName)
     {
         m_Connection = initialiseConnection(); // Initialize connection to the database as specified by the super class.
         String sqlQuery = m_FallbackQuery; // If the constraints of the function arguments are disregarded, use this.
 
         // Ensure that constraints are not violated.
-        if(!moduleID.isEmpty() && !moduleName.isEmpty())
+        if(!newModuleID.isEmpty() && !newModuleName.isEmpty())
         {
-            sqlQuery = "INSERT INTO module(ModuleID, Modulename)"
-                    + " VALUES ('"+moduleID+"','"+moduleName+"')";  // SQL statement to inserts data into Module table.
+            sqlQuery = "INSERT INTO module(ModuleID, ModuleName)"
+                    + " VALUES ('"+newModuleID+"','"+newModuleName+"')";  // SQL statement to inserts data into Module table.
         }
 
         try
@@ -55,13 +77,15 @@ public class Module extends DatabaseManipulator
         }
         catch (SQLException e)
         {
-            System.out.println("Insertion of: " + moduleName + " with ID: "  + moduleID + " has failed: " + e.getMessage());
+            System.out.println("Insertion of: " + newModuleName + " with ID: "  + newModuleID + " has failed: " + e.getMessage());
         }    
     }    
         
 
 
     /**
+     * @implSpec This method will update the {@code ModuleName} to {@code newModuleName}
+     *          for the module with the specified {@code moduleID}.
      * @implSpec This method will only except non-empty strings, on violated of this {@link #m_FallbackQuery} is sent.
      * @implSpec There is currently no way of informing the developer if a query was deemed "non-compliant"/ empty.
      * @param newModuleName The new name for the module with ID {@code moduleID}. Constraint: Can't be empty {@link String}.
@@ -75,7 +99,8 @@ public class Module extends DatabaseManipulator
         // Check that argument constraints haven't been violated, construct the update query string.
         if(!newModuleName.isEmpty() && !moduleID.isEmpty())
         {
-            sqlQuery =  "update module set Modulename ='"+newModuleName+"' where ModuleID = '"+moduleID+"'";
+            sqlQuery =  "update module set ModuleName ='" + newModuleName +
+                    "' where ModuleID = '" + moduleID + "'";
         }
 
         try
@@ -86,7 +111,8 @@ public class Module extends DatabaseManipulator
         }
         catch (SQLException e)
         {
-            System.out.println("Updating the name of Module with ID: " + moduleID + " to: " + newModuleName + " has failed: " + e.getMessage());
+            System.out.println("Updating the name of Module with ID: " +
+                    moduleID + " to: " + newModuleName + " has failed: " + e.getMessage());
         }    
     }    
 
@@ -116,7 +142,7 @@ public class Module extends DatabaseManipulator
            {
                 // Get the value based on the field name.
             	String MI1 = resultSet.getString("ModuleID");
-                String Mn1 = resultSet.getString("Modulename");
+                String Mn1 = resultSet.getString("ModuleName");
 
                 //Output the values of the fields and record that are being looked up.
                 searchresult = MI1 + " " + Mn1;

@@ -1,8 +1,11 @@
 package database;
 
 import static org.junit.Assert.*;
+
+import org.junit.After;
 import org.junit.Test;
 
+import java.sql.SQLException;
 
 
 public class GradesTest
@@ -38,5 +41,44 @@ public class GradesTest
 
 		assertEquals(null, testresult);
 	}
-		
+
+
+	@Test
+	public void test_delete_grades()
+	{
+		boolean didFail = false;
+		Grades gradeTable = new Grades();
+
+		try
+		{
+			gradeTable.dropTable("grades");
+		}
+		catch (SQLException e)
+		{
+			didFail = true;
+		}
+
+		assertFalse(didFail);
+	}
+
+
+
+
+	@Test
+	public void test_table_creation()
+	{
+		boolean didFail = false;
+		Grades gradeTable = new Grades();
+
+		try
+		{
+			gradeTable.createTable();
+		}
+		catch (SQLException e)
+		{
+			didFail = true;
+		}
+
+		assertFalse(didFail);
+	}
 }

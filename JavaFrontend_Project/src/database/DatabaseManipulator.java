@@ -2,6 +2,8 @@ package database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 
 /**
@@ -14,6 +16,8 @@ import java.sql.DriverManager;
  * @apiNote This class was created since all database classes are a {@link DatabaseManipulator}, since their intention
  *         is to manipulate the database in some form, hence having this type of inheritance makes sense as all database
  *         classes must use the {{@link #initialiseConnection()}} method.
+ * @apiNote Currently all polymorphic {@link #createTable()} methods will fail if the respective table exists already.
+ *          There are no checks to prevent this from happening by default.
  */
 public class DatabaseManipulator implements DatabaseInterface
 {
@@ -98,4 +102,47 @@ public class DatabaseManipulator implements DatabaseInterface
      */
     @Override
     public String query() { return null; }
+
+
+    /**
+     * @implNote The effects of this method can't be undone, it is expected that this method is used at the
+     *          developers own risk.
+     * @implSpec The default implementation of this method doesn't check if the table exists or not, it just sends the query.
+     *          subclasses are expected to have their own implementation of this method.
+     * @param tableName The name of the table that is to be deleted from the database.
+     * @throws SQLException If the specified table can't be deleted form the database.
+     */
+    @Override
+    public void dropTable(String tableName) throws SQLException
+    {
+        Connection connection = initialiseConnection(); // Initialize connection as specified by super class.
+
+        try
+        {
+            String sqlQuery = "";
+
+            // Check that tableName is a non-empty strings.
+            if(!tableName.isEmpty())
+            {
+                sqlQuery = "drop table " + tableName;
+            }
+
+            Statement statement = connection.createStatement();
+            statement.execute(sqlQuery); // Execute the delete query.
+            connection.close(); // Close the connection as instructed by the super class.
+        }
+        catch (SQLException e)
+        {
+            throw new SQLException("Failed to delete table " + tableName + ": " + e.getMessage());
+        }
+    }
+
+
+    /**
+     * @implSpec This method has no default implementation, it must be implemented in the subclasses since each table can
+     *          have a different set of parameters.
+     * @throws SQLException If the table creation fails.
+     */
+    @Override
+    public void createTable() throws SQLException {}
 }

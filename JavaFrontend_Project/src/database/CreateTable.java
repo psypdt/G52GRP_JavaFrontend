@@ -12,8 +12,8 @@ import java.sql.Statement;
  */
 public class CreateTable extends DatabaseManipulator
 {
-	static Connection m_Connection; // The connection to the database.
-    static Statement m_Statement; // The SQL query to be executed.
+	private static Connection m_Connection; // The connection to the database.
+    private static Statement m_Statement; // The SQL query to be executed.
     private String m_SqlDefaultQuery = "create table "+
             "newTable"+ // Name given to the new table is "newTable"
             "(column1" + " int(10),"+ // Column 1 of the new table is "column1".
