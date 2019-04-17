@@ -42,3 +42,11 @@
 * [Document Repository](https://uniofnottm-my.sharepoint.com/:f:/r/personal/psypdt_nottingham_ac_uk/Documents/G52GRP_JavaFrontend_Documents?csf=1&e=X8G7Bo)
 * [Internal Meeting Logs](https://uniofnottm-my.sharepoint.com/:f:/g/personal/psypdt_nottingham_ac_uk/ElckrAy9qXZHhkNMuSEvCUMBnlVJJgOmj-wkVEIoM3WwRg?e=CLAcXu)
 * [External Meeting Logs](https://uniofnottm-my.sharepoint.com/:f:/g/personal/psypdt_nottingham_ac_uk/EnbjWoMXZzJHlWOdOipjHxgBLIJjK0E_tMSKg7jfHuOKvg?e=gTu7GJ)
+
+
+### Final Documentation 
+``` Note: It may be better if we link PDFs instead of .docx, comes across as more professional which is something they are looking for ```
+
+* [Final Group Report](https://uniofnottm-my.sharepoint.com/:w:/r/personal/psypdt_nottingham_ac_uk/Documents/G52GRP_JavaFrontend_Documents/1%20Final%20Documentation/Group%20report/Final%20Report%20Group%2021.docx?d=wfc0600c5b84843a798c6fb3102bb3ab5&csf=1&e=H84D7V)
+* [User Manual](https://uniofnottm-my.sharepoint.com/:w:/r/personal/psypdt_nottingham_ac_uk/Documents/G52GRP_JavaFrontend_Documents/1%20Final%20Documentation/User%20Manual/Developers%20User%20Manual.docx?d=wd7fc59a98f5941fe813d218f1ca6b4d9&csf=1&e=Cq9ciF)
+* [Software Manual]()
