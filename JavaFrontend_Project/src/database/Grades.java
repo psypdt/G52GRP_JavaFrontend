@@ -125,14 +125,14 @@ public class Grades extends DatabaseManipulator
 	 	try
 		{
 			m_Statement = m_Connection.createStatement(); // Create Statement object to execute static SQL statements.
-			m_Statement.executeUpdate(sqlQuery);// SQL statement that performs the update operation and returns the number of updates.
-			m_Connection.close();   // Close the database connection as the super class expects.
+			m_Statement.executeUpdate(sqlQuery); // SQL statement that performs the update operation and returns the number of updates.
+			m_Connection.close(); // Close the database connection as the super class expects.
 		}
 	 	catch (SQLException e)
 		{
 			System.out.println("Grade update failed: " + e.getMessage());
 		}
-	 }
+	}
 
 
 
@@ -143,7 +143,7 @@ public class Grades extends DatabaseManipulator
 	 * 			Returns {@code null} if there is nothing to select.
 	 */
 	public String query()
-	 {
+	{
 		 m_Connection = initialiseConnection(); // Initialize connection to database as instructed by the super class.
 		String searchResult = null;
 
@@ -159,14 +159,14 @@ public class Grades extends DatabaseManipulator
 			 // Iterate through the resulting set and concatenate the resulting data found in the set.
 			 while (resultSet.next())
 			 {
-			 	String SI = resultSet.getString("StudentID");
-				String Sn = resultSet.getString("StudentName");
-				String MI2 = resultSet.getString("ModuleID");
-				String Mn2 = resultSet.getString("ModuleName");
-				String Grade = resultSet.getString("Grade");
-				String Credit = resultSet.getString("Credit");
+			 	String studentID = resultSet.getString("StudentID");
+				String studentName = resultSet.getString("StudentName");
+				String moduleID = resultSet.getString("ModuleID");
+				String moduleName = resultSet.getString("ModuleName");
+				String grade = resultSet.getString("Grade");
+				String credit = resultSet.getString("Credit");
 
-				searchResult = SI+" "+Sn + " " + MI2+ " "+ Mn2 + " "+ Grade +" "+Credit;
+				searchResult = studentID +" "+ studentName + " " + moduleID + " "+ moduleName + " "+ grade +" "+ credit;
 
 				//DEBUG: Used to verify that the selected row is correct.
 				//System.out.println(searchResult);
@@ -181,7 +181,7 @@ public class Grades extends DatabaseManipulator
 			System.out.println("Querying all fields from Grades has failed: " + e.getMessage());
 		 }
 		 return null;
-	 }
+	}
 
 
 

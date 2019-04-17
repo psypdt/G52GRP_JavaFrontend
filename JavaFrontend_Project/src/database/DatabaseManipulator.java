@@ -115,7 +115,7 @@ public class DatabaseManipulator implements iDatabaseInterface
     @Override
     public void dropTable(String tableName) throws SQLException
     {
-        Connection connection = initialiseConnection(); // Initialize connection as specified by super class.
+        Connection connection = initialiseConnection(); // Initialize connection as specified in the class description.
 
         try
         {
@@ -129,11 +129,11 @@ public class DatabaseManipulator implements iDatabaseInterface
 
             Statement statement = connection.createStatement();
             statement.execute(sqlQuery); // Execute the delete query.
-            connection.close(); // Close the connection as instructed by the super class.
+            connection.close(); // Close the connection as instructed in the implementation specification.
         }
         catch (SQLException e)
         {
-            throw new SQLException("Failed to delete table " + tableName + ": " + e.getMessage());
+            throw new SQLException("Failed to delete the table " + tableName + ": " + e.getMessage());
         }
     }
 
