@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 
-public class JSONParser implements ParserInterface
+public class JSONParser implements iParserInterface
 {
     private String m_Url;
     private Document m_Document; // Stores the HTML that will be parsed temporarily.

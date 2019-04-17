@@ -10,7 +10,7 @@ import java.io.*;
  * @apiNote This class is no longer used since tags are not stored in files, and neither is the parsed result, since it
  *          considered too slow and not safe, since files can get corrupted.
  */
-public class ParserWriter implements ParserWriterInterface
+public class ParserWriter implements iParserWriterInterface
 {
     /**
      * Constructor for {@link ParserWriter}, doesn't execute any methods when called.

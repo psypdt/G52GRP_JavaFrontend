@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 
-public class FormSender extends Tab implements FormSenderInterface
+public class FormSender extends Tab implements iFormSenderInterface
 {
     private String m_Url; // The url where the form is located.
     private WebView m_WebView; // Where the website will be displayed.
