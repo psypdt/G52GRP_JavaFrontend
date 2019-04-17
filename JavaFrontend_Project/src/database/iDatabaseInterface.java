@@ -10,7 +10,7 @@ import java.sql.Statement;
  *
  * @apiNote This interface was added with the intention to clearly define what having database capability entails.
  */
-public interface DatabaseInterface
+public interface iDatabaseInterface
 {
     Connection initialiseConnection();
     Connection setNewConnection(String database, String username, String password);

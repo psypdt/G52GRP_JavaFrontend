@@ -19,7 +19,7 @@ import java.sql.Statement;
  * @apiNote Currently all polymorphic {@link #createTable()} methods will fail if the respective table exists already.
  *          There are no checks to prevent this from happening by default.
  */
-public class DatabaseManipulator implements DatabaseInterface
+public class DatabaseManipulator implements iDatabaseInterface
 {
     /**
      * Constructor for the {@link DatabaseManipulator} class.
