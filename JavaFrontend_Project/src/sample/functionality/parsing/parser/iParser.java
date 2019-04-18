@@ -9,7 +9,7 @@ import java.util.ArrayList;
  *          It is expected that parsing occurs directly after the user has logged in, if this is not the case then there
  *          should be a function that navigates through the page until parsing becomes feasible again.
  */
-public interface iParserInterface
+public interface iParser
 {
     JSONArray login(String loginUrl, String tags, String username, String password, ArrayList<String> loginTags, boolean isStatic);
 }

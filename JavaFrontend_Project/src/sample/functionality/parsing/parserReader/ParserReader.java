@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * @implNote This class is not in use but has been implemented, this class allows Tags to be read from a file.
  */
-public class ParserReader implements iParserReaderInterface
+public class ParserReader implements iParserReader
 {
     /**
      * Constructor for {@link ParserReader}.
