@@ -236,9 +236,9 @@ public class FormSender extends Tab implements FormSenderInterface
  */
 class dynamicFormLogin extends Task
 {
-    private WebEngine engine;
-    private String username;
-    private String password;
+    private WebEngine m_engine;
+    private String m_username;
+    private String m_password;
 
     private final long TIMEOUT = 10 * 1000;  // 10 seconds
 
@@ -248,15 +248,17 @@ class dynamicFormLogin extends Task
      * @param username The Username, should be changed asap (shouldn't be plain text)
      * @param password The Password, should be changed asap (shouldn't be plain text)
      */
-    dynamicFormLogin(WebEngine engine, String username, String password) {
-        this.engine = engine;
-        this.username = username;
-        this.password = password;
+    dynamicFormLogin(WebEngine engine, String username, String password)
+    {
+        this.m_engine = engine;
+        this.m_username= username;
+        this.m_password = password;
     }
 
+    
     @Override
-    public Object call() {
-
+    public Object call()
+    {
         // timing variables
         long    startTime = System.currentTimeMillis(),
                 timeElapsed,
@@ -283,8 +285,9 @@ class dynamicFormLogin extends Task
             System.out.println("Finding the form...");
             try { Thread.sleep(millisToWait); } catch (Exception e) { e.printStackTrace(); }
 
-            if (engine.getDocument() != null) {
-                doc = engine.getDocument().getDocumentElement();
+            if (m_engine.getDocument() != null)
+            {
+                doc = m_engine.getDocument().getDocumentElement();
                 forms = doc.getElementsByTagName("form");
                 loginForm = (HTMLFormElement)forms.item(1);
             }
@@ -296,12 +299,13 @@ class dynamicFormLogin extends Task
         } while (loginForm == null && timeElapsed < TIMEOUT);  // time-out after 10 seconds
 
         // if the page didn't time-out, continue with auto-login
-        if (loginForm != null) {
+        if (loginForm != null)
+        {
             System.out.println("Found it!");
 
             HTMLCollection inputs = loginForm.getElements();
-            ((HTMLInputElement)inputs.item(2)).setValue(username);
-            ((HTMLInputElement)inputs.item(3)).setValue(password);
+            ((HTMLInputElement)inputs.item(2)).setValue(m_username);
+            ((HTMLInputElement)inputs.item(3)).setValue(m_password);
             loginForm.submit();
         } else {
             System.out.println("Page timed out");
