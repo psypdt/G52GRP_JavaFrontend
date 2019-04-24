@@ -64,7 +64,7 @@ public class FormSender extends Tab implements FormSenderInterface
 
                 if (webEngine.getLocation().equals("https://mynottingham.nottingham.ac.uk/psp/psprd/EMPLOYEE/EMPL/h/?tab=PAPP_GUEST"))
                 {
-                    dynamicFormLogin autoLogin = new dynamicFormLogin(webEngine, "", "");
+                    DynamicFormLogin autoLogin = new DynamicFormLogin(webEngine, "", "");
                     new Thread(autoLogin).start();
                 }
                 else
@@ -234,7 +234,7 @@ public class FormSender extends Tab implements FormSenderInterface
 /**
  * This class is used to automate the login process for site that dynamically load their login form like MyNottingham
  */
-class dynamicFormLogin extends Task
+class DynamicFormLogin extends Task
 {
     private WebEngine m_engine;
     private String m_username;
@@ -248,14 +248,14 @@ class dynamicFormLogin extends Task
      * @param username The Username, should be changed asap (shouldn't be plain text)
      * @param password The Password, should be changed asap (shouldn't be plain text)
      */
-    dynamicFormLogin(WebEngine engine, String username, String password)
+    DynamicFormLogin(WebEngine engine, String username, String password)
     {
         this.m_engine = engine;
         this.m_username= username;
         this.m_password = password;
     }
 
-    
+
     @Override
     public Object call()
     {
