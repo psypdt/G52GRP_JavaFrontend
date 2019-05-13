@@ -8,46 +8,44 @@ import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
 import sample.gui.tabs.iTaskTab;
 import sample.gui.tabs.TaskTab;
-
 import java.io.IOException;
 
-/**
- *
- */
-public class GuiHandler implements iGuiHandler {
 
-    private TabPane tabPane;
+public class GuiHandler implements iGuiHandler
+{
+    private TabPane m_TabPane;
 
     /**
-     * Constructor function for the GUI Handler. Initializes the application with a pre-specified FXML file and
-     * displays it on the screen.
+     * Constructor for the {@link GuiHandler}.
+     * @implSpec Initializes the application with a pre-specified FXML file and displays it on the screen.
      * @param mainStage Graphical context display the home screen in.
-     * @throws IOException if the FXML file fails to load.
+     * @throws IOException if the {@link FXMLLoader} fails to load the {@link javafx.fxml.FXML} file.
      */
-    public GuiHandler(Stage mainStage) throws IOException {
-
-        /*It will show the screen based on the fxml file */
+    public GuiHandler(Stage mainStage) throws IOException
+    {
+        // It will show the screen based on the fxml file.
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Application.fxml"));
         Parent root = loader.load();
 
-        ApplicationController c = loader.getController();
-        tabPane = c.getTabPane();
+        ApplicationController applicationController = loader.getController();
+        m_TabPane = applicationController.getTabPane();
 
-        /* The window title will be set as Java Front-end */
+        // The window title will be set as Java Front-end.
         mainStage.setTitle("Java Front-end");
 
-        /*The window starts with a default size of 600 x 400 */
+        // The window starts with a default size of 600 x 400.
         mainStage.setScene(new Scene(root, 600, 400));
         mainStage.show();
     }
 
     /**
-     * Open a new tab and add it to the primary tab pane.
-     * @param id Identifier for the tab to create.
+     * @implSpec This methods opens a new tab and adds it to the primary tab pane {@link #m_TabPane}.
+     * @param id Identifier for the tab that is being created, hence tabs can have different behaviour.
      */
     @Override
-    public void openTab(String id) {
+    public void openTab(String id)
+    {
         iTaskTab task = new TaskTab(id);
-        tabPane.getTabs().add((Tab)task);
+        m_TabPane.getTabs().add((Tab)task);
     }
 }
