@@ -1,6 +1,5 @@
 package sample.gui.startScreen;
 
-
 import sample.gui.tabs.BrowserTab;
 import sample.gui.pageShortcut.PageShortcuts;
 import java.util.ArrayList;
