@@ -5,7 +5,10 @@ import org.jsoup.nodes.Element;
 import java.io.IOException;
 
 
-public interface FormSenderInterface
+/**
+ * @implNote It is acceptable to just have a method for static forms, dynamic forms are not a required feature.
+ */
+public interface iFormSender
 {
     void staticFormLogin(String userName, String password) throws IOException;
     void checkElement(String name, Element elem) throws RuntimeException;
