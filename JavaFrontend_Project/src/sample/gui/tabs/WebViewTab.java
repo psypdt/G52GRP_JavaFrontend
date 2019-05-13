@@ -3,13 +3,18 @@ package sample.gui.tabs;
 import javafx.concurrent.Worker;
 import javafx.scene.control.Tab;
 import javafx.scene.web.WebView;
-import sample.runApplication.Main;
+
 
 /*Note: There is currently no means of returning to the previous instant of a page (no back button)*/
-public class WebViewTab extends Tab
+
+public class WebViewTab extends Tab implements iBrowserTab
 {
     private WebView webpage;
 
+    /**
+     * To load the tab in web
+     * @param url
+     */
     public WebViewTab(String url)
     {
         super();
@@ -27,8 +32,12 @@ public class WebViewTab extends Tab
             if (newValue == Worker.State.SUCCEEDED)
             {
                 setText(webpage.getEngine().getTitle());
-                Main.goToTasksPage();
+
+                //Main.goToTasksPage();
             }
         });
     }
+
+    @Override
+    public void disableFunctionality() {}
 }
