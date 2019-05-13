@@ -12,6 +12,7 @@ public class StartScreenController
 
     @FXML private void initialize()
     {
+
         /*
          * Set up the Open Google button to open a new Google tab and a new Moodle tab
          */

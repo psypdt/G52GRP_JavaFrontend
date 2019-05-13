@@ -4,6 +4,7 @@ import javafx.concurrent.Worker;
 import javafx.scene.control.Tab;
 import javafx.scene.web.WebView;
 
+
 /*Note: There is currently no means of returning to the previous instant of a page (no back button)*/
 
 public class WebViewTab extends Tab implements iBrowserTab
@@ -31,6 +32,7 @@ public class WebViewTab extends Tab implements iBrowserTab
             if (newValue == Worker.State.SUCCEEDED)
             {
                 setText(webpage.getEngine().getTitle());
+
                 //Main.goToTasksPage();
             }
         });
